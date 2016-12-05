@@ -1,0 +1,111 @@
+.container{
+  width: 100%;
+  background-color: #F5F5F5;
+  flex-direction: row;
+  display: flex;
+  border: 1px solid #DADADA;
+  border-top: 0;
+  padding: 5px 20px;
+
+  .left-col{
+    flex-direction: column;
+    display: flex;
+    flex: 3;
+
+    h2 {
+      font-size: 16px;
+    }
+
+    :global {
+      ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        li {
+          justify-content: space-between;
+          display: flex;
+          flex-direction: row;
+          width: 340px;
+          margin: 10px 100px 0 0;
+          min-height: 38px;
+
+          label {
+            font-weight: 600;
+            flex: 1;
+          }
+
+          div {
+            flex: 1;
+          }
+        }
+      }
+    }
+
+    .details{
+      display: flex;
+      border-bottom: 1px solid #DADADA;
+      padding-bottom: 20px;
+      margin-bottom: 10px;
+    }
+
+    .customer-container{
+      display: flex;
+      flex-direction: column;
+
+      .customer{
+        display: flex;
+        flex-direction: row;
+        padding-bottom: 30px;
+
+        .thumbnail {
+          display: inline-block;
+          margin-right: 30px;
+        }
+
+        :global {
+          ul {
+            li {
+              width: 250px;
+              margin: 10px 100px 0 0;
+              min-height: 38px;
+
+              label {
+                font-weight: 600;
+                flex: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .right-col{
+      flex: 1;
+      flex-direction: column;
+      display: flex;
+      width: 350px;
+      height: 350px;
+      margin: 15px 0 0 70px;
+      align-items: flex-end;
+
+      .close {
+        cursor: pointer;
+        background-image: url('styles/img/icon-close.png');
+        background-repeat: no-repeat;
+        min-height: 28px;
+        min-width: 28px;
+        display: block;
+      }
+
+      span {
+        color: #777445;
+        position: relative;
+        top: 50px;
+        text-align:center;
+        cursor: pointer;
+        width: 100%;
+        text-decoration: underline;
+      }
+  }
+}

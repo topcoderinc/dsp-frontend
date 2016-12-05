@@ -1,0 +1,36 @@
+.checkbox {
+  height: 40px;
+  display: flex;
+  align-items: center;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"] + label span {
+    flex-shrink: 0;
+    display: inline-block;
+    width: 23px;
+    height: 23px;
+    border: 1px solid #a1a1a1;
+    box-shadow: none;
+    appearance: none;
+    margin: 0 9px 0 0;
+    background-color: transparent;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  input[type="checkbox"]:checked + label span {
+    background: url('icon-checkbox.png') no-repeat 50% 50%;
+  }
+
+  label {
+    font-weight: normal;
+    cursor: pointer;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+  }
+}

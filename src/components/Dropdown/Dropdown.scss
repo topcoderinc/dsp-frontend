@@ -1,0 +1,62 @@
+.dropdown {
+  :global {
+    .dropdown {
+      display: inline-block;
+    }
+
+
+    .dropdown--active .dropdown__content {
+      display: block;
+    }
+  }
+}
+
+
+
+.content {
+  display: none;
+  position: absolute;
+  background: white;
+  border: 1px solid #d8d8d8;
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.06);
+
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+
+      a {
+        display: block;
+        padding: 10px 20px;
+
+        &:hover {
+          background: #eee;
+        }
+      }
+
+      +li {
+        border-top: 1px solid #d8d8d8;
+      }
+    }
+  }
+}
+
+.trigger {
+  position: relative;
+  padding-right: 20px;
+  
+  &, &:hover, &:active, &:focus, &:focus:active {
+    color: white;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    background: url("icon-caret.png") no-repeat;
+    width: 7px;
+    height: 5px;
+  }
+}

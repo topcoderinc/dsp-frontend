@@ -1,0 +1,32 @@
+.service-detail {
+  height: 100%;
+}
+
+.locations {
+  display: flex;
+  padding: 0 15px;
+  border-bottom: 1px solid #d8d8d8;
+
+  > div {
+    width: 50%;
+    padding: 20px 0 15px;
+    
+    + div {
+      border-left: 1px solid #d8d8d8;
+    }
+  }
+}
+
+.actions {
+  padding: 15px;
+  text-align: center;
+}
+
+.btnMargin {
+  margin-right: 12px;
+}
+
+.data {
+  height: calc(100vh - 215px);
+  overflow: auto;
+}

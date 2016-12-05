@@ -1,0 +1,25 @@
+.location {
+  display: flex;
+  font-size: 15px;
+
+  i {
+    display: block;
+    margin: 0 15px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    width: 16px;
+    height: 22px;
+  }
+}
+
+.text {
+  margin-top: -5px;
+}
+
+.icon-red {
+  background-image: url("icon-location-red.png");
+}
+
+.icon-green {
+  background-image: url("icon-location-green.png");
+}

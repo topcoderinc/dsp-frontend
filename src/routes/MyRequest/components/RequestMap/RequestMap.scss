@@ -1,0 +1,12 @@
+.map,
+.provider-map {
+  height: calc(50vh - 60px);
+  width: 100%;
+}
+
+.provider-map {
+  top: 20px;
+  right: 13px;
+  border: 1px solid #DADADA;
+  position: relative;
+}

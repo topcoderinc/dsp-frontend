@@ -1,0 +1,23 @@
+.icon-container {
+  label {
+    color: #fff;
+    background-repeat: no-repeat;
+    background-position: 5px 8px;
+    padding: 7px 8px 7px 26px;
+    height: 33px;
+    border-radius: 5px;
+  }
+
+  .in_progress {
+    background-color: #EE8309;
+    background-image: url('styles/img/icon-status-in-progress.png');
+  }
+  .completed {
+    background-color: #78B709;
+    background-image: url('styles/img/icon-status-completed.png');
+  }
+  .cancelled {
+    background-color: #EC3324;
+    background-image: url('styles/img/icon-status-cancel.png');
+  }
+}

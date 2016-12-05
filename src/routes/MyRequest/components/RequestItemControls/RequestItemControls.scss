@@ -1,0 +1,51 @@
+.item-controls {
+  margin-left: auto;
+  min-width: 280px;
+  flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid #CDCDCD;
+  padding-top: 10px;
+
+  > div {
+    background-repeat: no-repeat;
+    display: block;
+    height: 49px;
+    text-align: center;
+    padding-top: 20px;
+    margin: 0 20px;
+    background-position: 50% 0;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #ACB0BE;
+    user-select: none;
+  }
+
+  .view-detail {
+    background-image: url('styles/img/icon-view-detail.png');
+  }
+  .accept {
+    background-image: url('styles/img/icon-accept.png');
+
+  }
+  .reject {
+    background-image: url('styles/img/icon-trash.png');
+  }
+
+  .view-detail:hover, .view-detail-open {
+    background-image: url('styles/img/icon-view-detail-hover.png');
+    color: #7C6D44;
+  }
+
+  .accept:hover {
+    background-image: url('styles/img/icon-accept-hover.png');
+    color: #30BA03;
+  }
+
+  .reject:hover {
+    background-image: url('styles/img/icon-trash-hover.png');
+    color: #B90002;
+  }
+}

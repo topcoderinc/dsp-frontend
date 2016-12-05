@@ -1,0 +1,28 @@
+.core-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  /* OVERRIDE DEFAULT STYLES */
+  :global{
+    /* breadcrumbs */
+    .breadcrumb-container {
+        background-color: #FFFFFF;
+        width: 100%;
+        padding: 12px 0 0 30px;
+        color: #525051;
+        font-size: 12px;
+        min-height: 42px;
+        border-bottom: 1px solid #D4D4D4;
+    }
+
+    /* tabs */
+
+  }
+
+  /* END OVERRIDE DEFAULT STYLES */
+}
+
+.content {
+  flex: 1 0 auto;
+}

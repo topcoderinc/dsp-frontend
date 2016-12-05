@@ -1,0 +1,50 @@
+.my-request-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #F0F0F0;
+  padding: 4px 30px 30px 30px;
+
+  .tab-container {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    margin: 21px 21px 0px 20px;
+    border-bottom: 1px solid #DBDBDB;
+  }
+
+  h2 {
+    font-weight: bold;
+    font-size: 24px;
+    width: 100%;
+    color: #232323;
+    border-bottom: 1px solid #D6D6D6;
+    padding-bottom: 20px;
+  }
+
+  .content {
+    border-radius: 2px;
+    border: 1px solid #D6D6D6;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .pagination-container {
+      margin: 10px 20px 30px 30px;
+      padding-top: 20px;
+      background-color: #fff;
+      border-top: 1px solid #D6D6D6;
+  }
+
+  :global {
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  }
+
+}
+

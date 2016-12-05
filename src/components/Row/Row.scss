@@ -1,0 +1,14 @@
+.row {
+  margin-right: -20px;
+  margin-left: -20px;
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.col {
+  padding: 0 20px;
+  float: left;
+}

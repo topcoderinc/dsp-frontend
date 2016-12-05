@@ -1,0 +1,22 @@
+.select {
+  width: 100%;
+
+  :global {
+    .Select-control {
+      border: 1px solid #ebebeb !important;
+      box-shadow: none !important;
+      border-radius: 0;
+      color: #131313;
+      height: 36px;
+    }
+    .Select-placeholder {
+      line-height: 36px;
+    }
+    .Select-arrow {
+      background: url("../../styles/img/icon-dropdown-caret.png") no-repeat;
+      width: 15px;
+      height: 9px;
+      border: none;
+    }
+  }
+}

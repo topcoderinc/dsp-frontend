@@ -1,0 +1,32 @@
+.dashboard-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #F0F0F0;
+  padding: 4px 30px 15px 30px;
+
+  h2 {
+    font-weight: bold;
+    font-size: 24px;
+    width: 100%;
+    color: #232323;
+    border-bottom: 1px solid #D6D6D6;
+    padding-bottom: 20px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    .left-col {
+      flex: 3;
+      height: 100%;
+    }
+
+    .right-col {
+      flex: 1;
+      height: 100%;
+    }
+  }
+
+}
+

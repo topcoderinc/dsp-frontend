@@ -1,0 +1,19 @@
+.filter {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #fff;
+    padding: 35px 30px 30px 22px;
+
+    .display-info {
+        flex: 1
+
+    }
+    .filter-button {
+        cursor: pointer;
+        margin-left: auto;
+        background: url('styles/img/icon-filter.png') no-repeat;
+        padding-left: 20px;
+
+    }
+}

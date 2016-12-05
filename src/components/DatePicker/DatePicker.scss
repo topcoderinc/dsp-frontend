@@ -1,0 +1,26 @@
+.date-picker {
+  width: 100%;
+
+  :global {
+    .react-date-field {
+      width: 100%;
+      border: 1px solid #ebebeb;
+
+      > input[type="text"] {
+        width: 100%;
+        padding: 0 10px;
+        background: white;
+        color: black;
+        border: none;
+        height: 36px;
+        line-height: 36px;
+      }
+    }
+    .react-date-field__clear-icon {
+      display: none !important;
+    }
+    .react-date-field__calendar-icon {
+      display: none;
+    }
+  }
+}

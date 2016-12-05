@@ -1,0 +1,15 @@
+.service-request-view {
+  height: 100%;
+  display: flex;
+}
+
+.left-col {
+  width: 50%;
+  height: 100%;
+}
+
+.right-col {
+  width: 50%;
+  height: 100%;
+  box-shadow: 0px 2px 4.7px 0.3px rgba(0, 0, 0, 0.16);
+}

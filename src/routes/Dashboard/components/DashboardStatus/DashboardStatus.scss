@@ -1,0 +1,66 @@
+
+.dashboard-status-container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 160px;
+  align-items: center;
+  background-color: #fff;
+  margin-bottom: 20px;
+
+  > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #D6D6D6;
+    min-height: 108px;
+    padding-top: 10px;
+  }
+
+  > div:last-child {
+    border-right: 0;
+  }
+
+  .counter{
+    font-weight: bold;
+    font-size: 34px;
+    padding-left: 55px;
+    padding-top: 15px;
+    align-self: center;
+    min-height: 48px;
+  }
+
+  .label {
+    align-self: center;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .pending-requests{
+    .counter {
+      background: url("styles/img/icon-dashboard-status-hourglass.png") no-repeat;
+    }
+  }
+  .scheduled-missions{
+    .counter {
+      background: url("styles/img/icon-dashboard-status-calendar.png") no-repeat;
+    }
+  }
+  .in-progress-missions{
+    .counter {
+      background: url("styles/img/icon-dashboard-status-pie.png") no-repeat;
+    }
+      
+  }
+  .completed-missions{
+    .counter {
+      background: url("styles/img/icon-dashboard-status-check.png") no-repeat;
+    }
+      
+  }
+  .total-drones{
+    .counter {
+      background: url("styles/img/icon-dashboard-status-drone.png") no-repeat;
+    }
+  }
+}

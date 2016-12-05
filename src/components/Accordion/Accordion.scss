@@ -1,0 +1,39 @@
+.accordion {
+  border-bottom: 1px solid #eaeaea;
+}
+
+.title {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding-left: 25px;
+  padding-right: 70px;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  
+  &:hover {
+    cursor: pointer;
+  }
+  
+  &:after {
+    position: absolute;
+    top: 50%;
+    right: 45px;
+    margin-top: -7px;
+    content: '';
+    display: block;
+    background: url("icon-arrow-right.png") no-repeat 0 0;
+    width: 9px;
+    height: 15px;
+    
+    .expanded & {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.content {
+  padding: 5px 25px 25px;
+  background: #f3f3f3;
+}
