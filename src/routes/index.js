@@ -2,6 +2,7 @@ import CoreLayout from 'layouts/CoreLayout';
 import ServiceRequestRoute from './ServiceRequest';
 import DashboardRoute from './Dashboard';
 import MyRequestRoute from './MyRequest';
+import DronesMapRoute from './DronesMap';
 
 export const createRoutes = (store) => ({
   path: '/',
@@ -18,6 +19,7 @@ export const createRoutes = (store) => ({
     ServiceRequestRoute(store),
     DashboardRoute(store),
     MyRequestRoute(store),
+    DronesMapRoute(store),
   ],
 });
 
