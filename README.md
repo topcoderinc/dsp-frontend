@@ -4,7 +4,6 @@
 * node v6 (https://nodejs.org)
 
 ## Quick Start
-* `npm install -g nodemon`
 * `npm install`
 * `npm run dev`
 * Navigate browser to `http://localhost:3000`
@@ -18,6 +17,7 @@ See Guild https://github.com/lorenwest/node-config/wiki/Configuration-Files
 |----|-----------|
 |`PORT`| The port to listen|
 |`GOOGLE_API_KEY`| The google api key see (https://developers.google.com/maps/documentation/javascript/get-api-key#key)|
+|`API_BASE_URL`| The base URL for Drone API |
 
 
 ## Install dependencies
