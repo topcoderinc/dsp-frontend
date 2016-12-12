@@ -153,6 +153,11 @@ module.exports = {
           'sass?sourceMap',
         ],
       }),
+      fixStyleLoader({
+        test: /\.css$/,
+        loader: 'style!css?modules',
+        include: /flexboxgrid/,
+      }),
       {
         test: /\.woff(\?.*)?$/,
         loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff',

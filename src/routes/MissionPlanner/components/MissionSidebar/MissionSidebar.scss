@@ -1,0 +1,20 @@
+.mission-sidebar {
+  background: rgba(0,0,0,.1);
+  height: auto;
+  min-height: 0;
+  max-height: 100%;
+  position: absolute;
+  right: 0;
+  overflow: auto;
+  padding: 4px;
+  top: 0;
+  margin: 0;
+  width: 350px;
+  z-index: 1;
+}
+
+.note {
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+}

@@ -11,7 +11,7 @@
 
 
 ## Configuration
-Configuration files are located under `config` dir.  
+Configuration files are located under `config` dir.
 See Guild https://github.com/lorenwest/node-config/wiki/Configuration-Files
 
 |Name|Description|
@@ -32,7 +32,7 @@ See Guild https://github.com/lorenwest/node-config/wiki/Configuration-Files
 |`dev`|Start app in the dev mode.|
 |`lint`|Lint all `.js` files.|
 |`lint:fix`|Lint and fix all `.js` files. [Read more on this](http://eslint.org/docs/user-guide/command-line-interface.html#fix).|
+|`test`|Run tests using [mocha-webpack](https://github.com/webpack/mocha-loader) for all `*.spec.(js|jsx)` files in the `src` dir.|
 
-
-## Video
-http://take.ms/WZkTO
+## Google Map
+In this project module [react-google-maps](https://github.com/tomchentw/react-google-maps) is used to work with google maps. So it can be used for any new functionality.
