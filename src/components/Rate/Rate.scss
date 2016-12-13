@@ -1,0 +1,47 @@
+.rate {
+  :global {
+    .dv-star-rating-star {
+      margin-left: 5px;
+
+      &:last-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.star {
+  background-repeat: no-repeat;
+  display: block;
+  height: 19px;
+  width: 20px;
+}
+
+.star_full {
+  background-image: url("icon-star-full-sm.png");
+
+  @extend .star;
+}
+
+.star_empty {
+  background-image: url("icon-star-empty-sm.png");
+
+  @extend .star;
+}
+
+.rate_big {
+  @extend .rate;
+
+  .star {
+    height: 49px;
+    width: 53px;
+  }
+
+  .star_full {
+    background-image: url("icon-star-full-lg.png");
+  }
+
+  .star_empty {
+    background-image: url("icon-star-empty-lg.png");
+  }
+}

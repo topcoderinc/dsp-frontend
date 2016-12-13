@@ -1,0 +1,76 @@
+.select-dropdown {
+  :global {
+    .dropdown {
+      display: inline-block;
+      position: relative;
+    }
+
+
+    .dropdown--active .dropdown__content {
+      display: block;
+    }
+  }
+}
+
+.content {
+  display: none;
+  position: absolute;
+  background: white;
+  border: 1px solid #d8d8d8;
+  border-top: 0;
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.06);
+  left: auto;
+  min-width: 100%;
+  right: 0;
+  z-index: 1;
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+      cursor: pointer;
+      padding: 10px 20px;
+      white-space: nowrap;
+
+      &:hover {
+        background: #eee;
+      }
+
+      +li {
+        border-top: 1px solid #d8d8d8;
+      }
+
+      &.active {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.trigger {
+  background-color: #fff;
+  border: 1px solid #dfdfdf;
+  color: #676767;
+  display: block;
+  height: 33px;
+  line-height: 33px;
+  margin: 0;
+  min-width: 105px;
+  outline: none;
+  text-align: right;
+  padding: 0 16px 0 11px;
+
+  &:after {
+    background: url("icon-dropdown-caret-sm.png") no-repeat;
+    content: '';
+    display: inline-block;
+    height: 7px;
+    margin-left: 11px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    width: 12px;
+  }
+}

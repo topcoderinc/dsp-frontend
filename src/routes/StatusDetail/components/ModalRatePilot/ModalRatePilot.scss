@@ -1,0 +1,30 @@
+.modal-rate-pilot {
+  background-color: transparent;
+
+  :global {
+  }
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  background-color: #f0f0f1;
+  height: 78px;
+  justify-content: space-between;
+  padding: 0 16px 0 24px;
+}
+
+.title {
+  color: #0d0d0d;
+  font: bold 24px 'Proxima Nova Rg', 'Open Sans', Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+.close {
+  background: url("icon-modal-close.png");
+  border: 0;
+  height: 26px;
+  outline: none;
+  padding: 0;
+  width: 26px;
+}

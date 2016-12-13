@@ -1,0 +1,56 @@
+.overall-drone-performance {
+  background-color: transparent;
+
+  :global {
+
+  }
+}
+
+.header {
+  align-items: center;
+  background-color: #67879a;
+  border-radius: 2px;
+  display: flex;
+  justify-content: space-between;
+  height: 82px;
+  padding: 0 21px 0 16px;
+}
+
+.title {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 5px 0;
+}
+
+.total {
+  color: #fff;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.list {
+  border: 1px solid #e0e0e0;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    align-items: center;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    height: 51px;
+    justify-content: space-between;
+    line-height: 50px;
+    list-style: none;
+    padding: 0 18px 0 16px;
+
+    &:first-child {
+      border-top: 0;
+      height: 50px;
+    }
+  }
+}
+
+.label {
+  white-space: nowrap;
+}

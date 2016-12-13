@@ -1,0 +1,49 @@
+.map-legends {
+  background: white;
+  border: 1px solid #c7c7c7;
+  box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.13);
+  display: flex;
+  height: 55px;
+  padding: 0 35px 0 16px;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+
+  + .location {
+    margin-left: 35px;
+  }
+
+  i {
+    display: block;
+    margin-right: 10px;
+    background-repeat: no-repeat;
+  }
+}
+
+.distance {
+  margin-left: auto;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.icon-drone {
+  background-image: url("icon-drone-location-md.png");
+  width: 30px;
+  height: 38px;
+}
+
+.icon-target {
+  background-image: url("icon-location-green-md.png");
+  width: 22px;
+  height: 31px;
+}
+
+.icon-start {
+  background-image: url("icon-location-red-md.png");
+  width: 22px;
+  height: 31px;
+}

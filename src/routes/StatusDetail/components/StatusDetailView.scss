@@ -1,0 +1,77 @@
+.status-detail-view {
+  background-color: #f3f3f3;
+}
+
+.wrap {
+  padding: 0 30px 35px;
+}
+
+.panel {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  padding: 19px 24px;
+}
+
+.panel + .panel {
+  margin-top: 24px;
+}
+
+.columns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column-route {
+  width: calc(100% - 313px);
+}
+
+.column-cameras {
+  flex: 0 0 289px;
+}
+
+.column-project-info {
+  width: 58%;
+}
+
+.column-route-small {
+  background-color: #ccc;
+  height: 266px;
+  width: 36%;
+}
+
+.column-overall-performance {
+  width: calc(35% - 12px);
+}
+
+.column-graph-performance {
+  width: calc(65% - 12px);
+}
+
+.sections {
+  display: block;
+}
+
+.section {
+  padding-top: 6px;
+}
+
+.section-title {
+  color: #131313;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0 0 21px 0;
+}
+
+.sections + .section,
+.columns + .section,
+.section + .section {
+  border-top: 1px solid #e7e8ea;
+  margin-top: 31px;
+  padding-top: 20px;
+}
+
+.route-big-wrap {
+  height: 587px;
+}

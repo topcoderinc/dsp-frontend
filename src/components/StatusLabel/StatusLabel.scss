@@ -1,0 +1,35 @@
+.status-label {
+  background-repeat: no-repeat;
+  background-position: 8px 50%;
+  border-radius: 5px;
+  color: #fff;
+  display: block;
+  font-size: 13px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  padding-left: 25px;
+  white-space: nowrap;
+  width: 106px;
+}
+
+.status-label_inprogress {
+  background-color: #f29300;
+  background-image: url('icon-status-inprogress.png');
+
+  @extend .status-label;
+}
+
+.status-label_cancelled {
+  background-color: #f44b2f;
+  background-image: url('icon-status-cancelled.png');
+
+  @extend .status-label;
+}
+
+.status-label_completed {
+  background-color: #87c200;
+  background-image: url('icon-status-completed.png');
+
+  @extend .status-label;
+}
