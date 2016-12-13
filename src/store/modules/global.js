@@ -17,14 +17,14 @@ export default handleActions({
   location: 'Jakarta, Indonesia',
   selectedCategory: 'Category',
   categories: [
-    {name: 'Category1'},
-    {name: 'Category2'},
+    { name: 'Category1' },
+    { name: 'Category2' },
   ],
   user: {
     name: 'John Doe',
   },
   notifications: [
-    {id: 1},
-    {id: 2},
+    { id: 1 },
+    { id: 2 },
   ],
 });

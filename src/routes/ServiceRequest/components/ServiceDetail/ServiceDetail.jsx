@@ -8,7 +8,7 @@ import ContactDetails from '../ContactDetails';
 import EstimatedAmountToPay from '../EstimatedAmountToPay';
 import styles from './ServiceDetail.scss';
 
-export const ServiceDetail = ({fields, handleSubmit, startLocation, endLocation, resetForm}) => (
+export const ServiceDetail = ({ fields, handleSubmit, startLocation, endLocation, resetForm }) => (
   <form onSubmit={handleSubmit} styleName="service-detail">
     <div styleName="locations">
       <Location type="red" address={startLocation} />

@@ -3,7 +3,7 @@ import CSSModules from 'react-css-modules';
 import { DateField, TransitionView, Calendar } from 'react-date-picker';
 import styles from './DatePicker.scss';
 
-export const DatePicker = ({onChange, value}) => (
+export const DatePicker = ({ onChange, value }) => (
   <div styleName="date-picker">
     <DateField
       dateFormat="YYYY-MM-DD hh:mm:ss A"
@@ -11,7 +11,7 @@ export const DatePicker = ({onChange, value}) => (
       value={value}
     >
       <TransitionView>
-        <Calendar style={{padding: 10}} />
+        <Calendar style={{ padding: 10 }} />
       </TransitionView>
     </DateField>
   </div>
