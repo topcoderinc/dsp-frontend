@@ -23,7 +23,17 @@ export const MyRequestView = ({activeTab}) => (
       <div styleName="tab-container">
         <Tabs activeTab={activeTab || 0} tabList={tabList} />
       </div>
-      <MyRequestFilter itemStartIndex={1} itemLastIndex={5} totalNumberOfItems={5} displayType={'new/pending'} onPressFilter={() => alert('Filter Pressed!')} />
+      <MyRequestFilter
+        itemStartIndex={1}
+        itemLastIndex={5}
+        totalNumberOfItems={5}
+        displayType={'new/pending'}
+        onPressFilter={() => {
+          /* eslint-disable no-alert */
+          alert('Filter Pressed!');
+          /* eslint-enable no-alert */
+        }}
+      />
       <MyRequestItemsContainer />
       <div styleName="pagination-container">
         <Pagination pages={4} activePageIndex={0} />

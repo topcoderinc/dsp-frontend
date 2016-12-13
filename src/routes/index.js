@@ -1,6 +1,8 @@
 import CoreLayout from 'layouts/CoreLayout';
 import ServiceRequestRoute from './ServiceRequest';
 import DashboardRoute from './Dashboard';
+import MissionList from './MissionList';
+import MissionPlanner from './MissionPlanner';
 import MyRequestRoute from './MyRequest';
 
 export const createRoutes = (store) => ({
@@ -17,6 +19,8 @@ export const createRoutes = (store) => ({
   childRoutes: [
     ServiceRequestRoute(store),
     DashboardRoute(store),
+    MissionList(store),
+    MissionPlanner(store),
     MyRequestRoute(store),
   ],
 });

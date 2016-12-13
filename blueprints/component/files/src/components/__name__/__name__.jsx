@@ -4,11 +4,12 @@ import styles from './<%= pascalEntityName %>.scss';
 
 export const <%= pascalEntityName %> = () => (
   <div styleName="<%= dashesEntityName %>">
+    <%= pascalEntityName %>
   </div>
 );
 
 <%= pascalEntityName %>.propTypes = {
-  foo: PropTypes.string.isRequired,
+  // foo: PropTypes.string.isRequired,
 };
 
 export default CSSModules(<%= pascalEntityName %>, styles);

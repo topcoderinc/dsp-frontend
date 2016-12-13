@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
 import { reducer as reduxAsyncConnect } from 'redux-connect';
 import { reducer as form } from 'redux-form';
+import { reducer as toastr } from 'react-redux-toastr';
 import global from './modules/global';
 
 export const makeRootReducer = (asyncReducers) => combineReducers({
@@ -10,6 +11,7 @@ export const makeRootReducer = (asyncReducers) => combineReducers({
   form,
   reduxAsyncConnect,
   ...asyncReducers,
+  toastr,
 });
 
 export const injectReducer = (store, { key, reducer }) => {

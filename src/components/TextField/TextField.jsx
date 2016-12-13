@@ -5,7 +5,7 @@ import styles from './TextField.scss';
 
 export const TextField = (props) => (
   <div styleName="text-field">
-    <input {..._.pick(props, 'type', 'value', 'onChange')} />
+    <input {..._.pick(props, 'type', 'value', 'onChange', 'placeholder')} />
   </div>
 );
 
