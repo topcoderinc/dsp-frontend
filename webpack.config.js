@@ -155,7 +155,7 @@ module.exports = {
       }),
       fixStyleLoader({
         test: /\.css$/,
-        loader: 'style!css?modules',
+        loaders: ['style','css?modules'],
         include: /flexboxgrid/,
       }),
       {
