@@ -13,7 +13,9 @@ export const Header = ({location, selectedCategory, categories, user, notificati
       {
         (() => {
           const currentRoute = routes[routes.length - 1].name;
-          if (currentRoute === 'ServiceRequest') {
+          if (currentRoute === 'ServiceRequest'
+              || currentRoute === 'MyRequestStatus'
+              || currentRoute === 'StatusDetail') {
             return (
             [(<li key="location" styleName="location">
               <i />

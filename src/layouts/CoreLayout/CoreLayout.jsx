@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
 import Breadcrumbs from 'react-breadcrumbs';
 import HeaderContainer from 'containers/HeaderContainer';
+import Footer from 'components/Footer';
 import styles from './CoreLayout.scss';
-import Footer from '../../components/Footer';
 
 export const CoreLayout = ({children, routes, params}) => (
   <div styleName="core-layout">

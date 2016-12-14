@@ -5,7 +5,7 @@ import FormField from 'components/FormField';
 import TextField from 'components/TextField';
 import styles from './ContactDetails.scss';
 
-export const ContactDetails = ({fields}) => (
+export const ContactDetails = ({ fields }) => (
   <div>
     <Accordion title="Contact Details">
       <FormField label="Sample field" {...fields.sampleField1}>
