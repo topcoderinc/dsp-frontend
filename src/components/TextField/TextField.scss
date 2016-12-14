@@ -1,7 +1,7 @@
 .text-field {
   width: 100%;
   border: 1px solid #ebebeb;
-  
+
   input[type="text"] {
     width: 100%;
     padding: 0 10px;
@@ -10,5 +10,18 @@
     border: none;
     height: 36px;
     line-height: 36px;
+
+    &[readonly] {
+      background-color: #eee;
+    }
+  }
+}
+
+.text-field_narrow {
+  @extend .text-field;
+
+  input[type="text"] {
+    height: 34px;
+    line-height: 32px;
   }
 }

@@ -4,14 +4,13 @@ import styles from './Footer.scss';
 
 export const Footer = () => (
   <div styleName="footer">
-    <div styleName="copyright">
-      Copyright © Drone Website. All Rights Reserved
-    </div>
-    <ul>
-      <li><a href="#">Disclaimer</a></li>
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a href="#">Terms & Conditions</a></li>
-    </ul>
+    <p styleName="copyright">Copyright © Drone Website. All Rights Reserved</p>
+
+    <nav styleName="menu">
+      <a styleName="menu-item" href="javascript:;">Disclaimer</a>
+      <a styleName="menu-item" href="javascript:;">Privacy Policy</a>
+      <a styleName="menu-item" href="javascript:;">Terms & Conditions</a>
+    </nav>
   </div>
 );
 

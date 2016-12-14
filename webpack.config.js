@@ -18,6 +18,7 @@ const fixStyleLoader = (loader) => {
   if (!__DEV__) {
     const first = loader.loaders[0];
     const rest = loader.loaders.slice(1);
+    console.log("first: "+first+" , rest:"+rest.join('!'));
     loader.loader = ExtractTextPlugin.extract(first, rest.join('!'));
     delete loader.loaders;
   }
@@ -44,7 +45,7 @@ const getEnvPlugins = () => {
         },
       }),
       new CopyWebpackPlugin([
-        { from: './src/static', to: '.'},
+        { from: './src/static', to: '.' },
       ]),
     ];
   }

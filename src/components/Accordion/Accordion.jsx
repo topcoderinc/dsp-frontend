@@ -4,8 +4,8 @@ import CSSModules from 'react-css-modules';
 import cn from 'classnames';
 import styles from './Accordion.scss';
 
-export const Accordion = ({onToggleExpand, isExpanded, children, title}) => (
-  <div styleName={cn('accordion', {expanded: isExpanded})}>
+export const Accordion = ({ onToggleExpand, isExpanded, children, title }) => (
+  <div styleName={cn('accordion', { expanded: isExpanded })}>
     <div styleName="title" onClick={() => onToggleExpand(!isExpanded)}>
       {title}
     </div>
@@ -20,6 +20,6 @@ Accordion.propTypes = {
   title: PropTypes.any,
 };
 
-export default uncontrollable(CSSModules(Accordion, styles, {allowMultiple: true}), {
+export default uncontrollable(CSSModules(Accordion, styles, { allowMultiple: true }), {
   isExpanded: 'onToggleExpand',
 });
