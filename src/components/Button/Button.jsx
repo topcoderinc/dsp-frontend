@@ -21,4 +21,4 @@ Button.defaultProps = {
   size: 'normal',
 };
 
-export default CSSModules(Button, styles, {allowMultiple: true});
+export default CSSModules(Button, styles, { allowMultiple: true });

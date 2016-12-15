@@ -23,7 +23,7 @@ const weightOptions = [
   { value: 3, label: '> 2500 gms' },
 ];
 
-export const ItemRequest = ({fields}) => (
+export const ItemRequest = ({ fields }) => (
   <div styleName="item-request">
     <Accordion title="Item Request" defaultIsExpanded>
       <div>

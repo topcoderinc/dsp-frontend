@@ -1,0 +1,50 @@
+.status-detail-header {
+  align-items: center;
+  border-bottom: 1px solid #d5d5d5;
+  display: flex;
+  margin-bottom: 19px;
+  padding-bottom: 17px;
+  padding-top: 21px;
+  position: relative;
+}
+
+.title {
+  color: #333333;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.status {
+  align-items: center;
+  display: flex;
+  margin-left: 16px;
+
+  &:before {
+    content: '';
+    display: block;
+    height: 29px;
+    border-left: 1px solid #cdcdcd;
+    margin-right: 12px;
+  }
+}
+
+.status-label {
+  color: #737475;
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 10px;
+}
+
+.status-value {
+  display: block;
+}
+
+.right {
+  position: absolute;
+  right: 0;
+  top: 17px;
+}

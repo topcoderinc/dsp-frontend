@@ -1,0 +1,36 @@
+.breadcrumb {
+  background-color: #fff;
+  border-bottom: 1px solid #d8d8d8;
+  border-top: 1px solid #d8d8d8;
+  color: #525051;
+  font-size: 12px;
+  line-height: 37px;
+  margin: 0;
+  padding: 0 30px;
+}
+
+.item {
+  display: inline;
+  list-style: none;
+
+  &:after {
+    content: '>';
+    display: inline;
+    margin-left: 4px;
+    margin-right: 8px;
+  }
+
+  &:last-child:after {
+    content: '';
+    display: none;
+  }
+
+  > a {
+    color: #525051;
+  }
+
+  > span {
+    color: #525051;
+    font-weight: 600;
+  }
+}

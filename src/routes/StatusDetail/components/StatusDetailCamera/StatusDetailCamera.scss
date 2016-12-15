@@ -1,0 +1,42 @@
+.status-detail-camera + .status-detail-camera {
+  margin-top: 32px;
+}
+
+.image {
+  display: block;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.title {
+  color: #343434;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.full-preview {
+  color: #8f8056;
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.embeded {
+  display: block;
+  height: 248px;
+  width: 289px;
+}
+
+.not-availabel {
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  color: #e0e0e0;
+  display: flex;
+  height: 248px;
+  justify-content: center;
+  width: 289px;
+}

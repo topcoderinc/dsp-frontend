@@ -1,0 +1,36 @@
+.drone-graph-performance {
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+}
+
+.header {
+  align-items: center;
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: space-between;
+  height: 81px;
+  padding: 0 17px 0 20px;
+  width: 100%;
+}
+
+.title {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+.date {
+  color: #343434;
+  display: block;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.content {
+  border-top: 1px solid #e0e0e0;
+  height: 204px;
+  overflow: hidden;
+  width: 100%;
+}

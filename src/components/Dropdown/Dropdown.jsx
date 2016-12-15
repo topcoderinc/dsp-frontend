@@ -3,7 +3,7 @@ import CSSModules from 'react-css-modules';
 import ReactDropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import styles from './Dropdown.scss';
 
-export const Dropdown = ({title, children}) => (
+export const Dropdown = ({ title, children }) => (
   <div styleName="dropdown">
     <ReactDropdown>
       <DropdownTrigger className={styles.trigger}>{title}</DropdownTrigger>

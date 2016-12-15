@@ -18,6 +18,7 @@ const fixStyleLoader = (loader) => {
   if (!__DEV__) {
     const first = loader.loaders[0];
     const rest = loader.loaders.slice(1);
+    console.log("first: "+first+" , rest:"+rest.join('!'));
     loader.loader = ExtractTextPlugin.extract(first, rest.join('!'));
     delete loader.loaders;
   }
@@ -44,7 +45,7 @@ const getEnvPlugins = () => {
         },
       }),
       new CopyWebpackPlugin([
-        { from: './src/static', to: '.'},
+        { from: './src/static', to: '.' },
       ]),
     ];
   }
@@ -99,6 +100,8 @@ module.exports = {
       __COVERAGE__: !argv.watch && process.env.NODE_ENV === 'test',
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        GOOGLE_API_KEY: JSON.stringify(process.env.GOOGLE_API_KEY),
+        API_BASE_URL: JSON.stringify(process.env.API_BASE_URL),
       },
     }),
     new HtmlWebpackPlugin({

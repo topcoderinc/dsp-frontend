@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
+import { Link } from 'react-router';
 import SearchInput from '../SearchInput';
 import Dropdown from '../Dropdown';
 import styles from './Header.scss';
@@ -13,7 +14,9 @@ export const Header = ({location, selectedCategory, categories, user, notificati
       {
         (() => {
           const currentRoute = routes[routes.length - 1].name;
-          if (currentRoute === 'ServiceRequest') {
+          if (currentRoute === 'ServiceRequest'
+              || currentRoute === 'MyRequestStatus'
+              || currentRoute === 'StatusDetail') {
             return (
             [(<li key="location" styleName="location">
               <i />
@@ -28,11 +31,13 @@ export const Header = ({location, selectedCategory, categories, user, notificati
           return (
             <li styleName="pages">
               <ul>
-                <li className={currentRoute === 'Dashboard' ? 'active' : null}><a href="/dashboard">Dashboard</a></li>
-                <li className={currentRoute === 'Requests' ? 'active' : null}><a href="/my-request">Requests</a></li>
+                <li className={currentRoute === 'Dashboard' ? 'active' : null}><Link to="/dashboard">Dashboard</Link></li>
+                <li className={currentRoute === 'Requests' ? 'active' : null}><Link to="/my-request">Requests</Link></li>
                 <li className={currentRoute === 'MyDrones' ? 'active' : null}>My Drones</li>
                 <li className={currentRoute === 'MyServices' ? 'active' : null}>My Services</li>
                 <li className={currentRoute === 'Analytics' ? 'active' : null}>Analytics</li>
+                <li className={currentRoute === 'DroneMap' ? 'active' : null}><Link to="/drones-map">Drone Traffic</Link></li>
+                <li className={currentRoute === 'MissionPlanner' ? 'active' : null}><Link to="/mission-planner">MissionPlanner</Link></li>
               </ul>
             </li>
           );

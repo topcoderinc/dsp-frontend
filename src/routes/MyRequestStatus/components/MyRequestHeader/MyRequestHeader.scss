@@ -1,0 +1,40 @@
+.my-request-header {
+  align-items: center;
+  border-bottom: 1px solid #d5d5d5;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 19px;
+  padding-bottom: 14px;
+  padding-top: 16px;
+}
+
+.title {
+  color: #333333;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 33px;
+  margin: 0;
+  padding: 0;
+}
+
+.show-all {
+  background-color: #fff;
+  border: 1px solid #dfdfdf;
+  display: block;
+  height: 33px;
+  margin: 0;
+  outline: none;
+  padding: 0 16px 0 11px;
+
+  &:after {
+    background: url("icon-dropdown-caret-sm.png") no-repeat;
+    content: '';
+    display: inline-block;
+    height: 7px;
+    margin-left: 6px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    width: 12px;
+  }
+}

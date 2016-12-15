@@ -1,0 +1,4 @@
+.map-view {
+  width: 100%;
+  height: calc(100vh - 60px - 42px - 50px); // header height - breadcrumb height - footer height
+}

@@ -21,7 +21,7 @@
     "no-script-url": 0,
     "max-len": 0,
     "new-cap": 0,
-    "object-curly-spacing": 0,
+    "object-curly-spacing": ["error", "always"],
     "react/jsx-no-bind": 0,
     "no-mixed-operators": 0,
     "arrow-parens": [
@@ -41,6 +41,6 @@
     "jsx-a11y/label-has-for": 0,
     "no-plusplus": 0,
     "jsx-a11y/no-static-element-interactions": 0,
-    "no-use-before-define": ["error", { "functions": false, "classes": true }]
+    "no-use-before-define": ["error", { "functions": false, "classes": true }],
   }
 }

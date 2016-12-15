@@ -1,0 +1,227 @@
+.mission-gallery {
+  background-color: transparent;
+
+  :global {
+    /* slick css style https://github.com/kenwheeler/slick/blob/master/slick/slick.css */
+    .slick-slider
+    {
+        position: relative;
+
+        display: block;
+        box-sizing: border-box;
+
+        -webkit-user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+
+        -webkit-touch-callout: none;
+        -khtml-user-select: none;
+        -ms-touch-action: pan-y;
+            touch-action: pan-y;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .slick-list
+    {
+        position: relative;
+
+        display: block;
+        overflow: hidden;
+
+        margin: 0;
+        padding: 0;
+    }
+    .slick-list:focus
+    {
+        outline: none;
+    }
+    .slick-list.dragging
+    {
+        cursor: pointer;
+        cursor: hand;
+    }
+
+    .slick-slider .slick-track,
+    .slick-slider .slick-list
+    {
+        -webkit-transform: translate3d(0, 0, 0);
+           -moz-transform: translate3d(0, 0, 0);
+            -ms-transform: translate3d(0, 0, 0);
+             -o-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+    }
+
+    .slick-track
+    {
+        position: relative;
+        top: 0;
+        left: 0;
+
+        display: block;
+    }
+    .slick-track:before,
+    .slick-track:after
+    {
+        display: table;
+
+        content: '';
+    }
+    .slick-track:after
+    {
+        clear: both;
+    }
+    .slick-loading .slick-track
+    {
+        visibility: hidden;
+    }
+
+    .slick-slide
+    {
+        display: none;
+        float: left;
+
+        height: 100%;
+        min-height: 1px;
+    }
+    [dir='rtl'] .slick-slide
+    {
+        float: right;
+    }
+    .slick-slide img
+    {
+        display: block;
+    }
+    .slick-slide.slick-loading img
+    {
+        display: none;
+    }
+    .slick-slide.dragging img
+    {
+        pointer-events: none;
+    }
+    .slick-initialized .slick-slide
+    {
+        display: block;
+    }
+    .slick-loading .slick-slide
+    {
+        visibility: hidden;
+    }
+    .slick-vertical .slick-slide
+    {
+        display: block;
+
+        height: auto;
+
+        border: 1px solid transparent;
+    }
+    .slick-arrow.slick-hidden {
+        display: none;
+    }
+
+    /* custom styles for slick */
+    .slick-slider {
+      margin-bottom: 7px;
+    }
+
+    .slick-dots {
+      margin: 28px 0 0 0;
+      padding: 0;
+      text-align: center;
+
+      > li {
+        list-style: none;
+        display: inline-block;
+        margin-left: 8px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+
+        > button {
+          background-color: #828282;
+          border: 2px solid #fff;
+          border-radius: 6px;
+          height: 12px;
+          margin: 0;
+          outline: none;
+          padding: 0;
+          text-indent: -9999px;
+          width: 12px;
+        }
+      }
+
+      > li.slick-active {
+        > button {
+          background-color: transparent;
+          border-color: #4d4d4d;
+        }
+      }
+    }
+
+    .slick-arrow {
+      background: rgba(#36393e, .74) no-repeat center;
+      border: 0;
+      height: 60px;
+      margin-top: -50px; /* -30px for half height of .slick-arrow -20px for half height of .slick-dots */
+      outline: none;
+      position: absolute;
+      text-indent: -9999px;
+      top: 50%;
+      width: 35px;
+      z-index: 1;
+
+      &.slick-prev {
+        background-image: url("../../../../styles/img/icon-gallery-arrow-left.png");
+        left: 1px;
+      }
+
+      &.slick-next {
+        background-image: url("../../../../styles/img/icon-gallery-arrow-right.png");
+        right: 1px;
+      }
+    }
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0 21px 0;
+}
+
+.title {
+  color: #131313;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+.note {
+  background: url("icon-gallery-note-drone.png") no-repeat left center;
+  color: #4d4d4d;
+  font-size: 12px;
+  margin: 0;
+  padding-left: 43px;
+}
+
+.no-items {
+  margin: 0;
+  padding: 0 0 115px 0;
+}
+
+.slide {
+  display: block;
+}
+
+.slide-inner {
+  margin: 0 -8px;
+  display: flex;
+}
+
+.item {
+  padding: 0 8px;
+  width: calc(25%);
+}

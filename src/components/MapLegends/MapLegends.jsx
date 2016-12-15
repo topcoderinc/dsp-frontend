@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './MapLegends.scss';
 
-export const MapLegends = ({distance}) => (
+export const MapLegends = ({ distance }) => (
   <div styleName="map-legends">
     <div styleName="location">
       <i styleName="icon-drone" />
@@ -18,14 +18,16 @@ export const MapLegends = ({distance}) => (
       Your <br />
       Location
     </div>
-    <strong styleName="distance">
-      Distance: {distance}
-    </strong>
+    { distance &&
+      <strong styleName="distance">
+        Distance: {distance}
+      </strong>
+    }
   </div>
 );
 
 MapLegends.propTypes = {
-  distance: PropTypes.string.isRequired,
+  distance: PropTypes.string,
 };
 
 export default CSSModules(MapLegends, styles);

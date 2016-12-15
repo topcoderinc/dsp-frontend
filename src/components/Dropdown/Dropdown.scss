@@ -19,6 +19,7 @@
   background: white;
   border: 1px solid #d8d8d8;
   box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.06);
+  z-index: 1;
 
   ul {
     margin: 0;
@@ -45,7 +46,7 @@
 .trigger {
   position: relative;
   padding-right: 20px;
-  
+
   &, &:hover, &:active, &:focus, &:focus:active {
     color: white;
   }

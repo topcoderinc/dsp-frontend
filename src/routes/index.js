@@ -4,6 +4,9 @@ import DashboardRoute from './Dashboard';
 import MissionList from './MissionList';
 import MissionPlanner from './MissionPlanner';
 import MyRequestRoute from './MyRequest';
+import MyRequestStatusRoute from './MyRequestStatus';
+import StatusDetailRoute from './StatusDetail';
+import DronesMapRoute from './DronesMap';
 
 export const createRoutes = (store) => ({
   path: '/',
@@ -22,6 +25,9 @@ export const createRoutes = (store) => ({
     MissionList(store),
     MissionPlanner(store),
     MyRequestRoute(store),
+    MyRequestStatusRoute(store),
+    StatusDetailRoute(store),
+    DronesMapRoute(store),
   ],
 });
 

@@ -1,13 +1,9 @@
 .map-legends {
-  position: absolute;
-  display: flex;
-  bottom: 30px;
-  right: 50px;
-  width: calc(50vw - 75px);
-  border: 1px solid #c7c7c7;
   background: white;
-  height: 55px;
+  border: 1px solid #c7c7c7;
   box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.13);
+  display: flex;
+  height: 55px;
   padding: 0 35px 0 16px;
 }
 
@@ -18,7 +14,7 @@
   + .location {
     margin-left: 35px;
   }
-  
+
   i {
     display: block;
     margin-right: 10px;
