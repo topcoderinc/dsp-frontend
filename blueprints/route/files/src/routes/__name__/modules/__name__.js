@@ -11,7 +11,7 @@ export const SAMPLE = '<%= pascalEntityName %>/SAMPLE';
 
 
 export const sample2 = () => async (dispatch, getState) => {
-
+  getState(); // to pass eslint from the begining
 };
 
 export const actions = {
@@ -23,5 +23,8 @@ export const actions = {
 // Reducer
 // ------------------------------------
 export default handleActions({
-  [SAMPLE]: (state, {payload}) => state,
+  [SAMPLE]: (state, {payload}) => {
+    payload; // to pass eslint from the begining
+    return state;
+  },
 }, {});

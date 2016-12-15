@@ -1,0 +1,82 @@
+.mission-sidebar-item {
+  max-width: 100%;
+  background: #f8f8f8;
+  border: 1px solid #e7e7e7;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  padding: 8px 14px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.toggle {
+  background: url("icon-dropdown-caret-sm.png") no-repeat center;
+  cursor: pointer;
+  display: block;
+  height: 20px;
+  width: 20px;
+}
+
+.toggle_down {
+  @extend .toggle;
+}
+
+.toggle_up {
+  @extend .toggle;
+
+  transform: rotate(180deg);
+}
+
+.delete {
+  background: url("icon-trash.png") no-repeat center;
+  cursor: pointer;
+  display: block;
+  height: 20px;
+  opacity: 0.5;
+  width: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+.row {
+  margin-bottom: 10px;
+}
+
+.label {
+  line-height: 34px;
+}
+
+
+
+.gm-style-iw {
+  overflow: visible !important;
+}
+.gm-style-iw > div {
+}
+.Select-menu-outer {
+  z-index: 10000000000 !important;
+}
+.full-width {
+  width: 100%;
+}
+.link {
+  cursor: pointer;
+
+}
+
+.pull-right {
+  float: right;
+}
+
+
+.header {
+
+}
