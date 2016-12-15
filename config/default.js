@@ -8,5 +8,6 @@ module.exports = {
 
   // below env variables are visible in frontend
   GOOGLE_API_KEY: process.env.GOOGLE_API_KEY || 'AIzaSyCrL-O319wNJK8kk8J_JAYsWgu6yo5YsDI',
-  API_BASE_URL: process.env.API_BASE_URL || 'https://kb-dsp-server.herokuapp.com',
+   API_BASE_URL: process.env.API_BASE_URL || 'https://kb-dsp-server-dev.herokuapp.com',
+  //API_BASE_URL: process.env.API_BASE_URL || 'http://localhost:5000',
 };

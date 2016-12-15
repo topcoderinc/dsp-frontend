@@ -34,6 +34,7 @@ export const Header = ({location, selectedCategory, categories, user, notificati
                 <li className={currentRoute === 'MyDrones' ? 'active' : null}>My Drones</li>
                 <li className={currentRoute === 'MyServices' ? 'active' : null}>My Services</li>
                 <li className={currentRoute === 'Analytics' ? 'active' : null}>Analytics</li>
+                <li className={currentRoute === 'DroneMap' ? 'active' : null}><Link to="/drones-map">Drone Traffic</Link></li>       
               </ul>
             </li>
           );
