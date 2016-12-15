@@ -100,6 +100,8 @@ module.exports = {
       __COVERAGE__: !argv.watch && process.env.NODE_ENV === 'test',
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        GOOGLE_API_KEY: JSON.stringify(process.env.GOOGLE_API_KEY),
+        API_BASE_URL: JSON.stringify(process.env.API_BASE_URL),
       },
     }),
     new HtmlWebpackPlugin({

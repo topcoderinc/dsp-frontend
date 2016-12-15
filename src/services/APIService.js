@@ -498,7 +498,7 @@ export default class APIService {
     })).then(() => statusDetail[id]);
   }
 
-static fetchMissionList() {
+  static fetchMissionList() {
     return regAndAuth().then((authRes) => {
       const accessToken = authRes.body.accessToken;
 
@@ -561,5 +561,19 @@ static fetchMissionList() {
         .end()
         .then((res) => res.body);
     });
+  }
+
+  /**
+   * Search drones
+   * @param {Object} params
+   * @param {Number} params.limit the limit
+   * @param {Number} params.offset the offset
+   * @returns {{total: Number, items: Array}} the result
+   */
+  static searchDrones(params) {
+    return request
+      .get(`${config.API_BASE_PATH}/api/v1/drones`)
+      .query(params)
+      .end();
   }
 }
