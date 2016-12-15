@@ -1,0 +1,82 @@
+.mission-list-view {
+  background-color: transparent;
+}
+
+.wrap {
+  padding: 0 30px 35px;
+}
+
+.header {
+  border-bottom: 1px solid #d5d5d5;
+  display: flex;
+  margin-bottom: 19px;
+  justify-content: space-between;
+  padding-bottom: 17px;
+  padding-top: 21px;
+  position: relative;
+}
+
+.title {
+  color: #333333;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.panel {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  padding: 19px 24px;
+}
+
+.my-request-table {
+  width: 100%;
+}
+
+.thead {
+  background-color: #1e526c;
+}
+
+.th {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 14px 27px 16px;
+  text-align: left;
+}
+
+.tr {
+  border-top: 1px solid #e7e8ea;
+
+  &:first-child {
+    border-top: 0;
+  }
+}
+
+.td {
+  font-size: 14px;
+  padding: 12px 23px;
+  white-space: nowrap;
+
+  > a {
+    color: #3b73b9;
+  }
+}
+
+.create-btn {
+  background: #315b95;
+  border: none;
+  color: white;
+  display: inline-block;
+  font-weight: bold;
+  min-width: 115px;
+  margin-left: 10px;
+  padding: 13px 10px;
+
+  &:hover {
+    color: #fff;
+  }
+}

@@ -8,7 +8,8 @@
     "start": "cross-env NODE_ENV=production node server",
     "build": "cross-env NODE_ENV=production webpack --bail --progress --build --tc",
     "lint": "eslint --ext jsx --ext js .",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "test": "mocha-webpack --require setup-test.js --webpack-config webpack.config-test.js \"src/**/*.spec.(jsx|js)\""
   },
   "author": "",
   "license": "MIT",
@@ -52,11 +53,14 @@
     "react-css-modules": "^3.7.10",
     "react-date-picker": "^5.3.28",
     "react-dom": "^15.3.2",
+    "react-flexbox-grid": "^0.10.2",
+    "react-google-maps": "^6.0.1",
     "react-modal": "^1.5.2",
     "react-flexbox-grid": "^0.10.2",
     "react-highcharts": "^11.0.0",
     "react-modal": "^1.5.2",
     "react-redux": "^4.0.0",
+    "react-redux-toastr": "^4.2.2",
     "react-router": "^2.8.1",
     "react-router-redux": "^4.0.0",
     "react-select": "^1.0.0-rc.2",
@@ -81,15 +85,23 @@
     "yargs": "^4.0.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "css-modules-require-hook": "^4.0.5",
+    "enzyme": "^2.6.0",
     "eslint": "^3.7.1",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.2",
     "eslint-plugin-react": "^6.3.0",
+    "jsdom": "^9.8.3",
+    "mocha": "^3.2.0",
+    "mocha-webpack": "^0.7.0",
     "nodemon": "^1.8.1",
+    "react-addons-test-utils": "^15.4.1",
     "webpack-dev-middleware": "^1.8.3",
-    "webpack-hot-middleware": "^2.13.0"
+    "webpack-hot-middleware": "^2.13.0",
+    "webpack-node-externals": "^1.5.4"
   },
   "engines": {
     "node": "6.7.0"

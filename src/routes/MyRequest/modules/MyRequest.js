@@ -6,7 +6,9 @@ import { handleActions } from 'redux-actions';
 
 
 export const sendRequest = (values) => new Promise((resolve) => {
+  /* eslint-disable no-alert */
   alert(JSON.stringify(values, null, 2));
+  /* eslint-enable no-alert */
   resolve();
 });
 
