@@ -15,7 +15,14 @@ export const sendLoginRequest = (values) => new Promise((resolve) => {
   userApi.login(values.email, values.password).then((authResult) => {
     isLogged = true;
     hasError = false;
-    browserHistory.push('/browse-provider');
+    if (authResult.user.role=='consumer')
+      browserHistory.push('/browse-provider');
+    else if (authResult.user.role=='provider')
+      browserHistory.push('/dashboard');
+    else if (authResult.user.role=='admin')
+      browserHistory.push('/admin');
+    else if (authResult.user.role=='pilot')
+      browserHistory.push('/pilot');
   }).catch((err) => {
     isLogged = false;
     hasError = true;
