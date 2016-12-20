@@ -55,7 +55,18 @@
           flex: 1;
 
           > a {
+            font-size: 14px;
             color: #fff;
+            height: 60px;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding: 8px 8px 0;
+            border-bottom: 8px solid transparent;
+            &:hover, &:focus {
+              border-bottom: 8px solid #315b95;
+            }
           }
 
         } 

@@ -3,4 +3,4 @@ import { connect } from 'react-redux';
 
 const mapState = (state) => state.global;
 
-export default connect(mapState)(Header);
+export default connect(mapState, {})(Header);

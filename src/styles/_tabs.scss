@@ -1,0 +1,35 @@
+.tabs-container {
+	.react-tabs {
+		> ul {
+		list-style: none;
+		border-bottom: 1px solid #e0e0e0;
+	    margin: 0 0 10px;
+	    padding-left: 15px;
+	    padding-top: 18px;
+	    li {
+	    	display: inline-block;
+		    border: 1px solid transparent;
+		    border-bottom: none;
+		    bottom: -1px;
+		    position: relative;
+		    list-style: none;
+		    padding: 13px 27px;
+		    cursor: pointer;
+		    margin-right: 8px;
+		    background-color: #e7e8ea;
+		    border-radius: 4px 4px 0 0;
+		    color: #010101;
+		    font-size: 14px;
+		    font-weight: bold;
+	    }
+	    li[aria-selected=true] {
+		    border: none;
+		    color: black;
+		    border-radius: 4px 4px 0 0;
+		    background-color: #315b95;
+		    color: #fefefe;
+	    }
+	}
+	}
+	
+}

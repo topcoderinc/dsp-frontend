@@ -1,0 +1,64 @@
+.mission-progress-header {
+	display: flex;
+	margin: 17px 27px 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid rgba(140,140,140,.29);
+}
+.title {
+	font-size: 24px;
+	flex: 0 1 255px;
+	align-self: center;
+	padding: 5px 0;
+	border-right: 1px solid #cdcdcd;
+}
+.status {
+	flex: 0 1 auto;
+	align-self: center;
+	> span {
+		font-size: 14px;
+		color: #737475;
+		display: inline-block;
+		vertical-align: top;
+		top: 7px;
+		position: relative;
+		padding: 0 10px 0 12px;
+	}
+
+}
+.current-status {
+	border-radius: 5px;
+	background-color: #f19300;
+	height: 32px;
+  display: inline-block;
+  font-size: 13px;
+  color: #fff;
+  padding: 5px 5px 5px 30px;
+	position: relative;
+	
+	i {
+		display: inline-block;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    width: 16px;
+    height: 22px;
+    position: absolute;
+    left: 8px;
+    top: 7px;
+  }
+}
+.icon-progress {
+	background-image: url("icon-in-progress.png");
+}
+.mark-as-modal {
+	margin-left: auto;
+}
+
+:global {
+	.completed  {
+		background-color: #87c200;
+	}
+	.icon-completed {
+		background-image: url("../../../../styles/img/icon-completed.png");
+	}
+}
+

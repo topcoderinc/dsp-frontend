@@ -14,4 +14,6 @@ export const Footer = () => (
   </div>
 );
 
+
 export default CSSModules(Footer, styles);
+

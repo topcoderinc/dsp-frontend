@@ -1,0 +1,86 @@
+.telemetry-data-form {
+  display: block;
+  padding: 30px 0 100px;
+  margin: 0 25px;
+  border-bottom: 1px solid #e7e8ea;
+}
+:global {
+	.date-picker-container {
+		width: 40%;
+	}
+	.form-field {
+		
+		&.error {
+			.error-message {
+				color: #ff3100;
+			}
+			> div > .react-date-field {
+
+				border: 1px solid #ff3100;
+			}
+		}
+		.react-date-field {
+			flex: 0 0 40%;
+			padding-right: 25px;
+			position: relative;
+			&:after {
+				content: '';
+				width: 19px;
+				height: 17px;
+				background: url('../../../../styles/img/icon-date-picker.png');
+				background-position: 0 0;
+				background-repeat: no-repeat;
+				display: inline-block;
+				position: absolute;
+				left: 93%;
+				top: 10px;
+			}
+		}
+	}
+	.dis-speed-input {
+		flex: 0 0 18%;
+		display: flex;
+		.unit {
+			align-self: center;
+			font-size: 14px;
+			color: #343434;
+			margin-left: 15px;
+		}
+	}
+}
+
+.row {
+	display: flex;
+	margin-bottom: 22px;
+	label {
+		display: block;
+		flex: 0 0 23%;
+		align-self: center;
+		font-size: 14px;
+		color: #343434;
+		font-weight: bold;
+	}
+
+	
+	.hour-input {
+		flex: 0 0 12%;
+		display: flex;
+	}
+	.min-input {
+		flex: 0 0 10%;
+	}
+	.colon {
+		font-weight: bold;
+		color: #4b4b4b;
+		font-size: 16px;
+		display: inline-block;
+		align-self: center;
+		margin: 0 10px;
+	}
+	.meridiem-select {
+		flex: 0 0 11%;
+		padding-left: 13px;
+		align-self: center;
+	}
+	
+}

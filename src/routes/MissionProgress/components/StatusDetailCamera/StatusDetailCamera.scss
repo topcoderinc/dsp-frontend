@@ -1,0 +1,55 @@
+.status-detail-camera {
+  padding-left: 23px;
+  .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #131313;
+    padding-bottom: 17px;
+  }
+  .camera-view {
+    .cameraThumb {
+      min-width: 290px;
+      height: 248px;
+      background-repeat: no-repeat;
+      background-position: 0 0;
+    }
+    .camera-thumb-front {
+      background: url('front-camera.png') no-repeat 0 0;
+      background-size: 100%;
+      width: 100%;
+    }
+    .video-thumb-front {
+      background: url('front-video.png') no-repeat 0 0;
+      background-size: 100%;
+      width: 100%;
+    }
+    .camera-thumb-back {
+      background: url('back-camera.png') no-repeat 0 0;
+      background-size: 100%;
+      width: 100%;
+      margin-top: 30px;
+    }
+    .video-thumb-back {
+      background: url('back-video.png') no-repeat 0 0;
+      background-size: 100%;
+      width: 100%;
+      margin-top: 30px;
+    }
+  }
+  .camera-type {
+    display: flex;
+    padding-top: 17px;
+    .type {
+      font-size: 14px;
+      color: #343434;
+      font-weight: bold;
+    }
+    .preview-btn {
+      font-size: 12px;
+      color: #8f8056;
+      text-decoration: underline;
+      display: block;
+      margin-left: auto;
+    }
+  }
+}

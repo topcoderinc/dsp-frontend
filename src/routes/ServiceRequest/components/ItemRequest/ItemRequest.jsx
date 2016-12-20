@@ -23,7 +23,12 @@ const weightOptions = [
   { value: 3, label: '> 2500 gms' },
 ];
 
-export const ItemRequest = ({ fields }) => (
+
+/*
+* ItemRequest
+*/
+
+export const ItemRequest = ({fields}) => (
   <div styleName="item-request">
     <Accordion title="Item Request" defaultIsExpanded>
       <div>
@@ -50,6 +55,7 @@ export const ItemRequest = ({ fields }) => (
           />
         </FormField>
       </Row>
+      {/* Row end */}
       <Row>
         <FormField {...fields.dimension} label={<span className={styles.center}>Icon Dimension &nbsp;<InfoIcon>Length X Width X Height</InfoIcon></span>}>
           <TextField {...fields.dimension} />
@@ -64,6 +70,7 @@ export const ItemRequest = ({ fields }) => (
           </Checkbox>
         </FormField>
       </Row>
+      {/* Row end */}
     </Accordion>
   </div>
 );

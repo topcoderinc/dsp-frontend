@@ -33,9 +33,9 @@ export const Header = ({location, selectedCategory, categories, user, notificati
               <ul>
                 <li className={currentRoute === 'Dashboard' ? 'active' : null}><Link to="/dashboard">Dashboard</Link></li>
                 <li className={currentRoute === 'Requests' ? 'active' : null}><Link to="/my-request">Requests</Link></li>
-                <li className={currentRoute === 'MyDrones' ? 'active' : null}>My Drones</li>
-                <li className={currentRoute === 'MyServices' ? 'active' : null}>My Services</li>
-                <li className={currentRoute === 'Analytics' ? 'active' : null}>Analytics</li>
+                <li className={currentRoute === 'My Drones' ? 'active' : null}><Link to="/my-drone" activeClassName="active">My Drones</Link></li>
+                <li className={currentRoute === 'My Services' ? 'active' : null}><Link to="/my-services" activeClassName="active">My Services</Link></li>
+                <li><Link to="javascript:;" activeClassName="active">Analytics</Link></li>
                 <li className={currentRoute === 'DroneMap' ? 'active' : null}><Link to="/drones-map">Drone Traffic</Link></li>
                 <li className={currentRoute === 'MissionPlanner' ? 'active' : null}><Link to="/mission-planner">MissionPlanner</Link></li>
               </ul>
@@ -46,13 +46,22 @@ export const Header = ({location, selectedCategory, categories, user, notificati
       <li styleName="notifications">
         {notifications.length > 0 && <span styleName="counter">{notifications.length}</span>}
       </li>
-      <li>
-        <Dropdown title={selectedCategory}>
-          <ul>
-            {categories.map((item, i) => <li key={i}><a href="javascript:">{item.name}</a></li>)}
-          </ul>
-        </Dropdown>
-      </li>
+      {(() => {
+        const currentRoute = routes[routes.length - 1].name;
+        if (currentRoute === 'ServiceRequest') {
+          return (
+            <li>
+              <Dropdown title={selectedCategory}>
+                <ul>
+                  {categories.map((item, i) => <li key={i}><a href="javascript:">{item.name}</a></li>)}
+                </ul>
+              </Dropdown>
+            </li>
+          );
+        }
+        return (<span />);
+      })()
+      }
       <li styleName="user">
         <Dropdown title={<span>Welcome,<br />{user.name}e</span>}>
           <ul>

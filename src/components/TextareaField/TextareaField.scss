@@ -1,0 +1,14 @@
+.text-field {
+  width: 100%;
+  border: 1px solid #ebebeb;
+  
+  textarea {
+    width: 100%;
+    padding: 10px;
+    resize: none;
+    background: white;
+    color: black;
+    border: none;
+    min-height: 265px;
+  }
+}

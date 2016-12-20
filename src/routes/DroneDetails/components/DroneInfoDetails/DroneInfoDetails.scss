@@ -1,0 +1,33 @@
+.drone-info-details {
+   display: flex;
+   margin: 20px 15px 0;
+   padding-bottom: 40px;
+   border-bottom: 1px solid #e7e8ea;
+   img {
+   		width: 38%;
+   		margin-right: 10px;
+   		max-width: 452px;
+   }
+}
+
+.drone-info {
+	width: 62%;
+	margin-left: 15px;
+	h4 {
+		margin: 0;
+		font-size: 20px;
+		color: #525051;
+		font-weight: bold;
+	}
+	h6 {
+		font-size: 14px;
+		color: #343434;
+		font-weight: normal;
+		margin: 10px 0 27px;
+	}
+	p {
+		font-size: 14px;
+		color: #343434;
+		line-height: 1.7;
+	}
+}

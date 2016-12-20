@@ -1,5 +1,4 @@
 .service-detail {
-  background-color: #fff;
   height: 100%;
 }
 
@@ -11,7 +10,7 @@
   > div {
     width: 50%;
     padding: 20px 0 15px;
-
+    
     + div {
       border-left: 1px solid #d8d8d8;
     }
@@ -21,6 +20,7 @@
 .actions {
   padding: 15px;
   text-align: center;
+  background: #fff;
 }
 
 .btnMargin {

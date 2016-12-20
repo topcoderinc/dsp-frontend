@@ -2,8 +2,6 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-
-  /* OVERRIDE DEFAULT STYLES */
   :global{
     /* breadcrumbs */
     .breadcrumb-container {
@@ -19,10 +17,9 @@
     /* tabs */
 
   }
-
-  /* END OVERRIDE DEFAULT STYLES */
 }
 
 .content {
   flex: 1 0 auto;
+  background: #f3f3f3;
 }

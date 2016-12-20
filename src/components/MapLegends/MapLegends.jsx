@@ -2,7 +2,12 @@ import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './MapLegends.scss';
 
-export const MapLegends = ({ distance }) => (
+
+/*
+* MapLegends
+*/
+
+export const MapLegends = ({distance}) => (
   <div styleName="map-legends">
     <div styleName="location">
       <i styleName="icon-drone" />
