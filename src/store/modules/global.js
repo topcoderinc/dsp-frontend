@@ -1,19 +1,50 @@
-import { handleActions } from 'redux-actions';
-
+import { handleActions, createAction } from 'redux-actions';
+import { browserHistory } from 'react-router';
+import UserApi from 'api/User.js';
+const config = require('../../config');
+const userApi = new UserApi(config.default.api.basePath);
 
 // ------------------------------------
 // Actions
 // ------------------------------------
+let isLogged = false;
+let hasError = false;
+let errorText = '';
+const userData = {};
+export const sendLoginRequest = (values) => new Promise((resolve) => {
+  userApi.login(values.email, values.password).then((authResult) => {
+    isLogged = true;
+    hasError = false;
+    browserHistory.push('/browse-provider');
+  }).catch((err) => {
+    isLogged = false;
+    hasError = true;
+    errorText = JSON.parse(err.responseText);
+  });
+  resolve();
+});
+
+export const toggleNotification = createAction('TOGGLE_NOTIFICATION');
+
+export const loginAction = createAction('LOGIN_ACTION');
 
 export const actions = {
+  toggleNotification, loginAction,
 };
-
+// console.log(loginAction(true))
 // ------------------------------------
 // Reducer
 // ------------------------------------
 export default handleActions({
-
+  [toggleNotification]: (state, action) => ({
+    ...state, toggleNotif: action.payload,
+  }),
+  [loginAction]: (state, action) => ({
+    ...state, loggedUser: isLogged, hasError, errorText,
+  }),
 }, {
+  toggleNotif: false,
+  loggedUser: false,
   location: 'Jakarta, Indonesia',
   selectedCategory: 'Category',
   categories: [
@@ -24,7 +55,10 @@ export default handleActions({
     name: 'John Doe',
   },
   notifications: [
-    {id: 1},
-    {id: 2},
+    {id: 1, droneName: 'XdroneManiac', status: 'completed',
+      time: '2 minutes ago', request: 'has completed your "Deliver My Package" request.'},
+    {id: 2, droneName: 'XdroneManiac', status: 'started',
+      time: '2 minutes ago', request: 'has started your "Deliver My Package" request.'},
   ],
+
 });

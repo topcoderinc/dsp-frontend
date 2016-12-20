@@ -8,9 +8,12 @@ import Footer from '../../components/Footer';
 export const CoreLayout = ({children, routes, params}) => (
   <div styleName="core-layout">
     <HeaderContainer routes={routes} />
-    <div className="breadcrumb-container">
-      <Breadcrumbs routes={routes} params={params} excludes={['CoreLayout', 'ServiceRequest']} />
-    </div>
+
+    { (children.props.route.path !== 'home' && children.props.route.path !== 'browse-provider') &&
+      <div className="breadcrumb-container">
+        <Breadcrumbs routes={routes} params={params} excludes={['CoreLayout', 'ServiceRequest']} />
+      </div> }
+
     <div styleName="content">
       {children}
     </div>

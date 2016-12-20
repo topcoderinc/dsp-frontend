@@ -1,19 +1,23 @@
 import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
+import LogInSignUpModalContainer from 'routes/Home/containers/LogInSignUpModalContainer';
 import SearchInput from '../SearchInput';
 import Dropdown from '../Dropdown';
+import Notification from '../Notification';
 import styles from './Header.scss';
 
-export const Header = ({location, selectedCategory, categories, user, notifications, routes}) => (
-  <nav styleName="header">
-    <ul>
-      <li styleName="branding">
+export const Header = ({location, selectedCategory, categories, user, notifications,
+  routes, handleNotification, toggleNotif, loggedUser}) => (
+
+    <nav styleName="header">
+      <ul>
+        <li styleName="branding">
         DRONE MARKET
       </li>
-      {
+        {
         (() => {
           const currentRoute = routes[routes.length - 1].name;
-          if (currentRoute === 'ServiceRequest') {
+          if (currentRoute === 'ServiceRequest' || currentRoute === 'Home') {
             return (
             [(<li key="location" styleName="location">
               <i />
@@ -38,30 +42,57 @@ export const Header = ({location, selectedCategory, categories, user, notificati
           );
         })()
       }
-      <li styleName="notifications">
-        {notifications.length > 0 && <span styleName="counter">{notifications.length}</span>}
-      </li>
-      <li>
-        <Dropdown title={selectedCategory}>
-          <ul>
-            {categories.map((item, i) => <li key={i}><a href="javascript:">{item.name}</a></li>)}
-          </ul>
-        </Dropdown>
-      </li>
-      <li styleName="user">
-        <Dropdown title={<span>Welcome,<br />{user.name}e</span>}>
-          <ul>
-            <li>
-              <a href="javascript:">Profile</a>
-            </li>
-            <li>
-              <a href="javascript:">Logout</a>
-            </li>
-          </ul>
-        </Dropdown>
-      </li>
-    </ul>
-  </nav>
+        {
+        (() => {
+          const isLoggedIn = false;
+          if (!loggedUser) {
+            return (
+            [
+              (<li key="category">
+                <Dropdown title={selectedCategory}>
+                  <ul>
+                    {categories.map((item, i) => <li key={i}><a href="javascript:">{item.name}</a></li>)}
+                  </ul>
+                </Dropdown>
+              </li>),
+              (<li key="login" styleName="login">
+                <LogInSignUpModalContainer />
+              </li>),
+            ]
+            );
+          }
+          return (
+          [
+              (<li key="notification" styleName="notifications" onClick={() => handleNotification(!toggleNotif)}>
+                {notifications.length > 0 && <span styleName="counter">{notifications.length}</span>}
+                {toggleNotif && <Notification notifications={notifications} toggleNotif={toggleNotif} handleNotification={handleNotification} />}
+              </li>),
+              (<li key="category">
+                <Dropdown title={selectedCategory}>
+                  <ul>
+                    {categories.map((item, i) => <li key={i}><a href="javascript:">{item.name}</a></li>)}
+                  </ul>
+                </Dropdown>
+              </li>),
+              (<li key="welcome" styleName="user">
+                <Dropdown title={<span>Welcome,<br />{user.name}e</span>}>
+                  <ul>
+                    <li>
+                      <a href="javascript:">Profile</a>
+                    </li>
+                    <li>
+                      <a href="javascript:">Logout</a>
+                    </li>
+                  </ul>
+                </Dropdown>
+              </li>),
+          ]
+          );
+        })()
+      }
+
+      </ul>
+    </nav>
 );
 
 Header.propTypes = {
@@ -71,6 +102,10 @@ Header.propTypes = {
   categories: PropTypes.array.isRequired,
   notifications: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
+  handleNotification: PropTypes.func,
+  toggleNotif: PropTypes.bool,
+  loggedUser: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
 };
 
 export default CSSModules(Header, styles);

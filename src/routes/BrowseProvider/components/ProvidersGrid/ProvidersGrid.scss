@@ -1,0 +1,14 @@
+.popular-drones-slides {
+  width: 100%;
+  background-color: #f3f3f3;
+	.drones-slides {
+  	display: flex;
+  	flex-wrap: wrap;
+  	justify-content: space-between;
+  	padding: 20px 27px 20px;
+    border-right: 1px solid #d8d8d8;
+    height: calc(100vh - 214px);
+    overflow-y: auto;
+  }
+}
+

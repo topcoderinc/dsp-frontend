@@ -1,0 +1,63 @@
+.drone-info-spec {
+	display: flex;
+	margin: 30px 37px 0;
+   	padding-bottom: 15px;
+    border-bottom: 1px solid #e7e8ea;
+}
+
+.left-col {
+	width: 38%;
+	margin-right: 10px;
+	img {
+		max-width: 454px;
+	}
+	a {
+		display: block;
+		font-size: 14px;
+		color: #868576;
+		text-align: center;
+		margin-top: 25px;
+		i {
+			display: inline-block;
+			width: 17px;
+			height: 22px;
+			background: url('icon-spec-doc.png');
+			background-repeat: no-repeat;
+			background-position: 0 0;
+			position: relative;
+			top: 6px;
+			margin-right: 13px;
+		}
+	}
+}
+.right-col {
+	width: 62%;
+	margin-left: 15px;
+	.drone-spec {
+		margin-bottom: 5px;
+		h5 {
+			font-size: 20px;
+			font-weight: bold;
+			color: #525051;
+			margin: 0;
+		}
+	}
+	.spec-list-container {
+		display: flex;
+		margin-bottom: 10px;
+		.spec-list-left {
+			width: 55%;
+		}
+		.spec-list-right {
+			width: 45%;
+		}
+		ul {
+			padding-left: 20px;
+			li {
+				font-size: 14px;
+				color: #343434;
+				padding-bottom: 8px;
+			}
+		}
+	}
+}

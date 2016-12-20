@@ -18,6 +18,7 @@ See Guild https://github.com/lorenwest/node-config/wiki/Configuration-Files
 |----|-----------|
 |`PORT`| The port to listen|
 |`GOOGLE_API_KEY`| The google api key see (https://developers.google.com/maps/documentation/javascript/get-api-key#key)|
+|`REACT_APP_API_BASE_PATH` | api base path
 
 
 ## Install dependencies

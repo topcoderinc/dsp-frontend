@@ -1,0 +1,103 @@
+.package-detail-modal {
+	display: inline-block;
+  .btnAsComplete {
+		padding: 13px 8px;
+		text-align: center;
+		margin-left: auto;
+	}
+	
+}
+.modal-header {
+	display: flex;
+	height: 23px;
+	background: #f0f0f1;
+	height: 63px;
+	align-items: center;
+	padding: 5px 20px;
+}
+.title {
+	font-size: 24px;
+	color: #0d0d0d;
+	align-self: center;
+	font-weight: bold;
+}
+.icon-close-modal {
+	display: block;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  width: 26px;
+  height: 26px;
+  background: url('icon-close-modal.png') no-repeat 0 0;
+  margin-left: auto;
+  cursor: pointer;
+}
+.modal-content {
+	padding: 25px 35px;
+	.drone-thumb {
+		display: flex;
+		img {
+			width: 100%;
+		}
+		.drone-video {
+			width: 64%;
+			position: relative;
+
+			&:after {
+				content: '';
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background: rgba(45, 45, 45, 0.32);
+				left: 0;
+				top: 0;
+			}
+			.icon-play-video {
+				width: 66px;
+				height: 67px;
+				background: url('icon-play-video-lg.png') no-repeat 0 0;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 99;
+				cursor: pointer;
+			}
+		}
+		.drone-pics {
+			width: 35%;
+			padding-left: 13px;
+			.pic-thumb {
+				margin-bottom: 15px;
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+	.drone-info {
+		p {
+			font-size: 14px;
+			color: #333333;
+		}
+	}
+}
+.modal-container {
+	position: relative;
+	z-index: 9999;
+	background: #fff;
+}
+.overlay-bg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(9, 9, 9, 0.58);
+	z-index: 99;
+}
+
+.view-btn {
+	font-size: 14px;
+	color: #525051;
+	text-decoration: underline;
+}

@@ -1,0 +1,53 @@
+.drone-detail-banner {
+  ul {
+    display: flex;
+    align-items: center;
+    padding: 35px;
+    border: 1px solid #d8d8d8;
+    background-color: #514f51;
+    margin: 0;
+    li {
+      flex-grow: 1;
+      list-style: none;
+      font-size: 16px;
+      color: #fff;
+      p {
+        margin: 0;
+      }
+      .drone-name-rate {
+        display: flex;
+        h4 {
+          font-weight: bold;
+          font-size: 24px;
+          color: #fff;
+          margin: 0;
+        }
+        .drone-name {
+          padding: 15px;
+        }
+        .rating {
+          width: 102px;
+          height: 17px;
+          background: url('icon-rating.png') no-repeat 0 0;
+          display: block;
+          margin-top: 12px;
+        }
+        .badge {
+          width: 21px;
+          height: 27px;
+          background: url('icon-drone-badge2.png') no-repeat 0 0;
+          display: inline-block;
+          margin-top: 10px;
+        }
+      }
+      .drone-info {
+        padding: 10px 0 10px 30px;
+        border-left: 1px solid rgba(134, 133, 117, 0.43);
+      }
+      .label {
+        padding-bottom: 6px;
+      }
+    }
+  }
+}
+

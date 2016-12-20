@@ -1,0 +1,54 @@
+.poromoted-service-item {
+  position: relative;
+  .off-percent {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #d96600;
+    width: 78px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    color: #fff;
+    position: absolute;
+    left: 17px;
+    top: 10px;
+  }
+
+  figure {
+    margin: 0 5px;
+  }
+  .drone-img {
+    margin: 0 auto;
+    width: 100%;
+  }
+  figcaption {
+    border: 1px solid #e1e1e1;
+    padding: 14px 12px;
+  }
+  .service-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #315b95;
+    line-height: 1.3;
+    padding-bottom: 7px;
+  }
+
+  .status {
+    font-size: 14px;
+    color: #868575;
+    padding-bottom: 15px;
+  }
+  .off-price {
+    font-size: 24px;
+    padding-bottom: 15px;
+  }
+  .original-price {
+    text-decoration: line-through;
+    color: #acacac;
+  }
+  .new-price {
+    color: #343434;
+    padding-left: 15px;
+  }
+}

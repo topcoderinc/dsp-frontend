@@ -1,0 +1,26 @@
+.browse-services {
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 20px;
+  background-color: #fff;
+  .header {
+    padding-left: 37px;
+    font-size: 20px;
+    color: #525051;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  .browse-services-items {
+  	display: flex;
+  	flex-wrap: wrap;
+  	justify-content: space-around;
+  	padding: 17px 37px 0;
+  	> div {
+  		margin-right: 37px;
+  		margin-bottom: 34px;
+  		&:nth-child(5n) {
+	  		margin-right: 0;
+	  	}
+  	}
+  }
+}

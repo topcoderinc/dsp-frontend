@@ -1,0 +1,82 @@
+.popular-drone-slider-item {
+  position: relative;
+  .sponsored {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #858575;
+    width: 95px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    color: #fff;
+    position: absolute;
+    left: 17px;
+    top: 10px;
+  }
+  .slick-arrow {
+    background: #000;
+  }
+  .slick-slider .slick-arrow {
+    display: block;
+    position: relative;
+    width: 100px;
+    &:after {
+      content: '';
+      width: 35px;
+      height: 60px;
+      background: rgba(54, 57, 62, .74);
+      display: block;
+    }
+  }
+  figure {
+    margin: 0 5px;
+  }
+  .drone-img {
+    margin: 0 auto;
+    width: 100%;
+  }
+  figcaption {
+    border: 1px solid #e1e1e1;
+    padding: 18px 12px;
+  }
+  .drone-name {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #315b95;
+    .badge {
+      margin-left: auto;
+    }
+    .icon-drone-badge {
+      width: 16px;
+      height: 21px;
+      background: url('icon-drone-badge.png');
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      display: block;
+    }
+  }
+
+  .job-rating {
+    display: flex;
+    align-items: center;
+    .completed-job {
+      font-size: 14px;
+      color: #343434;
+      font-size: 14px;
+      color: #343434;
+      margin: 5px 0;
+    }
+    .rating {
+      margin-left: auto;
+      .icon-rating {
+        background: url('icon-rating.png') no-repeat 0 0;
+        display: block;
+        width: 102px;
+        height: 17px;
+      }
+    }
+  }
+}

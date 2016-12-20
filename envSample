@@ -1,0 +1,5 @@
+REACT_APP_API_BASE_PATH=https://kb-dsp-server.herokuapp.com
+REACT_APP_SOCKET_URL=https://kb-dsp-server.herokuapp.com
+REACT_APP_AUTH0_CLIEND_ID=3CGKzjS2nVSqHxHHE64RhvvKY6e0TYpK
+REACT_APP_AUTH0_DOMAIN=dronetest.auth0.com
+REACT_APP_GOOGLE_API_KEY=AIzaSyCR3jfBdv9prCBYBOf-fPUDhjPP4K05YjE

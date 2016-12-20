@@ -1,0 +1,27 @@
+.available-pakages {
+	padding: 0 23px 70px;
+	.packages-head {
+		display: flex;
+		align-items: center;
+		padding-top: 12px;
+	}
+	h4 {
+		padding-left: 15px;
+		font-size: 20px;
+		color: #525051;
+		margin: 20px 0;
+	}
+	.back-to-services {
+		font-size: 14px;
+		color: #315b95;
+		margin-left: auto;
+		display: block;
+		padding-right: 12px;
+	}
+	.available-pakages-conatiner {
+		padding: 0;
+		display: flex;
+	}
+}
+
+

@@ -1,0 +1,45 @@
+.feedback-item {
+  position: relative;
+  padding-top: 25px;
+  padding-left: 63px;
+  padding-bottom: 30px;
+  padding: 25px 20px 30px 63px;
+  border-bottom: 1px solid #e7e8ea;
+  &:last-child {
+  }
+  .user-avatar {
+    position: absolute;
+    left: 8px;
+    top: 25px;
+  }
+  .feedback-head {
+    display: flex;
+    align-items: center;
+    .username {
+      h4 {
+        margin: 0;
+        font-size: 16px;
+      }
+      p {
+        margin: 0;
+      }
+      .time {
+        font-size: 12px;
+        color: #222121;
+      }
+    }
+    .rating {
+      width: 102px;
+      height: 17px;
+      background: url('icon-rating.png') no-repeat 0 0;
+      display: block;
+      margin-left: auto;
+    }
+  }
+  .comment {
+    margin: 0;
+    font-size: 14px;
+    color: #333333;
+    padding-top: 5px;
+  }
+}
