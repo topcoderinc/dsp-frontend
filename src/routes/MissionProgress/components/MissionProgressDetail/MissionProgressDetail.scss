@@ -1,0 +1,33 @@
+.mission-progress-detail {
+  .title {
+  	font-size: 16px;
+  	color: #131313;
+		font-weight: bold;
+		padding-bottom: 10px;
+  }
+  .detail-col {
+  	display: flex;
+  	width: 100%;
+  	.left-col {
+  		width: 50%;
+  	}
+  	.right-col {
+  		width: 50%;
+  		padding-left: 45px
+  	}
+  }
+}
+.data-row {
+	display: flex;
+	font-size: 14px;
+	color: #343434;
+	padding: 8px 0;
+	.lable {
+		min-width: 180px;
+		font-weight: bold;
+	}
+	.value {
+		font-weight: normal;
+		line-height: 1.3;
+	}
+}

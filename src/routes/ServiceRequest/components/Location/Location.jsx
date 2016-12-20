@@ -2,6 +2,11 @@ import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './Location.scss';
 
+
+/*
+* Location
+*/
+
 export const Location = ({ type, address }) => (
   <div styleName="location">
     <i styleName={`icon-${type}`} />

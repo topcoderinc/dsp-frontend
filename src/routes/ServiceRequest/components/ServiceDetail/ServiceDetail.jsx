@@ -8,22 +8,32 @@ import ContactDetails from '../ContactDetails';
 import EstimatedAmountToPay from '../EstimatedAmountToPay';
 import styles from './ServiceDetail.scss';
 
+
+/*
+* ServiceDetail
+*/
+
 export const ServiceDetail = ({fields, handleSubmit, startLocation, endLocation, resetForm}) => (
-  <form onSubmit={handleSubmit} styleName="service-detail">
-    <div styleName="locations">
-      <Location type="red" address={startLocation} />
-      <Location type="green" address={endLocation} />
-    </div>
-    <div styleName="data">
-      <ItemRequest fields={fields} />
-      <ContactDetails fields={fields} />
-      <EstimatedAmountToPay fields={fields} />
-    </div>
-    <div styleName="actions">
-      <Button color="gray" onClick={resetForm} className={styles.btnMargin}>Cancel</Button>
-      <Button type="submit" color="blue">Send Request</Button>
-    </div>
-  </form>
+  <div>
+    <form onSubmit={handleSubmit} styleName="service-detail">
+      <div styleName="locations">
+        <Location type="red" address={startLocation} />
+        <Location type="green" address={endLocation} />
+      </div>
+      {/* locations end */}
+      <div styleName="data">
+        <ItemRequest fields={fields} />
+        <ContactDetails fields={fields} />
+        <EstimatedAmountToPay fields={fields} />
+      </div>
+      {/* data end */}
+      <div styleName="actions">
+        <Button color="gray" onClick={resetForm} className={styles.btnMargin}>Cancel</Button>
+        <Button type="submit" color="blue">Send Request</Button>
+      </div>
+      {/* actions end */}
+    </form>
+  </div>
 );
 
 ServiceDetail.propTypes = {

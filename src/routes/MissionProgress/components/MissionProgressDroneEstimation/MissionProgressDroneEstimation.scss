@@ -1,0 +1,40 @@
+.mission-progress-drone-estimation {
+	border: 1px solid #d8d8d8;
+	background-color: #f7f7f7;
+	padding: 13px 20px 0;
+	margin-top: 40px;
+ 	.title-row {
+ 		display: flex;
+ 		.title {
+ 			font-size: 16px;
+	  	color: #131313;
+			font-weight: bold;
+			align-self: center;
+ 		}
+ 		.edit-btn {
+ 			margin-left: auto;
+ 			.editBtn {
+				padding: 10px 4px;
+				min-width: 74px;
+ 			}
+ 		}
+ 	}
+
+ 	.estimation-info {
+ 		padding-top: 20px;
+ 		.data-row {
+ 			display: flex;
+			font-size: 14px;
+			color: #343434;
+			padding: 0 0 20px;
+			.label {
+				min-width: 145px;
+				font-weight: bold;
+			}
+			.value {
+				font-weight: normal;
+				line-height: 1.3;
+			}
+ 		}
+ 	}
+}

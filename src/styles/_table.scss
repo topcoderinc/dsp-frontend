@@ -1,0 +1,154 @@
+#DroneScheduleTable,
+#myServicesTable,
+#myDronestable {
+	width: 100%;
+	.reactable-column-header {
+		th {
+			height: 50px;
+			background: #1e526c;
+			font-size: 14px;
+			color: #ffffff;
+			text-align: left;
+			&:first-child {
+				width: 18%;
+				text-align: center;
+			}
+			&:nth-child(2) {
+				width: 18%;
+			}
+			&:nth-child(3) {
+				width: 18%;
+			}
+			&:nth-child(4) {
+				width: 15%;
+			}
+			&:nth-child(5) {
+				width: 10%;
+			}
+
+		}
+	}
+	.reactable-data {
+		td {
+			font-size: 14px;
+			color: #343434;
+			vertical-align: middle;
+			padding: 20px 0;
+			border-bottom: 1px solid #e7e8ea;
+			&:first-child {
+				padding-left: 20px;
+			}
+			&:nth-child(2) {
+				color: #006baf;
+			}
+		}
+		ul {
+			display: flex;
+			justify-content: space-around;
+			align-items: baseline;
+			padding-left: 0;
+			padding-right: 15px;
+			li {
+				list-style: none;
+				color: #babfca;
+				font-size: 11px;
+				font-weight: bold;
+				height: 50px;
+				cursor: pointer;
+				a {
+					color: #babfca;
+					font-size: 11px;
+					font-weight: bold;
+				}
+				.icon-row {
+					background-position: 0 0;
+					background-repeat: no-repeat;
+					margin: 0 auto;
+				}
+				.icon-view-detail {
+					width: 27px;
+					height: 17px;
+					background: url('./img/icon-view-detail.png');
+				}
+				.icon-edit-row {
+					width: 20px;
+					height: 20px;
+					background: url('./img/icon-edit-row.png');
+				}
+				.icon-delete-row {
+					width: 15px;
+					height: 22px;
+					background: url('./img/icon-delete-row.png');
+				}
+			}
+		}
+	}
+	.reactable-pagination {
+		text-align: right;
+		a {
+			display: inline-block;
+			width: 27px;
+			height: 27px;
+			background: #e3e3e3;;
+			border-radius: 5px;
+			color: #626262;
+			font-size: 12px;
+			text-align: center;
+			line-height: 27px;
+			margin-left: 10px;
+			margin-top: 25px;
+			margin-bottom: 6px;
+		}
+		.reactable-previous-page {
+			color: transparent;
+			position: relative;
+			background: #4c4c4c;
+			&:after {
+				content: '';
+				display: block;
+				width: 5px;
+				height: 8px;
+				background: url('./img/icon-prev-page.png');
+				position: absolute;
+				top: 9px;
+				left: 10px;
+			}
+		}
+		.reactable-next-page {
+			color: transparent;
+			position: relative;
+			background: #4c4c4c;
+			&:after {
+				content: '';
+				display: block;
+				width: 5px;
+				height: 8px;
+				background: url('./img/icon-next-page.png');
+				position: absolute;
+				top: 9px;
+				right: 10px;
+			}
+		}
+		.reactable-current-page {
+			color: #fff;
+			background: #315b95;
+		}
+	}
+	.reactable-header-sortable {
+		&:after {
+			content: '';
+			width: 11px;
+			height: 7px;
+			background: url('./img/icon-sort-desc.png');
+			background-position: 0 0;
+			background-repeat: no-repeat;
+			display: inline-block;
+			margin-left: 6px;
+		}
+	}
+	.reactable-header-sort-asc {
+		&:after {
+			transform: rotate(180deg);
+		}
+	}
+}

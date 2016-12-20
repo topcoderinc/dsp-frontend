@@ -1,0 +1,81 @@
+.edit-drones-form {
+	padding: 50px 0 14px;
+	margin: 0 115px;
+}
+
+.row {
+	display: flex;
+	margin-bottom: 22px;
+	label {
+		display: block;
+		flex: 0 0 29%;
+		align-self: center;
+		font-size: 14px;
+		color: #343434;
+		font-weight: bold;
+	}
+	.unit {
+		margin-left: 13px;
+		font-size: 14px;
+		color: #343434;
+	}
+	.minMaxSpeed {
+		flex: 0 0 80%;
+		display: flex;
+		.speed {
+			flex: 0 0 28%;
+			display: flex;
+			align-items: center;
+			&:last-child {
+				flex: 0 0 22%;
+			}
+			.hyphen {
+				display: inline-block;
+				font-size: 24px;
+				margin: 0 20px;
+				color: #333333;
+			}
+			
+		}
+	}
+	.input-with-label {
+		flex: 0 0 20%;
+		display: flex;
+		align-items: center;
+		.input {
+			flex: 0 0 66%;
+		}
+	}
+	.checkbox-options {
+		flex: 0 0 71%;
+		display: flex;
+		.checkbox {
+			flex: 0 0 30%;
+			label {
+				flex: 0 0 100%;
+				font-weight: normal;
+			}
+		}
+	}
+	.desc-label {
+		align-self: flex-start;
+	}
+	textarea {
+	}
+
+}
+.checkboxRow {
+	margin-bottom: 7px; 
+}
+
+.actions {
+  padding: 21px 25px;
+  text-align: right;
+  background: #fff;
+  margin-top: 35px;
+	border-top: 1px solid #e7e8ea;
+}
+
+.btnMargin {
+  margin-right: 12px;
+}

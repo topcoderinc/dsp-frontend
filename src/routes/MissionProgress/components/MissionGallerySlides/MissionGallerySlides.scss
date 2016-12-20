@@ -1,0 +1,18 @@
+.mission-gallery-slides {
+  width: 100%;
+  .slick-arrow {
+	background: #000;
+}
+}
+.slick-slider .slick-arrow {
+	display: block;
+	position: relative;
+	width: 100px;
+	&:after {
+		content: '';
+		width: 35px;
+		height: 60px;
+		background: rgba(54, 57, 62, .74);
+		display: block;
+	}
+}

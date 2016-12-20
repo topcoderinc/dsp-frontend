@@ -1,0 +1,52 @@
+.mark-as-modal {
+  .btnAsComplete {
+		padding: 13px 8px;
+		text-align: center;
+		margin-left: auto;
+	}
+	
+}
+.modal-header {
+	display: flex;
+	height: 23px;
+	background: #f0f0f1;
+	height: 63px;
+	align-items: center;
+	padding: 5px 20px;
+}
+.title {
+	font-size: 24px;
+	color: #0d0d0d;
+	align-self: center;
+	font-weight: bold;
+}
+.icon-close-modal {
+	display: block;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  width: 26px;
+  height: 26px;
+  background: url('icon-close-modal.png');
+  margin-left: auto;
+  cursor: pointer;
+}
+.modal-msg {
+	font-size: 14px;
+	color: #131313;
+	text-align: center;
+	padding: 28px;
+}
+
+.mark-as-btns {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 30px;
+	.btnOk {
+		padding: 14px 8px;
+		margin-right: 6px;
+	}
+	.btnMarkComplete {
+		padding: 5px 8px;
+		margin-left: 6px;
+	}
+}

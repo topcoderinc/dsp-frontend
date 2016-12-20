@@ -1,16 +1,18 @@
 import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import Breadcrumbs from 'react-breadcrumbs';
 import HeaderContainer from 'containers/HeaderContainer';
+import Breadcrumbs from 'react-breadcrumbs';
+import Footer from 'components/Footer';
 import styles from './CoreLayout.scss';
-import Footer from '../../components/Footer';
 
 export const CoreLayout = ({children, routes, params}) => (
   <div styleName="core-layout">
     <HeaderContainer routes={routes} />
+
     <div className="breadcrumb-container">
       <Breadcrumbs routes={routes} params={params} excludes={['CoreLayout', 'ServiceRequest']} />
     </div>
+
     <div styleName="content">
       {children}
     </div>

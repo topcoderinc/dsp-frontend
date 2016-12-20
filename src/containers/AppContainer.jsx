@@ -5,7 +5,11 @@ import { Provider } from 'react-redux';
 
 const AppContainer = ({ history, routes, routerKey, store }) => (
   <Provider store={store}>
-    <Router history={history} render={(props) => <ReduxAsyncConnect {...props} />} key={routerKey}>{routes}</Router>
+    <Router
+      history={history}
+      render={(props) => <ReduxAsyncConnect {...props} />}
+      key={routerKey}
+    >{routes}</Router>
   </Provider>
 );
 

@@ -2,9 +2,15 @@
 
 @import "../../node_modules/react-date-picker/index.css";
 @import "../../node_modules/react-select/dist/react-select.css";
+@import '../../node_modules/rc-calendar/assets/index.css';
+@import "../../node_modules/slick-carousel/slick/slick.css";
 
+@import "slick-theme";
+@import "tabs";
+@import "table";
 @import "mixins";
 @import "fonts";
 @import "normalize";
 @import "spaces";
 @import "base";
+

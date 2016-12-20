@@ -5,6 +5,11 @@ import styles from './ProviderMap.scss';
 
 const getImage = (name) => `${window.location.origin}/img/${name}`;
 
+
+/*
+* ProviderMap
+*/
+
 class ProviderMap extends React.Component {
 
   componentDidMount() {

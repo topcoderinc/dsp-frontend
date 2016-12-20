@@ -5,6 +5,11 @@ import FormField from 'components/FormField';
 import TextField from 'components/TextField';
 import styles from './EstimatedAmountToPay.scss';
 
+
+/*
+* EstimatedAmountToPay
+*/
+
 export const EstimatedAmountToPay = ({fields}) => (
   <div>
     <Accordion title="Estimated Amount to Pay">

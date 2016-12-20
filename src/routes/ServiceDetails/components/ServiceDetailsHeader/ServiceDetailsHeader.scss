@@ -1,0 +1,21 @@
+.service-details-header {
+	display: flex;
+	margin: 17px 27px 20px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid rgba(140,140,140,.29);
+  	.title {
+		font-size: 24px;
+		flex: 0 1 255px;
+		align-self: center;
+		padding: 5px 0;
+	}
+}
+
+.add-service-btn {
+	align-self: center;
+	margin-left: auto;
+	.btnEditService {
+		margin-left: 7px;
+	}
+}
+

@@ -1,0 +1,184 @@
+.my-services-table {
+  padding: 25px 20px 20px;
+  position: relative;
+  :global {
+  	#myServicesTable {
+		width: 100%;
+		.reactable-column-header {
+			th {
+				height: 50px;
+				background: #1e526c;
+				font-size: 14px;
+				color: #ffffff;
+				text-align: left;
+				&:first-child {
+					width: 15%;
+					text-align: left;
+					padding-left: 20px;
+				}
+				&:nth-child(2) {
+					width: 9%;
+				}
+				&:nth-child(3) {
+					width: 25%;
+				}
+
+			}
+		}
+		.reactable-data {
+			td {
+				font-size: 14px;
+				color: #343434;
+				vertical-align: top;
+				padding: 20px 0;
+				border-bottom: 1px solid #e7e8ea;
+				&:first-child {
+					padding-left: 20px;
+					a {
+						color: #006baf;
+					}
+					
+				}
+				&:nth-child(2) {
+					color: #343434;
+				}
+			}
+		}
+	}
+  }
+}
+
+.table-head {
+	display: flex;
+	padding-bottom: 20px;
+	padding-top: 5px;
+	.display {
+		font-size: 14px;
+		color: #131313;
+	}
+	.filter-btn {
+		margin-left: auto;
+		.icon-filter-black {
+			width: 18px;
+			height: 17px;
+			background: url('icon-filter-black.png');
+			background-position: 0 0;
+			background-repeat: no-repeat;
+			display: block;
+			position: absolute;
+			left: -25px;
+			top: 2px;
+		}
+		a {
+			font-size: 14px;
+			color: #131313;
+			display: block;
+			position: relative;
+		}
+	}
+}
+
+.show-per-page {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	bottom: 27px;
+	left: 20px;
+}
+
+.perPage-select {
+	width: 52px;
+	margin: 0 10px;
+}
+
+:global {
+	.Dropdown-root {
+	  position: relative;
+	}
+
+	.Dropdown-control {
+	  position: relative;
+	  overflow: hidden;
+	  background-color: white;
+	  border: 1px solid #e3e3e3;
+	  border-radius: 5px;
+	  box-sizing: border-box;
+	  color: #282828;
+	  cursor: default;
+	  outline: none;
+	  padding: 2px 12px 2px 10px;
+	  transition: all 200ms ease;
+	}
+
+	.Dropdown-control:hover {
+	  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+	}
+
+	.Dropdown-arrow {
+	  background: url("../../../../styles/img/icon-dropdown-caret-sm.png") no-repeat;
+      width: 15px;
+      height: 9px;
+      border: none;
+	  position: absolute;
+	  top: 10px;
+	  right: 3px;
+	}
+
+	.is-open .Dropdown-arrow {
+	  border-color: transparent transparent #999;
+	  border-width: 0 5px 5px;
+	}
+
+	.Dropdown-menu {
+	  background-color: white;
+	  border: 1px solid #ccc;
+	  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+	  box-sizing: border-box;
+	  margin-top: -1px;
+	  max-height: 200px;
+	  overflow-y: auto;
+	  position: absolute;
+	  top: 100%;
+	  width: 100%;
+	  z-index: 1000;
+	  -webkit-overflow-scrolling: touch;
+	}
+
+	.Dropdown-menu .Dropdown-group > .Dropdown-title{
+	  padding: 8px 10px;
+	  color: rgba(51, 51, 51, 1);
+	  font-weight: bold;
+	  text-transform: capitalize;
+	}
+
+	.Dropdown-option {
+	  box-sizing: border-box;
+	  color: rgba(51, 51, 51, 0.8);
+	  cursor: pointer;
+	  display: block;
+	  padding: 8px 10px;
+	}
+
+	.Dropdown-option:last-child {
+	  border-bottom-right-radius: 2px;
+	   border-bottom-left-radius: 2px;
+	}
+
+	.Dropdown-option:hover {
+	  background-color: #f2f9fc;
+	  color: #333;
+	}
+
+	.Dropdown-option.is-selected {
+	  background-color: #f2f9fc;
+	  color: #333;
+	}
+
+	.Dropdown-noresults {
+	  box-sizing: border-box;
+	  color: #ccc;
+	  cursor: default;
+	  display: block;
+	  padding: 8px 10px;
+	}
+}

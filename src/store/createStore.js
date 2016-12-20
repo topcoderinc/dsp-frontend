@@ -14,6 +14,7 @@ export default (initialState = {}, history) => {
     initialState,
     compose(
       applyMiddleware(...middleware),
+      window.devToolsExtension ? window.devToolsExtension() : (f) => f, // redux dev tool extension for chrome
     )
   );
   store.asyncReducers = {};

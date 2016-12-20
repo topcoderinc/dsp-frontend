@@ -5,6 +5,11 @@ import FormField from 'components/FormField';
 import TextField from 'components/TextField';
 import styles from './ContactDetails.scss';
 
+
+/*
+* ContactDetails
+*/
+
 export const ContactDetails = ({fields}) => (
   <div>
     <Accordion title="Contact Details">

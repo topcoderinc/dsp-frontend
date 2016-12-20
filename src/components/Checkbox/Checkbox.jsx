@@ -5,7 +5,7 @@ import styles from './Checkbox.scss';
 
 const Checkbox = ({ children, className, id, ...props }) => (
   <div styleName="checkbox" className={className}>
-    <input id={id} type="checkbox" {..._.pick(props, 'checked', 'onChange')} />
+    <input id={id} type="checkbox" {..._.pick(props, 'checked', 'onChange', 'defaultChecked')} />
     <label htmlFor={id}>
       <span /> {children}
     </label>

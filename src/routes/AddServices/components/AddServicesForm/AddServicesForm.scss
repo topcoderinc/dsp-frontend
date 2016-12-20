@@ -1,0 +1,131 @@
+.add-services-form {
+	padding: 50px 0 14px;
+	margin: 0 115px;
+	h4 {
+		font-weight: bold;
+		font-size: 20px;
+		color: #525051;
+		margin-top: 40px;
+		border-top: 1px solid #e7e8ea;
+		padding-top: 25px;
+	}
+}
+
+.row {
+	display: flex;
+	margin-bottom: 22px;
+	label {
+		display: block;
+		flex: 0 0 29%;
+		align-self: center;
+		font-size: 14px;
+		color: #343434;
+		font-weight: bold;
+	}
+	.unit {
+		margin-left: 13px;
+		font-size: 14px;
+		color: #343434;
+	}
+	
+	.input-with-label {
+		flex: 0 0 20%;
+		display: flex;
+		align-items: center;
+		.input {
+			flex: 0 0 66%;
+		}
+	}
+	.checkbox-options {
+		flex: 0 0 71%;
+		display: flex;
+		.checkbox {
+			flex: 0 0 30%;
+			label {
+				flex: 0 0 100%;
+				font-weight: normal;
+			}
+		}
+	}
+	.desc-label {
+		align-self: flex-start;
+	}
+	textarea {
+	}
+
+}
+.checkboxRow {
+	margin-bottom: 7px; 
+}
+.add-package {
+	border-top: 1px solid #e7e8ea;
+	border-bottom: 1px solid #e7e8ea;
+	margin-top: 40px;
+	
+	.desc-label {
+		align-self: flex-start;
+	}
+	.checkbox-options {
+		display: block;
+		.include-row {
+			display: flex;
+			margin-bottom: 15px;
+		}
+		.checkbox {
+			flex: 0 0 25%;
+		}
+		
+	}
+	.input-with-label {
+		flex: 0 0 17%;
+	}
+	.price-discount-row {
+		display: flex;
+		flex: 0 0 71%;
+		.price-input {
+			flex: 0 0 59%;
+			padding-right: 82px;
+		}
+		.discount-input {
+			flex: 0 0 50%;
+			display: flex;
+			.discount-label {
+				flex: 0 0 30%;
+			}
+			.discount-input {
+				flex: 0 0 40%;
+			}
+		}
+	}
+	.row {
+		&:last-child {
+			margin-bottom: 25px;
+		}
+	}
+	.add-more-btn {
+		font-size: 14px;
+		color: #315b95;
+	}
+}
+:global {
+	.form-field {
+		width: 100%;
+		&.error {
+			color: #ff3100;
+			> div:first-child {
+				border: 1px solid #ff3100;
+			}
+		}
+	}
+}
+
+.actions {
+  padding: 21px 25px;
+  text-align: right;
+  background: #fff;
+  border-top: 1px solid #e7e8ea;
+}
+
+.btnMargin {
+  margin-right: 12px;
+}
