@@ -24,9 +24,24 @@ export const sendLoginRequest = (values) => new Promise((resolve) => {
   resolve();
 });
 
+export const sendSignupRequest = (values) => new Promise((resolve) => {
+  userApi.register('name', values.email, values.password).then((authResult) => {
+    isLogged = true;
+    hasError = false;
+    browserHistory.push('/browse-provider');
+  }).catch((err) => {
+    isLogged = false;
+    hasError = true;
+    errorText = JSON.parse(err.responseText);
+  });
+  resolve();
+});
+
 export const toggleNotification = createAction('TOGGLE_NOTIFICATION');
 
 export const loginAction = createAction('LOGIN_ACTION');
+
+export const signupAction = createAction('SIGNUP_ACTION');
 
 export const actions = {
   toggleNotification, loginAction,
@@ -40,6 +55,9 @@ export default handleActions({
     ...state, toggleNotif: action.payload,
   }),
   [loginAction]: (state, action) => ({
+    ...state, loggedUser: isLogged, hasError, errorText,
+  }),
+  [signupAction]: (state, action) => ({
     ...state, loggedUser: isLogged, hasError, errorText,
   }),
 }, {

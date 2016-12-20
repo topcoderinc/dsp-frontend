@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 import Button from 'components/Button';
 import Checkbox from 'components/Checkbox';
 import TextField from 'components/TextField';
-import styles from './LogInSignUpModal.scss';
+import styles from './LogInModal.scss';
 const { DOM: { input } } = React;
 
 import UserApi from 'api/User.js';
@@ -47,39 +47,29 @@ const FormField = ({label, error, touched, children}) => (
   </div>
 );
 /*
-* LogInSignUpModal
+* LogInModal
 */
 
-class LogInSignUpModal extends React.Component {
+class LogInModal extends React.Component {
   constructor() {
     super();
     this.state = {
-      modalLoginIsOpen: false,
-      modalSignupIsOpen: false,
+      modalLoginIsOpen: false
     };
   }
 
   openLoginModal() {
     this.setState({modalLoginIsOpen: true});
   }
-  openSignupModal() {
-    this.setState({modalSignupIsOpen: true});
-  }
 
   afterOpenLoginModal() {
-  }
-  afterOpenSignupModal() {
   }
 
   closeLoginModal() {
     this.setState({modalLoginIsOpen: false});
   }
-  closeSignupModal() {
-    this.setState({modalSignupIsOpen: false});
-  }
 
   login(email, pass) {
-    this.setState({modalSignupIsOpen: false});
     this.setState({modalLoginIsOpen: true});
   }
 
@@ -95,27 +85,12 @@ class LogInSignUpModal extends React.Component {
     }, 100);
   }
 
-  handleSignup() {
-    userApi.register('first', 'provider2@qq.com', '123456').then((authResult) => {
-      console.log(authResult);
-      browserHistory.push('/browse-provider');
-    }).catch((err) => {
-      console.log(err.responseText);
-    });
-  }
-
-  signUp() {
-    this.setState({modalLoginIsOpen: false});
-    this.setState({modalSignupIsOpen: true});
-  }
-
   render() {
     const { handleSubmit, pristine, reset, submitting, fields, handleLoggedIn, loggedUser, hasError, errorText } = this.props;
 
     return (
       <div styleName="signin-modal">
         <div styleName="login-signup">
-          <a href="javascript:" styleName="signup" onClick={this.openSignupModal.bind(this)}>Sign Up</a>
           <a href="javascript:" styleName="login" onClick={this.openLoginModal.bind(this)}>Login</a>
         </div>
         <Modal
@@ -188,73 +163,18 @@ class LogInSignUpModal extends React.Component {
               </Button>
             </div>
             <div styleName="dont-have">
-              Don&#8217;t have an account?            <a href="javascript:;" className="singup" onClick={this.signUp.bind(this)}>Sign Up</a>
+              Don&#8217;t have an account?            <a href="javascript:;" className="singup" >Sign Up</a>
             </div>
           </form>
         </Modal>
 
-        <Modal
-          isOpen={this.state.modalSignupIsOpen}
-          onAfterOpen={this.afterOpenSignupModal}
-          onRequestClose={this.closeSignupModal.bind(this)}
-          style={customStyles}
-          shouldCloseOnOverlayClick
-          contentLabel="Login Modal"
-        >
-
-          <div styleName="modal-header">
-            <div onClick={this.closeSignupModal.bind(this)} styleName="icon-close-modal" />
-            <div styleName="title">Login to Your Account</div>
-          </div>
-
-          <form styleName="login-form">
-            <div styleName="login-with-fb">
-              <a href="javascript:;">
-                <i styleName="icon-facebook" />
-                <span>Continue  with Facebook</span>
-              </a>
-            </div>
-
-            <div styleName="login-with-gplus">
-              <a href="javascript:;">
-                <i styleName="icon-gplus" />
-                <span>Continue with Google Plus</span>
-              </a>
-            </div>
-            {/* login with end*/}
-            <div styleName="or-border">
-              <div styleName="left-line" />
-              <div styleName="or">or</div>
-              <div styleName="right-line" />
-            </div>
-            {/* or end*/}
-
-            <div styleName="signup-btn">
-              <i styleName="icon-email" />
-
-              <Button color="black" className={styles.btnLogin} onClick={this.handleSignup.bind(this)}>
-                Sign up with Email
-              </Button>
-
-            </div>
-            {/* signup-btn end*/}
-            <div styleName="by-signup">
-              By signing up, I agree to Drone Market’s
-              <a href="javascript:;">terms of service</a>, <a href="javascript:;">privacy policy</a>,
-              and <a href="javascript:;">disclaimer</a>.
-            </div>
-            {/* by-signup end*/}
-            <div styleName="dont-have">
-              Already have an account? <a href="javascript:;" className="singup" onClick={this.login.bind(this)}>Log In</a>
-            </div>
-          </form>
-        </Modal>
+        
       </div>
     );
   }
 }
 
-LogInSignUpModal.propTypes = {
+LogInModal.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
 };
 
@@ -274,4 +194,4 @@ const validate = (values) => {
 };
 
 
-export default reduxForm({ form: 'loginForm', fields, validate })(CSSModules(LogInSignUpModal, styles));
+export default reduxForm({ form: 'loginForm', fields, validate })(CSSModules(LogInModal, styles));

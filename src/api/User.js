@@ -42,7 +42,6 @@ class UserApi {
 
   register(name, email, password) {
     const url = `${this.basePath}/api/v1/register`;
-    email = Math.floor((Math.random() * 100) + 1) + email;
     return reqwest({
       url,
       method: 'post',

@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
 import { Link } from 'react-router';
-import LogInSignUpModalContainer from 'routes/Home/containers/LogInSignUpModalContainer';
+import LogInModalContainer from 'routes/Home/containers/LogInModalContainer';
+import SignupModalContainer from 'routes/Home/containers/SignupModalContainer';
 import SearchInput from '../SearchInput';
 import Dropdown from '../Dropdown';
 import Notification from '../Notification';
@@ -62,7 +63,10 @@ export const Header = ({location, selectedCategory, categories, user, notificati
                 </Dropdown>
               </li>),
               (<li key="login" styleName="login">
-                <LogInSignUpModalContainer />
+                <LogInModalContainer />
+              </li>),
+              (<li key="signup" styleName="login">
+                <SignupModalContainer />
               </li>),
             ]
             );
