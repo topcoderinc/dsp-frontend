@@ -1,0 +1,18 @@
+.browse-provider-view {
+  padding: 0;
+  width: 100%;
+  .row {
+    width: 100%;
+    display: flex;
+    .right-col {
+      width: 48%;
+    }
+    .left-col {
+      width: 52%;
+      background-color: #f3f3f3;
+      -moz-box-shadow: 2px 0 5px 0 rgba(0,0,0,.16);
+      -webkit-box-shadow: 2px 0 5px 0 rgba(0,0,0,.16);
+      box-shadow: 2px 0 5px 0 rgba(0,0,0,.16); 
+    }
+  }
+}

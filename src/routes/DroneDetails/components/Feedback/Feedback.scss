@@ -1,0 +1,124 @@
+.feedback-section {
+  position: relative;
+  background: #f3f3f3;
+  padding: 5px 37px 37px;
+  .feedback-items {
+    border: 1px solid #e1e1e1;
+    background-color: #fff; 
+    padding: 0 12px;
+  }
+  .feedback-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 5px;
+    .see-reviews-option {
+      margin-left: auto;
+      min-width: 146px;
+    }
+    p {
+      font-size: 20px;
+      color: #525051;
+      font-family: 'Proxima Nova Rg';
+      margin: 15px 0;
+    }
+  }
+}
+:global {
+  .label1 {
+    width: 35%;
+    display: inline-block;
+  }
+
+  .Dropdown-root {
+    position: relative;
+  }
+
+  .Dropdown-control {
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    border: 1px solid #e3e3e3;
+    border-radius: 0;
+    box-sizing: border-box;
+    color: #282828;
+    cursor: default;
+    outline: none;
+    padding: 5px 12px 5px 10px;
+    transition: all 200ms ease;
+    font-size: 12px;
+  }
+
+  .Dropdown-control:hover {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .Dropdown-arrow {
+    background: url("../../../../styles/img/icon-blue-drop.png") no-repeat;
+    width: 15px;
+    height: 9px;
+    border: none;
+    position: absolute;
+    top: 11px;
+    right: 11px;
+  }
+
+  .is-open .Dropdown-arrow {
+    border-color: transparent transparent #999;
+    border-width: 0 5px 5px;
+  }
+
+  .Dropdown-menu {
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+    margin-top: -1px;
+    max-height: 200px;
+    font-size: 12px;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: 1000;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .Dropdown-menu .Dropdown-group > .Dropdown-title{
+    padding: 8px 10px;
+    color: rgba(51, 51, 51, 1);
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+
+  .Dropdown-option {
+    font-size: 12px;
+    box-sizing: border-box;
+    color: rgba(51, 51, 51, 0.8);
+    cursor: pointer;
+    display: block;
+    padding: 8px 10px;
+  }
+
+  .Dropdown-option:last-child {
+    border-bottom-right-radius: 2px;
+     border-bottom-left-radius: 2px;
+  }
+
+  .Dropdown-option:hover {
+    background-color: #f2f9fc;
+    color: #333;
+  }
+
+  .Dropdown-option.is-selected {
+    background-color: #f2f9fc;
+    color: #333;
+  }
+
+  .Dropdown-noresults {
+    box-sizing: border-box;
+    color: #ccc;
+    cursor: default;
+    display: block;
+    padding: 8px 10px;
+  }
+}

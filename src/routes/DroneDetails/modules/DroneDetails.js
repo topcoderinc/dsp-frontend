@@ -1,16 +1,9 @@
-import { handleActions, createAction } from 'redux-actions';
-import Reactable from 'Reactable';
-import moment from 'moment';
+import { handleActions } from 'redux-actions';
 
-const unsafe = Reactable.unsafe;
-const now = moment();
-const format = 'dddd, MMMM DD, YYYY';
-const today = now.format(format);
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const selectedDate = createAction('SELECTED_DATE');
 
 
 export const sendRequest = (values) => new Promise((resolve) => {
@@ -18,106 +11,41 @@ export const sendRequest = (values) => new Promise((resolve) => {
   resolve();
 });
 
+
 export const actions = {
-  selectedDate,
 };
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 export default handleActions({
-  [selectedDate]: (state, action) => ({
-    ...state, selectedCalenderDate: action.payload,
-  }),
+
 }, {
   // initial data
-  selectedCalenderDate: today,
-  droneInfoDetails: {
-    droneName: 'Drone name lorem ipsum',
-    droneSerialNum: '#123456789ABC',
-    description1: 'assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.',
-    description2: 'Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.',
-  },
-  LastCompletedMissionsData: [
-    {routeImg: 'route-1.png', missionTitle: 'Lorem Ipsum Mission Title', id: '123456789ABC', type: 'Simple Delivery', date: '10/24/2016  09:30 AM', location: 'Street address lorem...'},
-    {routeImg: 'route-1.png', missionTitle: 'Lorem Ipsum Mission Title', id: '123456789ABC', type: 'Simple Delivery', date: '10/24/2016  09:30 AM', location: 'Street address lorem...'},
-    {routeImg: 'route-1.png', missionTitle: 'Lorem Ipsum Mission Title', id: '123456789ABC', type: 'Simple Delivery', date: '10/24/2016  09:30 AM', location: 'Street address lorem...'},
-    {routeImg: 'route-1.png', missionTitle: 'Lorem Ipsum Mission Title', id: '123456789ABC', type: 'Simple Delivery', date: '10/24/2016  09:30 AM', location: 'Street address lorem...'},
+  categories: [
+    {categoryImgSrc: 'delivery-category-pic.png', categoryName: 'Delivery', iconName: 'icon-delivery-category'},
+    {categoryImgSrc: 'mapping-category-pic.png', categoryName: 'Mapping', iconName: 'icon-mapping-category'},
+    {categoryImgSrc: 'monitoring-category-pic.png', categoryName: 'Monitoring', iconName: 'icon-monitoring-category'},
+    {categoryImgSrc: 'photography-category-pic.png', categoryName: 'Photography', iconName: 'icon-photography-category'},
+    {categoryImgSrc: 'filming-category-pic.png', categoryName: 'Filming', iconName: 'icon-filming-category'},
+    {categoryImgSrc: 'construction-category-pic.png', categoryName: 'Construction', iconName: 'icon-construction-category'},
+    {categoryImgSrc: 'delivery-category-pic.png', categoryName: 'Delivery', iconName: 'icon-delivery-category'},
+    {categoryImgSrc: 'mapping-category-pic.png', categoryName: 'Mapping', iconName: 'icon-mapping-category'},
+    {categoryImgSrc: 'monitoring-category-pic.png', categoryName: 'Monitoring', iconName: 'icon-monitoring-category'},
+    {categoryImgSrc: 'photography-category-pic.png', categoryName: 'Photography', iconName: 'icon-photography-category'},
   ],
 
-  scheduleTableData: [
-    {
-      'Scheduled Launch Time': '08:00 AM',
-      'Drone Serial Number': '123456789ABC',
-      'Service Type': 'Simple delivery',
-      'Pick-up Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'Drop-off Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'What to deliver / Weight': 'Object lorem ipsum / 9.99 lbs',
-    },
-    {
-      'Scheduled Launch Time': '08:00 AM',
-      'Drone Serial Number': '123456789ABC',
-      'Service Type': 'Simple delivery',
-      'Pick-up Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'Drop-off Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'What to deliver / Weight': 'Object lorem ipsum / 9.99 lbs',
-    },
-    {
-      'Scheduled Launch Time': '08:00 AM',
-      'Drone Serial Number': '123456789ABC',
-      'Service Type': 'Simple delivery',
-      'Pick-up Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'Drop-off Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'What to deliver / Weight': 'Object lorem ipsum / 9.99 lbs',
-    },
-    {
-      'Scheduled Launch Time': '08:00 AM',
-      'Drone Serial Number': '123456789ABC',
-      'Service Type': 'Simple delivery',
-      'Pick-up Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'Drop-off Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'What to deliver / Weight': 'Object lorem ipsum / 9.99 lbs',
-    },
-    {
-      'Scheduled Launch Time': '08:00 AM',
-      'Drone Serial Number': '123456789ABC',
-      'Service Type': 'Simple delivery',
-      'Pick-up Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'Drop-off Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'What to deliver / Weight': 'Object lorem ipsum / 9.99 lbs',
-    },
-
-  ],
-
-  droneSpecifications: {
-    RateOfClimb: '7.0 m/s',
-    OperatingSpeed: '8.0 m/s',
-    MaximumThrust: '15.5 N',
-    Weight: 'ca. 800 g (depending on configuration)',
-    RecommendedLoad: '150 g',
-    MaximumLoad: '250 g',
-    MaximumLakeOffWeight: '1,100 g',
-    Dimensions: '540 mm',
-    Battery: '14.8 V, 4S LiPo, 2300 mAh',
-    FlatCoreMotors: 'yes',
-    CFDOptimisedPropeller: 'yes',
-    ClosedCarbonHousing: 'yes',
-    IP43Protection: 'yes',
-  },
-
-  droneBenefits: [
-    'Up to 30 minutes flying time',
-    'Rain-resistant, dust-resistant',
-    'Extremely resistant to cold',
-    'Extremely resistant to heat',
-    'Flat core motors',
-    'CFD-optimised propeller',
-    'Less time needed to train crews',
-    'Low maintenance costs',
-    'Low service costs',
-    'Lower costs compared to helicopters',
-    'Low noise electric motor',
-    'Lower air turbulence',
+  feedbacks: [
+    {avatarImgSrc: 'avatar-1.png', name: 'Selina Gomez', time: '5 minutes ago',
+      comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinartempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. '},
+    {avatarImgSrc: 'avatar-2.png', name: 'Chris Evan', time: '5 minutes ago',
+      comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinartempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. '},
+    {avatarImgSrc: 'avatar-3.png', name: 'Chris Brown', time: '5 minutes ago',
+      comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinartempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. '},
+    {avatarImgSrc: 'avatar-4.png', name: 'Taylor Swift', time: '5 minutes ago',
+      comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinartempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. '},
+    {avatarImgSrc: 'avatar-5.png', name: 'elly Chen', time: '5 minutes ago',
+      comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinartempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. '},
   ],
 
 });

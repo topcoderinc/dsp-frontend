@@ -1,0 +1,40 @@
+.how-it-works {
+  .how-it-works-bg {
+    background-image: url('../../../../static/img/how-it-works-bg.png');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 337px;
+    position: relative;
+    padding: 45px 40px;
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #fff;
+      padding-bottom: 3px;
+    }
+    p {
+      font-size: 12px;
+      line-height: 2;
+      color: #fff;
+      width: 35vw;
+      padding-bottom: 6px;
+    }
+    .play-video {
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      margin-top: 6px;
+      .icon-play-video {
+        width: 32px;
+        height: 32px;
+        display: inline-block;
+        background: url('icon-video-play.png') no-repeat 0 0;
+        position: relative;
+        top: 11px;
+        margin-right: 13px;
+      }
+    }
+  }
+}

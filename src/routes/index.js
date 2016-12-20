@@ -11,10 +11,13 @@ import DronesMapRoute from './DronesMap';
 import EditDataRoute from './EditData';
 import MyDroneRoute from './MyDrone';
 import EditDronesRoute from './EditDrones';
-import DroneDetailsRoute from './DroneDetails';
 import ServiceDetailsRoute from './ServiceDetails';
 import MyServicesRoute from './MyServices';
 import AddServicesRoute from './AddServices';
+import HomeRoute from './Home';
+import BrowseProviderRoute from './BrowseProvider';
+import DroneDetailsRoute from './DroneDetails';
+import AvailablePackagesRoute from './AvailablePackages';
 
 export const createRoutes = (store) => ({
   path: '/',
@@ -44,6 +47,10 @@ export const createRoutes = (store) => ({
     MyServicesRoute(store),
     ServiceDetailsRoute(store),
     AddServicesRoute(store),
+    HomeRoute(store),
+    BrowseProviderRoute(store),
+    DroneDetailsRoute(store),
+    AvailablePackagesRoute(store),
 
   ],
 });

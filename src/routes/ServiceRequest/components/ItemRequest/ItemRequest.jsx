@@ -57,7 +57,7 @@ export const ItemRequest = ({fields}) => (
       </Row>
       {/* Row end */}
       <Row>
-        <FormField {...fields.dimension} label={<span className={styles.center}>Icon Dimension &nbsp;<InfoIcon>Length X Width X Height</InfoIcon></span>}>
+        <FormField {...fields.dimension} label={<span className={styles.center}>Icon Dimension &nbsp;<InfoIcon position="right">Length X Width X Height</InfoIcon></span>}>
           <TextField {...fields.dimension} />
         </FormField>
         <FormField>

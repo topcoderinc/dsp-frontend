@@ -1,0 +1,98 @@
+.map,
+.provider-map {
+  height: calc(100vh - 99px);
+  width: 100%;
+  :global {
+  	#popupHeading {
+  		align-items: center;
+  		display: flex;
+  	}
+  	#infowindowContent {
+  		width: 152px;
+  		flex-grow: 1;
+  		h3 {
+  			color: #315b95;
+  			font-size: 18px;
+  			margin: 0 0 6px;
+  		}
+  		#droneRating {
+  			font-size: 18px;
+  			display: flex;
+  			flex-grow: 0;
+  			margin-left: auto;
+  			color: #343434;
+  			font-weight: bold;
+  			.icon-rate-yellow {
+  				width: 17px;
+  				height: 17px;
+  				background: url('../../../../styles/img/icon-rate-yellow.png') no-repeat 0 0;
+  				margin-right: 5px;
+  			}
+  		}
+  		p {
+  			font-size: 14px;
+  			color: #343434;
+				margin: 3px 0 0;
+  			.available {
+  				color: #228f00;
+  				font-weight: bold;
+  			}
+  		}
+  		.view-detail-btn {
+  			margin-top: 10px;
+  			a {
+  				font-size: 14px;
+  				color: #868575;
+  				display: inline-block;
+  			}
+  		}
+  	}
+  	#movMap,
+  	#roadMap,
+  	#satMap {
+  		background-color: #FFF;
+  		border: 1px solid #d7d7d7;
+  		border-radius: 0;
+  		cursor: pointer;
+  		margin-bottom: 27px;
+  		text-align: center;
+  		min-width: 67px;
+  	}
+  	#roadMap,
+  	#satMap {
+  		position: relative;
+  		left: 10px;
+  	}
+  	#satMap {
+			left: 10px;
+  	}
+  	#movMap {
+  		min-width: 220px;
+  		position: relative;
+  		bottom: 0;
+  		left: 15px;
+  		margin-bottom: 0;
+			z-index: 999;
+			padding-left: 0;
+			label {
+				cursor: pointer;
+			}
+  	}
+  	#searchCheckbox {
+  		margin-right: 10px;
+  	}
+  	#movMapText,
+  	#roadMapText,
+  	#satMapText {
+  		color: #383838;
+  		font-size: 14px;
+  		text-align: center;
+  		line-height: 28px;
+  		padding: 5px;
+  	}
+  }
+}
+
+.provider-map {
+  position: relative;
+}

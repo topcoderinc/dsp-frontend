@@ -34,5 +34,3 @@ See Guild https://github.com/lorenwest/node-config/wiki/Configuration-Files
 |`lint:fix`|Lint and fix all `.js` files. [Read more on this](http://eslint.org/docs/user-guide/command-line-interface.html#fix).|
 |`test`|Run tests using [mocha-webpack](https://github.com/webpack/mocha-loader) for all `*.spec.(js|jsx)` files in the `src` dir.|
 
-## Google Map
-In this project module [react-google-maps](https://github.com/tomchentw/react-google-maps) is used to work with google maps. So it can be used for any new functionality.

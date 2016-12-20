@@ -1,0 +1,37 @@
+.last-completed-mission-item {
+  margin: 0 10px;
+  img {
+  	max-width: 280px;
+  }
+  h4 {
+  	font-size: 18px;
+  	color: #315b95;
+  	font-weight: bold;
+  	margin: 15px 0 10px;
+  }
+  .icon-rating {
+  	width: 102px;
+  	height: 17px;
+  	background: url('icon-rating.png');
+  	background-repeat: no-repeat;
+  	background-position: 0 0;
+  	margin-bottom: 14px;
+  }
+  .row {
+  	display: flex;
+  	padding-top: 2px;
+  	.left {
+  		width: 42%;
+  		font-size: 14px;
+  		color: #343434;
+  	}
+  	.right {
+  		width: 58%;
+  		font-size: 14px;
+  		color: #343434;
+  	}
+  	.id {
+  		color: #006baf;
+  	}
+  }
+}

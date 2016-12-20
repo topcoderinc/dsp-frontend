@@ -3,10 +3,10 @@ import CSSModules from 'react-css-modules';
 import Tooltip from 'rc-tooltip';
 import styles from './InfoIcon.scss';
 
-export const InfoIcon = ({ children }) => (
+export const InfoIcon = ({children, cName, position}) => (
   <div styleName="info-icon">
-    <Tooltip placement="right" trigger={['hover', 'click']} overlay={children}>
-      <div styleName="icon" />
+    <Tooltip placement={position} trigger={['hover', 'click']} overlay={children}>
+      <div styleName="icon" className={cName} />
     </Tooltip>
   </div>
 );

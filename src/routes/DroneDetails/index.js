@@ -2,8 +2,7 @@ import { injectReducer } from '../../store/reducers';
 
 export default (store) => ({
   path: 'drone-details',
-  name: 'Drone Details', /* Breadcrumb name */
-  staticName: true,
+  name: 'Drone List', /* Breadcrumb name */
   getComponent(nextState, cb) {
     require.ensure([], (require) => {
       const DroneDetails = require('./containers/DroneDetailsContainer').default;
