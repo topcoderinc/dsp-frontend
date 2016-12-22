@@ -40,7 +40,7 @@ const FormField = ({error, touched, children}) => (
   </div>
 );
 FormField.propTypes = {
-  error: PropTypes.bool,
+  error: PropTypes.string,
   touched: PropTypes.bool,
   children: PropTypes.any,
 };
@@ -174,9 +174,9 @@ LogInModal.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   fields: PropTypes.object,
   handleLoggedIn: PropTypes.func.isRequired,
-  loggedUser: PropTypes.object,
+  loggedUser: PropTypes.bool,
   hasError: PropTypes.bool,
-  errorText: PropTypes.string.isRequired,
+  errorText: PropTypes.string,
 };
 
 const fields = ['remember', 'email', 'password', 'emailUp', 'passwordUp'];

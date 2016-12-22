@@ -3,7 +3,7 @@ import {browserHistory} from 'react-router';
 import UserApi from 'api/User.js';
 import config from '../../config';
 
-const userApi = new UserApi(config.default.api.basePath);
+const userApi = new UserApi(config.api.basePath);
 
 // ------------------------------------
 // Actions
