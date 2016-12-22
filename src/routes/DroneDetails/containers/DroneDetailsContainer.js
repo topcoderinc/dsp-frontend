@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import DroneDetailsView from '../components/DroneDetailsView';
 
 const mapState = (state) => state.droneDetails;

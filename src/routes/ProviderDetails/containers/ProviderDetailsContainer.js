@@ -1,4 +1,4 @@
-import { asyncConnect } from 'redux-connect';
+import {asyncConnect} from 'redux-connect';
 import {actions} from '../modules/ProviderDetails';
 
 import ProviderDetailsView from '../components/ProviderDetailsView';

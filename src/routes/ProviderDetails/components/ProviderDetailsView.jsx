@@ -26,6 +26,7 @@ export const ProviderDetailsView = ({categories, feedbacks}) => (
 
 ProviderDetailsView.propTypes = {
   categories: PropTypes.array.isRequired,
+  feedbacks: PropTypes.array.isRequired,
 };
 
 export default CSSModules(ProviderDetailsView, styles);
