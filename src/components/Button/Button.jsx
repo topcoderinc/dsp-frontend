@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import _ from 'lodash';
 import cn from 'classnames';
@@ -21,4 +21,4 @@ Button.defaultProps = {
   size: 'normal',
 };
 
-export default CSSModules(Button, styles, { allowMultiple: true });
+export default CSSModules(Button, styles, {allowMultiple: true});

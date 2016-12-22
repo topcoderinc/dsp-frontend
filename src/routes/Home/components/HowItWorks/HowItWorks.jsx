@@ -1,9 +1,8 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './HowItWorks.scss';
-import Button from 'components/Button';
 
-export const HowItWorks = ({}) => (
+export const HowItWorks = () => (
   <div styleName="how-it-works">
     <div styleName="how-it-works-bg">
       <h2>How it Works</h2>

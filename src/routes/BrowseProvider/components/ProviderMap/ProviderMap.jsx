@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+/* eslint no-console: 0 */
+
+import React from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './ProviderMap.scss';
 
@@ -8,7 +10,7 @@ const getImage = (name) => `${window.location.origin}/img/${name}`;
    * The MapTypeCtrl adds map type to roadmap
    * This constructor takes the control DIV as an argument.
    */
-function RoadTypeCtrl(controlDiv, map, type) {
+function RoadTypeCtrl(controlDiv, map) {
     // Set CSS for the control border.
   const controlUI = document.createElement('div');
   controlUI.id = 'roadMap';
@@ -32,8 +34,8 @@ function RoadTypeCtrl(controlDiv, map, type) {
 
     // Setup the click event listeners: simply set the map to Chicago.
   controlUI.addEventListener('click', () => {
-    if (map.getMapTypeId() != 'roadmap') {
-      new SatelliteTypeCtrl(document.createElement('div'), map, 'roadmap');
+    if (map.getMapTypeId() !== 'roadmap') {
+      SatelliteTypeCtrl(document.createElement('div'), map, 'roadmap');
       document.getElementById('satMap').style.backgroundColor = '#fff';
       document.getElementById('satMap').style.border = '1px solid #d7d7d7';
       document.getElementById('satMapText').style.color = '#383838';
@@ -50,7 +52,7 @@ function RoadTypeCtrl(controlDiv, map, type) {
    * The SatelliteTypeCtrl adds map type to Satellite
    * This constructor takes the control DIV as an argument.
    */
-function SatelliteTypeCtrl(controlDiv, map, type) {
+function SatelliteTypeCtrl(controlDiv, map) {
     // Set CSS for the control border.
   const controlUI = document.createElement('div');
   controlUI.id = 'satMap';
@@ -74,8 +76,8 @@ function SatelliteTypeCtrl(controlDiv, map, type) {
 
     // Setup the click event listeners: simply set the map to Chicago.
   controlUI.addEventListener('click', () => {
-    if (map.getMapTypeId() != 'satellite') {
-      const roadUI = new RoadTypeCtrl(document.createElement('div'), map, 'satellite');
+    if (map.getMapTypeId() !== 'satellite') {
+      RoadTypeCtrl(document.createElement('div'), map, 'satellite');
       document.getElementById('roadMap').style.backgroundColor = '#fff';
       document.getElementById('roadMap').style.border = '1px solid #d7d7d7';
       document.getElementById('roadMapText').style.color = '#383838';
@@ -91,7 +93,7 @@ function SatelliteTypeCtrl(controlDiv, map, type) {
    * The movedMapCtrl adds map type to Satellite
    * This constructor takes the control DIV as an argument.
    */
-function movedMapCtrl(controlDiv, map, type) {
+function movedMapCtrl(controlDiv, map) {
     // Set CSS for the control border.
   const controlUI = document.createElement('div');
   controlUI.id = 'movMap';
@@ -109,7 +111,6 @@ function movedMapCtrl(controlDiv, map, type) {
 
     // Setup the click event listeners: simply set the map to Chicago.
   controlUI.addEventListener('click', () => {
-    console.log(document.getElementById('searchCheckbox').checked);
     if (document.getElementById('searchCheckbox').checked) {
         // Listener map move
       map.addListener('dragstart', () => {
@@ -172,10 +173,10 @@ class ProviderMap extends React.Component {
           lng: position.coords.longitude,
         };
         // generate random markers arround current location
-        for (var i = 4; i >= 0; i--) {
+        for (let i = 4; i >= 0; i--) {
           createMarker(generatePos(pos, 0.02), getImage('icon-provider-drone.png'), _self.map);
         }
-        for (var i = 4; i >= 0; i--) {
+        for (let i = 4; i >= 0; i--) {
           createMarker(generatePos(pos, -0.038), getImage('icon-provider-drone.png'), _self.map);
         }
 
@@ -193,21 +194,21 @@ class ProviderMap extends React.Component {
 
     // Create the DIV to hold the control and call the RoadTypeCtrl()
     const roadTypeCtrlDiv = document.createElement('div');
-    const roadTypeCtrl = new RoadTypeCtrl(roadTypeCtrlDiv, this.map, 'roadmap');
+    RoadTypeCtrl(roadTypeCtrlDiv, this.map, 'roadmap');
 
     roadTypeCtrlDiv.index = 1;
     this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(roadTypeCtrlDiv);
 
     // Create the DIV to hold the control and call the SatelliteTypeCtrl()
     const smapTypeCtrlDiv = document.createElement('div');
-    const smapTypeCtrl = new SatelliteTypeCtrl(smapTypeCtrlDiv, this.map, 'satellite');
+    SatelliteTypeCtrl(smapTypeCtrlDiv, this.map, 'satellite');
 
     smapTypeCtrlDiv.index = 1;
     this.map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(smapTypeCtrlDiv);
 
     // Create the DIV to hold the control and call the movedMapCtrl()
     const moveCtrlDiv = document.createElement('div');
-    const moveCtrl = new movedMapCtrl(moveCtrlDiv, this.map, 'satellite');
+    movedMapCtrl(moveCtrlDiv, this.map, 'satellite');
 
     moveCtrlDiv.index = 1;
     this.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(moveCtrlDiv);
@@ -216,9 +217,9 @@ class ProviderMap extends React.Component {
       const errorMsg = (browserHasGeolocation ?
                             'Error: The Geolocation service failed.' :
                             'Error: Your browser doesn\'t support geolocation.');
-      console.log(errorMsg);
+      console.error(errorMsg);
     }
-    const prv = 0;
+
     // create marker
     function createMarker(pos, icon, map) {
       const marker = new google.maps.Marker({
@@ -226,8 +227,8 @@ class ProviderMap extends React.Component {
         position: pos,
         map,
       });
-      marker.addListener('click', function () {
-        infowindow.open(this.map, marker);
+      marker.addListener('click', () => {
+        infowindow.open(map, marker);
       });
 
       return marker;
@@ -244,11 +245,11 @@ class ProviderMap extends React.Component {
       return {lat, lng};
     }
     function getRandomInRange(from, to, fixed) {
-      return (Math.random() * (to - from) + from).toFixed(fixed) * 1;
+      return Number((Math.random() * (to - from) + from).toFixed(fixed));
     }
   }
 
-  shouldComponentUpdate() {
+  shouldComponentUpdate() { // eslint-disable-line lodash/prefer-constant
     // the whole logic is handled by google plugin
     return false;
   }

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import MapLegends from '../MapLegends';
 import styles from './ProviderMap.scss';
@@ -13,7 +13,7 @@ const getImage = (name) => `${window.location.origin}/img/${name}`;
 class ProviderMap extends React.Component {
 
   componentDidMount() {
-    const { myDrons } = this.props;
+    const {myDrons} = this.props;
 
     this.map = new google.maps.Map(this.node, {
       zoom: 7,
@@ -60,7 +60,7 @@ class ProviderMap extends React.Component {
     });
   }
 
-  shouldComponentUpdate() {
+  shouldComponentUpdate() { // eslint-disable-line lodash/prefer-constant
     // the whole logic is handled by google plugin
     return false;
   }

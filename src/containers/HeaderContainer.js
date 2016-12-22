@@ -1,6 +1,6 @@
 import Header from 'components/Header';
-import { asyncConnect } from 'redux-connect';
-import { actions, toggleNotification, loginAction } from '../store/modules/global';
+import {asyncConnect} from 'redux-connect';
+import {toggleNotification, loginAction} from '../store/modules/global';
 
 const resolve = [{
   promise: () => Promise.resolve(),

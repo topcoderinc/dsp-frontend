@@ -1,4 +1,4 @@
-import { asyncConnect } from 'redux-connect';
+import {asyncConnect} from 'redux-connect';
 import {actions} from '../modules/ServiceRequest';
 
 import ServiceRequestView from '../components/ServiceRequestView';

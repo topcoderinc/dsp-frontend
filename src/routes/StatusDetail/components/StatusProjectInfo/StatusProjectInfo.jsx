@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './StatusProjectInfo.scss';
 
-export const StatusProjectInfo = ({ name, description, address, contactName, tel }) => (
+export const StatusProjectInfo = ({name, description, address, contactName, tel}) => (
   <table styleName="status-project-info">
     <tbody>
       <tr>

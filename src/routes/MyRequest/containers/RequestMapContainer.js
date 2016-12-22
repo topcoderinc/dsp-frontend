@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import RequestMap from '../components/RequestMap';
 
 const mapState = (state) => state.myRequest;

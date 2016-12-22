@@ -1,8 +1,10 @@
+/* eslint import/no-commonjs: 0 */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import bluebird from 'bluebird';
-import { browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import {browserHistory} from 'react-router';
+import {syncHistoryWithStore} from 'react-router-redux';
 import createStore from './store/createStore';
 import AppContainer from './containers/AppContainer';
 

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Breadcrumb from 'components/Breadcrumb';
 import StatusLabel from 'components/StatusLabel';
@@ -13,13 +13,13 @@ import StatusDetailHeader from './StatusDetailHeader';
 import StatusDetailCamera from './StatusDetailCamera';
 import styles from './StatusDetailView.scss';
 
-export const StatusDetailView = ({ title, status, fcStreamSrc, bcStreamSrc }) => (
+export const StatusDetailView = ({title, status, fcStreamSrc, bcStreamSrc}) => (
   <div styleName="status-detail-view">
     <Breadcrumb
       items={[
-        { text: 'Profile', path: '/' },
-        { text: 'My Request Status', path: '/my-request-status' },
-        { text: title },
+        {text: 'Profile', path: '/'},
+        {text: 'My Request Status', path: '/my-request-status'},
+        {text: title},
       ]}
     />
     {status === 'completed' ? (

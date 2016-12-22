@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {actions} from '../modules/MissionProgress';
 
 import MissProgDroneEstimateRow from '../components/MissProgDroneEstimateRow';

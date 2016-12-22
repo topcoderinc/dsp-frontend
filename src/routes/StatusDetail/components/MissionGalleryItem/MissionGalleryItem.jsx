@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './MissionGalleryItem.scss';
 
-export const MissionGalleryItem = ({ type, src }) => (
+export const MissionGalleryItem = ({type, src}) => (
   <div styleName="mission-gallery-item">
     {type === 'image' &&
       <img src={src} alt="" styleName="image" />

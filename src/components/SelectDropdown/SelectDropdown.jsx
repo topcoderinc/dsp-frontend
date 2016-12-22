@@ -1,16 +1,20 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import ReactDropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
+import ReactDropdown, {DropdownTrigger, DropdownContent} from 'react-simple-dropdown';
 import _ from 'lodash';
 import styles from './SelectDropdown.scss';
 
-export const SelectDropdown = ({ options, value, onChange }) => {
+export const SelectDropdown = ({options, value, onChange}) => {
   let dropdownRef;
 
   return (
     <div styleName="select-dropdown">
-      <ReactDropdown ref={(dropdown) => { dropdownRef = dropdown; }}>
-        <DropdownTrigger className={styles.trigger}>{(_.find(options, { value }) || options[0]).label}</DropdownTrigger>
+      <ReactDropdown
+        ref={(dropdown) => {
+          dropdownRef = dropdown;
+        }}
+      >
+        <DropdownTrigger className={styles.trigger}>{(_.find(options, {value}) || options[0]).label}</DropdownTrigger>
         <DropdownContent className={styles.content}>
           <ul>
             {options.map((option) => (

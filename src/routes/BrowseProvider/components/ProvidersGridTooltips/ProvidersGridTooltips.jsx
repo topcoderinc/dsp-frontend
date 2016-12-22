@@ -1,14 +1,9 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import enhanceWithClickOutside from 'react-click-outside';
 import styles from './ProvidersGridTooltips.scss';
 
-const getImage = (name) => `${window.location.origin}/img/drones/${name}`;
-
 class ProvidersGridTooltips extends React.Component {
-  componentDidMount() {
-    const { droneInfo } = this.props;
-  }
   constructor() {
     super();
     this.state = {
@@ -16,11 +11,11 @@ class ProvidersGridTooltips extends React.Component {
     };
   }
   handleClickOutside() {
-    this.setState({ isHidden: true });
+    this.setState({isHidden: true});
   }
   toggleHidden() {
     this.setState({
-      isHidden: this.state.isHidden ? false : true,
+      isHidden: !this.state.isHidden,
     });
   }
 

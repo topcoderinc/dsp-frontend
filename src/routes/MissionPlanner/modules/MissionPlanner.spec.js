@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { expect } from 'chai';
+import {expect} from 'chai';
 
 import reducer, * as module from './MissionPlanner';
 
@@ -183,7 +183,7 @@ describe('MissionPlanner', () => {
   describe('reducer', () => {
     it('should return the initial state', () => {
       expect(
-        reducer(undefined, {})
+        reducer(null, {})
       ).to.deep.equal(
         _.cloneDeep(defaultState)
       );
@@ -192,39 +192,39 @@ describe('MissionPlanner', () => {
     it('should handle LOADED', () => {
       const action = {
         type: module.LOADED,
-        payload: { mission: _.cloneDeep(mission) },
+        payload: {mission: _.cloneDeep(mission)},
       };
 
       expect(
         reducer({}, action)
       ).to.deep.equal(
-        { mission: _.cloneDeep(mission) }
+        {mission: _.cloneDeep(mission)}
       );
     });
 
     it('should handle UPDATED', () => {
       const action = {
         type: module.UPDATED,
-        payload: { mission: _.cloneDeep(mission) },
+        payload: {mission: _.cloneDeep(mission)},
       };
 
       expect(
         reducer({}, action)
       ).to.deep.equal(
-        { mission: _.cloneDeep(mission) }
+        {mission: _.cloneDeep(mission)}
       );
     });
 
     it('should handle UPDATE_MISSION_ITEM for missitonItem', () => {
-      const initialState = { mission: _.cloneDeep(mission) };
+      const initialState = {mission: _.cloneDeep(mission)};
       const action = {
         type: module.UPDATE_MISSION_ITEM,
-        payload: { id: 3, missionItem: _.cloneDeep(newMissionItem) },
+        payload: {id: 3, missionItem: _.cloneDeep(newMissionItem)},
       };
       const newMission = _.cloneDeep(mission);
       newMission.missionItems.splice(2, 1, _.cloneDeep(newMissionItem));
 
-      const newState = { mission: newMission };
+      const newState = {mission: newMission};
 
       expect(
         reducer(initialState, action)
@@ -234,15 +234,15 @@ describe('MissionPlanner', () => {
     });
 
     it('should handle UPDATE_MISSION_ITEM for plannedHomePosition', () => {
-      const initialState = { mission: _.cloneDeep(mission) };
+      const initialState = {mission: _.cloneDeep(mission)};
       const action = {
         type: module.UPDATE_MISSION_ITEM,
-        payload: { id: 0, missionItem: _.cloneDeep(newPlannedHomePosition) },
+        payload: {id: 0, missionItem: _.cloneDeep(newPlannedHomePosition)},
       };
       const newMission = _.cloneDeep(mission);
       newMission.plannedHomePosition = _.cloneDeep(newPlannedHomePosition);
 
-      const newState = { mission: newMission };
+      const newState = {mission: newMission};
 
       expect(
         reducer(initialState, action)
@@ -255,7 +255,7 @@ describe('MissionPlanner', () => {
       const initialState = _.cloneDeep(defaultState);
       const action = {
         type: module.ADD_MISSION_ITEM,
-        payload: { markerPosition: _.cloneDeep(newMarkerPosition), uids: ['missionitemnew', 'homepointnew'] },
+        payload: {markerPosition: _.cloneDeep(newMarkerPosition), uids: ['missionitemnew', 'homepointnew']},
       };
       const newMission = _.cloneDeep(defaultState).mission;
       newMission.plannedHomePosition = {
@@ -271,7 +271,7 @@ describe('MissionPlanner', () => {
         uid: 'missionitemnew',
       });
 
-      const newState = { mission: newMission };
+      const newState = {mission: newMission};
 
       expect(
         reducer(initialState, action)
@@ -285,7 +285,7 @@ describe('MissionPlanner', () => {
       initialState.mission.plannedHomePosition = newPlannedHomePosition;
       const action = {
         type: module.ADD_MISSION_ITEM,
-        payload: { markerPosition: _.cloneDeep(newMarkerPosition), uids: ['missionitemnew'] },
+        payload: {markerPosition: _.cloneDeep(newMarkerPosition), uids: ['missionitemnew']},
       };
       const newMission = _.cloneDeep(initialState).mission;
       newMission.missionItems.push({
@@ -296,7 +296,7 @@ describe('MissionPlanner', () => {
         uid: 'missionitemnew',
       });
 
-      const newState = { mission: newMission };
+      const newState = {mission: newMission};
 
       expect(
         reducer(initialState, action)
@@ -306,10 +306,10 @@ describe('MissionPlanner', () => {
     });
 
     it('should handle ADD_MISSION_ITEM for a mission with several points', () => {
-      const initialState = { mission: _.cloneDeep(mission) };
+      const initialState = {mission: _.cloneDeep(mission)};
       const action = {
         type: module.ADD_MISSION_ITEM,
-        payload: { markerPosition: _.cloneDeep(newMarkerPosition), uids: ['missionitemnew'] },
+        payload: {markerPosition: _.cloneDeep(newMarkerPosition), uids: ['missionitemnew']},
       };
       const newMission = _.cloneDeep(initialState).mission;
       newMission.missionItems.push({
@@ -319,7 +319,7 @@ describe('MissionPlanner', () => {
         uid: 'missionitemnew',
       });
 
-      const newState = { mission: newMission };
+      const newState = {mission: newMission};
 
       expect(
         reducer(initialState, action)
@@ -329,16 +329,16 @@ describe('MissionPlanner', () => {
     });
 
     it('should handle DELETE_MISSION_ITEM', () => {
-      const initialState = { mission: _.cloneDeep(mission) };
+      const initialState = {mission: _.cloneDeep(mission)};
       const action = {
         type: module.DELETE_MISSION_ITEM,
-        payload: { missionItemId: 3 },
+        payload: {missionItemId: 3},
       };
       const newMission = _.cloneDeep(initialState).mission;
       newMission.missionItems.splice(2, 1);
       newMission.missionItems = newMission.missionItems.map((item, index) => ({...item, id: index + 1}));
 
-      const newState = { mission: newMission };
+      const newState = {mission: newMission};
 
       expect(
         reducer(initialState, action)
@@ -348,16 +348,16 @@ describe('MissionPlanner', () => {
     });
 
     it('should handle CLEAR_MISSION', () => {
-      const initialState = { mission: _.cloneDeep(mission) };
+      const initialState = {mission: _.cloneDeep(mission)};
       const action = {
         type: module.CLEAR_MISSION,
-        payload: { missionItemId: 3 },
+        payload: {missionItemId: 3},
       };
       const newMission = _.cloneDeep(initialState).mission;
       newMission.plannedHomePosition = null;
       newMission.missionItems = [];
 
-      const newState = { mission: newMission };
+      const newState = {mission: newMission};
 
       expect(
         reducer(initialState, action)
@@ -367,15 +367,15 @@ describe('MissionPlanner', () => {
     });
 
     it('should handle UPDATE_MISSION_NAME', () => {
-      const initialState = { mission: _.cloneDeep(mission) };
+      const initialState = {mission: _.cloneDeep(mission)};
       const action = {
         type: module.UPDATE_MISSION_NAME,
-        payload: { missionName: newMissionName },
+        payload: {missionName: newMissionName},
       };
       const newMission = _.cloneDeep(initialState).mission;
       newMission.missionName = newMissionName;
 
-      const newState = { mission: newMission };
+      const newState = {mission: newMission};
 
       expect(
         reducer(initialState, action)

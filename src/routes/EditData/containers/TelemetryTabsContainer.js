@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {sendRequest, uploadPicture} from '../modules/EditData';
 
 import TelemetryTabs from '../components/TelemetryTabs';

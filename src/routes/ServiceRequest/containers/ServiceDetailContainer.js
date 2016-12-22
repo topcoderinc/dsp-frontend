@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {actions, sendRequest} from '../modules/ServiceRequest';
 
 import ServiceDetail from '../components/ServiceDetail';

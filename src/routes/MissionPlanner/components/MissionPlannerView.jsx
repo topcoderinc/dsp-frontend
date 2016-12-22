@@ -22,7 +22,7 @@ export const getMissionItemsExt = (mission) => {
 export const getMarkerProps = (item, updateMissionItem) => {
   const markerProps = {
     key: item.uid,
-    position: { lat: item.coordinate[0], lng: item.coordinate[1] },
+    position: {lat: item.coordinate[0], lng: item.coordinate[1]},
     draggable: true,
     onDragEnd: (event) => {
       const newMissionItem = {
@@ -51,7 +51,7 @@ export const getMarkerProps = (item, updateMissionItem) => {
   // waypoint marker
   if (item.id > 1) {
     markerProps.icon = {
-      anchor: { x: 12, y: 12 },
+      anchor: {x: 12, y: 12},
       url: waypointIcon,
     };
     markerProps.label = {
@@ -64,7 +64,7 @@ export const getMarkerProps = (item, updateMissionItem) => {
   return markerProps;
 };
 
-export const MissionPlannerView = ({ mission, updateMissionItem, addMissionItem, deleteMissionItem }) => {
+export const MissionPlannerView = ({mission, updateMissionItem, addMissionItem, deleteMissionItem}) => {
   const missionItemsExt = getMissionItemsExt(mission);
   const markersExt = missionItemsExt.map((item) => getMarkerProps(item, updateMissionItem));
 
@@ -74,7 +74,7 @@ export const MissionPlannerView = ({ mission, updateMissionItem, addMissionItem,
         <MissionPlannerHeader />
       </div>
       <div styleName="map">
-        <MissionMap markers={markersExt} onMapClick={(event) => addMissionItem({ lat: event.latLng.lat(), lng: event.latLng.lng() })} />
+        <MissionMap markers={markersExt} onMapClick={(event) => addMissionItem({lat: event.latLng.lat(), lng: event.latLng.lng()})} />
         <MissionSidebar missionItems={missionItemsExt} onUpdate={updateMissionItem} onDelete={deleteMissionItem} />
       </div>
     </div>

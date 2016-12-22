@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import StarRatingComponent from 'react-star-rating-component';
 import styles from './Rate.scss';
 
-export const Rate = ({ value, onChange, size }) => (
+export const Rate = ({value, onChange, size}) => (
   <StarRatingComponent
     name="rate"
     starCount={5}

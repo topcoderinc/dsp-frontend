@@ -1,4 +1,4 @@
-import { injectReducer } from '../../store/reducers';
+import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
   path: 'dashboard',
@@ -9,7 +9,7 @@ export default (store) => ({
       const Dashboard = require('./containers/DashboardContainer').default;
       const reducer = require('./modules/Dashboard').default;
 
-      injectReducer(store, { key: 'dashboard', reducer });
+      injectReducer(store, {key: 'dashboard', reducer});
       cb(null, Dashboard);
     }, 'Dashboard');
   },

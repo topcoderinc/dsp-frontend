@@ -1,15 +1,15 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import styles from './AvailablePackagesItem.scss';
 import Button from 'components/Button';
 import ModalPackageDetail from '../ModalPackageDetail';
 
-{
+
 /*
 * AvailablePackagesItem
 */
-}
+
 export const AvailablePackagesItem = ({availablePackagesItemData}) => (
   <div styleName="available-pakages-item">
     <div styleName="pakages-header">

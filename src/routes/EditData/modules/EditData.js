@@ -1,4 +1,4 @@
-import { handleActions, createAction } from 'redux-actions';
+import {handleActions, createAction} from 'redux-actions';
 // ------------------------------------
 // Actions
 // ------------------------------------

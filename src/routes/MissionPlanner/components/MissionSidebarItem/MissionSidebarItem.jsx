@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import { Grid, Row, Col } from 'react-flexbox-grid/lib/index';
+import {Grid, Row, Col} from 'react-flexbox-grid/lib/index';
 import _ from 'lodash';
 import TextField from 'components/TextField';
 import Select from 'components/Select';
@@ -91,7 +91,7 @@ export class MissionSidebarItem extends Component {
 
   toggleFullBody() {
     const newState = this.state.fullBody === 'hidden' ? 'visible' : 'hidden';
-    this.setState({ fullBody: newState });
+    this.setState({fullBody: newState});
   }
 
   deleteSelf() {
