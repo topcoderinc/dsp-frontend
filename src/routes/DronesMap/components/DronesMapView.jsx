@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import MarkerClusterer from 'node-js-marker-clusterer';
 import styles from './DronesMapView.scss';
@@ -21,7 +21,7 @@ const getLatLng = ({currentLocation}) => ({lng: currentLocation[0], lat: current
 class DronesMapView extends React.Component {
 
   componentDidMount() {
-    const { drones, mapSettings } = this.props;
+    const {drones, mapSettings} = this.props;
     this.map = new google.maps.Map(this.node, mapSettings);
     const id2Marker = {};
 
@@ -38,11 +38,11 @@ class DronesMapView extends React.Component {
       return marker;
     });
     this.id2Marker = id2Marker;
-    this.markerCluster = new MarkerClusterer(this.map, markers, { imagePath: '/img/m' });
+    this.markerCluster = new MarkerClusterer(this.map, markers, {imagePath: '/img/m'});
   }
 
   componentWillReceiveProps(nextProps) {
-    const { drones } = nextProps;
+    const {drones} = nextProps;
     drones.forEach((drone) => {
       const marker = this.id2Marker[drone.id];
       if (marker) {
@@ -53,7 +53,7 @@ class DronesMapView extends React.Component {
     this.markerCluster.repaint();
   }
 
-  shouldComponentUpdate() {
+  shouldComponentUpdate() { // eslint-disable-line lodash/prefer-constant
     // the whole logic is handled by google plugin
     return false;
   }

@@ -1,7 +1,6 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './TopDronesItem.scss';
-import Button from 'components/Button';
 import ProvidersGridTooltips from '../ProvidersGridTooltips';
 
 const getImage = (name) => `${window.location.origin}/img/drones/${name}`;

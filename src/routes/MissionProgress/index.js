@@ -1,4 +1,4 @@
-import { injectReducer } from '../../store/reducers';
+import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
   path: 'mission-progress',
@@ -9,7 +9,7 @@ export default (store) => ({
       const MissionProgress = require('./containers/MissionProgressContainer').default;
       const reducer = require('./modules/MissionProgress').default;
 
-      injectReducer(store, { key: 'missionProgress', reducer });
+      injectReducer(store, {key: 'missionProgress', reducer});
       cb(null, MissionProgress);
     }, 'MissionProgress');
   },

@@ -1,4 +1,4 @@
-import { injectReducer } from '../../store/reducers';
+import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
   path: 'browse-provider',
@@ -9,7 +9,7 @@ export default (store) => ({
       const BrowseProvider = require('./containers/BrowseProviderContainer').default;
       const reducer = require('./modules/BrowseProvider').default;
 
-      injectReducer(store, { key: 'browseProvider', reducer });
+      injectReducer(store, {key: 'browseProvider', reducer});
       cb(null, BrowseProvider);
     }, 'BrowseProvider');
   },

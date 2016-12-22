@@ -1,5 +1,5 @@
 import Header2 from 'components/Header2';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 const mapState = (state) => state.global;
 

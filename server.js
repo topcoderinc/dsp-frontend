@@ -1,10 +1,12 @@
+/* eslint import/no-commonjs: 0 */
+
 /**
  * Http server for serving the frontend files
  */
 
+const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
-const path = require('path');
 const config = require('config');
 const webpackConfig = require('./webpack.config');
 

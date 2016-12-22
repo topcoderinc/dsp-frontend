@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import HeaderContainer from 'containers/HeaderContainer';
 import Breadcrumbs from 'react-breadcrumbs';

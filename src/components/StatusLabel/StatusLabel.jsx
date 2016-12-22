@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './StatusLabel.scss';
 
@@ -8,7 +8,7 @@ const statusLabels = {
   completed: 'Completed',
 };
 
-export const StatusLabel = ({ value }) => (
+export const StatusLabel = ({value}) => (
   <span styleName={`status-label_${value.toLowerCase()}`}>
     <span>{statusLabels[value]}</span>
   </span>

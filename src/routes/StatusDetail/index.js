@@ -1,4 +1,4 @@
-import { injectReducer } from '../../store/reducers';
+import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
   path: 'status-detail/:id',
@@ -8,7 +8,7 @@ export default (store) => ({
       const StatusDetail = require('./containers/StatusDetailContainer').default;
       const reducer = require('./modules/StatusDetail').default;
 
-      injectReducer(store, { key: 'statusDetail', reducer });
+      injectReducer(store, {key: 'statusDetail', reducer});
       cb(null, StatusDetail);
     }, 'StatusDetail');
   },

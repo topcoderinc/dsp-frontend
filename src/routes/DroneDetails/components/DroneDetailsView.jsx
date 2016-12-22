@@ -1,31 +1,27 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './DroneDetailsView.scss';
-import DroneDetailBanner from './DroneDetailBanner';
-import DroneInfoDetails from './DroneInfoDetails';
-import DroneInfoSpecification from './DroneInfoSpecification';
-import BrowseServices from './BrowseServices';
-import Feedback from './Feedback';
+import DroneDetailsHeader from './DroneDetailsHeader';
+import DroneDetailsTabsContainer from '../containers/DroneDetailsTabsContainer';
 
 /*
 * DroneDetailsView
 */
 
-export const DroneDetailsView = ({categories, feedbacks}) => (
+export const DroneDetailsView = () => (
   <div>
-    <div styleName="drone-details-view">
+    <DroneDetailsHeader />
 
-      <DroneDetailBanner />
-      <DroneInfoDetails />
-      <DroneInfoSpecification />
-      <BrowseServices categories={categories} />
-      <Feedback feedbacks={feedbacks} />
+    <div styleName="my-drone-view">
+      <div className="tabs-container">
+        <DroneDetailsTabsContainer />
+      </div>
     </div>
   </div>
 );
 
 DroneDetailsView.propTypes = {
-  categories: PropTypes.array.isRequired,
+
 };
 
 export default CSSModules(DroneDetailsView, styles);

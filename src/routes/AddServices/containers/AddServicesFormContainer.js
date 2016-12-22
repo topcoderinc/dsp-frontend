@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {sendRequest, addPackagesAction} from '../modules/AddServices';
 
 import AddServicesForm from '../components/AddServicesForm';

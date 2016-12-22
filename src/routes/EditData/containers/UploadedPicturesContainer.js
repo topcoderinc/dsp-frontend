@@ -1,6 +1,6 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import UploadedPictures from '../components/UploadedPictures';
-import { deletePicture } from '../modules/EditData';
+import {deletePicture} from '../modules/EditData';
 
 
 const mapState = (state) => ({...state.editData});

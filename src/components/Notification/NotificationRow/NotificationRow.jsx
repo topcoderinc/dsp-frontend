@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './NotificationRow.scss';
 
@@ -7,16 +7,16 @@ export const NotificationRow = ({notification}) => (
     <div styleName="notification-row">
       <div styleName="notification-icon">
         {
-	  			notification.status === 'completed' && <i styleName="icon-notif-green" />
-	  		}
+          notification.status === 'completed' && <i styleName="icon-notif-green" />
+        }
         {
-	  			notification.status === 'started' && <i styleName="icon-notif-grey" />
-	  		}
+          notification.status === 'started' && <i styleName="icon-notif-grey" />
+        }
       </div>
       <div styleName="notification-detail">
         <p>
-          <a href="javascript:;">{notification.droneName} </a>has {notification.status} your "Deliver My Package" request.
-	  		</p>
+          <a href="javascript:;">{notification.droneName} </a> has {notification.status} your {'"Deliver My Package"'} request.
+        </p>
         <div styleName="time">
           {notification.time}
         </div>
@@ -25,7 +25,7 @@ export const NotificationRow = ({notification}) => (
   </div>
 );
 
-NotificationRow.defaultProps = {
+NotificationRow.propTypes = {
   notification: PropTypes.object.isRequired,
 };
 

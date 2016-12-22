@@ -1,13 +1,13 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import { reduxForm } from 'redux-form';
+import {reduxForm} from 'redux-form';
 import _ from 'lodash';
 import Button from 'components/Button';
 import Rate from 'components/Rate';
 import FormField from 'components/FormField';
 import styles from './RatePilotForm.scss';
 
-export const RatePilotForm = ({ handleSubmit, onCloseClick, fields }) => (
+export const RatePilotForm = ({handleSubmit, onCloseClick, fields}) => (
   <form styleName="content" onSubmit={handleSubmit}>
     <div styleName="star-rating">
       <FormField label="Click your vote:" {...fields.rate}>
@@ -44,4 +44,4 @@ const validate = (values) => {
   return errors;
 };
 
-export default reduxForm({ form: 'ratePilot', fields, validate })(CSSModules(RatePilotForm, styles));
+export default reduxForm({form: 'ratePilot', fields, validate})(CSSModules(RatePilotForm, styles));

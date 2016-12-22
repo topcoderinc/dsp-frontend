@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import moment from 'moment';
 import Calendar from 'rc-calendar';
@@ -13,8 +13,6 @@ const defaultCalendarValue = now;
 const format = 'dddd, MMMM DD, YYYY';
 
 class DroneScheduleCalendar extends React.Component {
-  componentDidMount() {
-  }
   onStandaloneSelect(value) {
     this.props.selectedDateHandle(value.format(format));
   }

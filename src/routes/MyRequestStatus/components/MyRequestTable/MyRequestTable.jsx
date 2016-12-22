@@ -1,11 +1,11 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import dateFormat from 'dateformat';
 import StatusLabel from 'components/StatusLabel';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import styles from './MyRequestTable.scss';
 
-export const MyRequestTable = ({ requests }) => (
+export const MyRequestTable = ({requests}) => (
   <table styleName="my-request-table">
     <thead styleName="thead">
       <tr>

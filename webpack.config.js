@@ -1,7 +1,7 @@
-/* eslint no-param-reassign: 0 */
+/* eslint no-param-reassign: 0, import/no-commonjs: 0 */
 
-const _ = require('lodash');
 const path = require('path');
+const _ = require('lodash');
 const ip = require('ip');
 const webpack = require('webpack');
 const config = require('config');
@@ -18,7 +18,6 @@ const fixStyleLoader = (loader) => {
   if (!__DEV__) {
     const first = loader.loaders[0];
     const rest = loader.loaders.slice(1);
-    console.log("first: "+first+" , rest:"+rest.join('!'));
     loader.loader = ExtractTextPlugin.extract(first, rest.join('!'));
     delete loader.loaders;
   }
@@ -34,7 +33,7 @@ const getEnvPlugins = () => {
   }
   if (__PROD__) {
     return [
-      new ExtractTextPlugin('[name].[contenthash].css', { allChunks: true }),
+      new ExtractTextPlugin('[name].[contenthash].css', {allChunks: true}),
       new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
@@ -45,12 +44,12 @@ const getEnvPlugins = () => {
         },
       }),
       new CopyWebpackPlugin([
-        { from: './src/static', to: '.' },
+        {from: './src/static', to: '.'},
       ]),
     ];
   }
   return [
-    new ExtractTextPlugin('[name].[contenthash].css', { allChunks: true }),
+    new ExtractTextPlugin('[name].[contenthash].css', {allChunks: true}),
   ];
 };
 
@@ -158,7 +157,7 @@ module.exports = {
       }),
       fixStyleLoader({
         test: /\.css$/,
-        loaders: ['style','css?modules'],
+        loaders: ['style', 'css?modules'],
         include: /flexboxgrid/,
       }),
       {
@@ -177,12 +176,12 @@ module.exports = {
         test: /\.ttf(\?.*)?$/,
         loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream',
       },
-      { test: /\.eot(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
+      {test: /\.eot(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]'},
       {
         test: /\.svg(\?.*)?$/,
         loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml',
       },
-      { test: /\.(png|jpg)$/, loader: 'url?limit=8192' },
+      {test: /\.(png|jpg)$/, loader: 'url?limit=8192'},
     ],
   },
   postcss: [

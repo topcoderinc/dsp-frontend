@@ -1,7 +1,7 @@
-import React, { PropTypes, Component } from 'react';
+import React, {PropTypes, Component} from 'react';
 import CSSModules from 'react-css-modules';
-import { Link } from 'react-router';
-import { toastr } from 'react-redux-toastr';
+import {Link} from 'react-router';
+import {toastr} from 'react-redux-toastr';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
 import styles from './MissionPlannerHeader.scss';
@@ -45,7 +45,7 @@ export class MissionPlannerHeader extends Component {
   }
 
   render() {
-    const { mission, save, clearMission, updateMissionName } = this.props;
+    const {mission, save, clearMission, updateMissionName} = this.props;
 
     return (
       <div styleName="mission-planner-header">
@@ -58,7 +58,9 @@ export class MissionPlannerHeader extends Component {
                 name="name"
                 placeholder="Enter mission name"
                 value={mission.missionName}
-                onChange={(event) => { updateMissionName(event.target.value); }}
+                onChange={(event) => {
+                  updateMissionName(event.target.value);
+                }}
               />
             </div>
             <Button

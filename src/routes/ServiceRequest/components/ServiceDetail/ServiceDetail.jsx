@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Button from 'components/Button';
-import { reduxForm } from 'redux-form';
+import {reduxForm} from 'redux-form';
 import Location from '../Location';
 import ItemRequest from '../ItemRequest';
 import ContactDetails from '../ContactDetails';
@@ -67,4 +67,4 @@ const validate = (values) => {
   return errors;
 };
 
-export default reduxForm({ form: 'serviceRequest', fields, validate })(CSSModules(ServiceDetail, styles));
+export default reduxForm({form: 'serviceRequest', fields, validate})(CSSModules(ServiceDetail, styles));

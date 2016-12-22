@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import _ from 'lodash';
 import cn from 'classnames';
@@ -11,9 +11,11 @@ export const TextField = (props) => (
 );
 
 TextField.propTypes = {
-  type: PropTypes.oneOf(['text', 'email','password']),
+  type: PropTypes.oneOf(['text', 'email', 'password']),
   size: PropTypes.oneOf(['normal', 'narrow']),
   readOnly: PropTypes.bool,
+  label: PropTypes.string,
+  login: PropTypes.bool,
 };
 
 TextField.defaultProps = {

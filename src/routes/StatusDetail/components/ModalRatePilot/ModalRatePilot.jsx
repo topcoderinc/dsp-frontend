@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Modal from 'react-modal';
 import Button from 'components/Button';
@@ -32,7 +32,7 @@ const modalStyle = {
   },
 };
 
-export const ModalRatePilot = ({ isOpen, onClose, onRate, onOpen }) => (
+export const ModalRatePilot = ({isOpen, onClose, onRate, onOpen}) => (
   <div styleName="modal-rate-pilot">
     <Button onClick={onOpen} color="blue">Rate now!</Button>
     <Modal

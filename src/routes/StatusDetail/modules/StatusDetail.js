@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions';
+import {handleActions} from 'redux-actions';
 import APIService from 'services/APIService';
 
 // ------------------------------------
@@ -16,25 +16,25 @@ export const SEND_RATE = 'StatusDetail/SEND_RATE';
 export const load = (id) => async(dispatch) => {
   const statusDetail = await APIService.getStatusDetail(id);
 
-  dispatch({ type: LOADED, payload: statusDetail });
+  dispatch({type: LOADED, payload: statusDetail});
 };
 
 export const setCurrentGraphType = (currentGraphType) => async(dispatch) => {
-  dispatch({ type: SET_CURRENT_GRAPH_TYPE, payload: currentGraphType });
+  dispatch({type: SET_CURRENT_GRAPH_TYPE, payload: currentGraphType});
 };
 
 export const openRateModal = () => async(dispatch) => {
-  dispatch({ type: OPEN_RATE_MODAL, payload: true });
+  dispatch({type: OPEN_RATE_MODAL, payload: true});
 };
 
 export const closeRateModal = () => async(dispatch) => {
-  dispatch({ type: CLOSE_RATE_MODAL, payload: false });
+  dispatch({type: CLOSE_RATE_MODAL, payload: false});
 };
 
 // send rate and comment here
 /* eslint-disable no-unused-vars */
-export const sendRate = ({ rate, comment }) => async(dispatch) => {
-  dispatch({ type: CLOSE_RATE_MODAL, payload: false });
+export const sendRate = ({rate, comment}) => async(dispatch) => {
+  dispatch({type: CLOSE_RATE_MODAL, payload: false});
 };
 /* eslint-enable no-unused-vars */
 
@@ -50,10 +50,10 @@ export const actions = {
 // Reducer
 // ------------------------------------
 export default handleActions({
-  [LOADED]: (state, { payload: statusDetail }) => ({ ...state, ...statusDetail }),
-  [SET_CURRENT_GRAPH_TYPE]: (state, { payload: currentGraphType }) => ({ ...state, currentGraphType }),
-  [OPEN_RATE_MODAL]: (state, { payload: isRateModalOpen }) => ({ ...state, isRateModalOpen }),
-  [CLOSE_RATE_MODAL]: (state, { payload: isRateModalOpen }) => ({ ...state, isRateModalOpen }),
+  [LOADED]: (state, {payload: statusDetail}) => ({...state, ...statusDetail}),
+  [SET_CURRENT_GRAPH_TYPE]: (state, {payload: currentGraphType}) => ({...state, currentGraphType}),
+  [OPEN_RATE_MODAL]: (state, {payload: isRateModalOpen}) => ({...state, isRateModalOpen}),
+  [CLOSE_RATE_MODAL]: (state, {payload: isRateModalOpen}) => ({...state, isRateModalOpen}),
 }, {
   currentGraphType: 'speed',
   isRateModalOpen: false,

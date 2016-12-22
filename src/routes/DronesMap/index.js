@@ -1,4 +1,4 @@
-import { injectReducer } from '../../store/reducers';
+import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
   path: 'drones-map',
@@ -9,7 +9,7 @@ export default (store) => ({
       const DronesMap = require('./containers/DronesMapContainer').default;
       const reducer = require('./modules/DronesMap').default;
 
-      injectReducer(store, { key: 'dronesMap', reducer });
+      injectReducer(store, {key: 'dronesMap', reducer});
       cb(null, DronesMap);
     }, 'DronesMap');
   },

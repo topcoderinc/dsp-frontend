@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {shallow} from 'enzyme';
 import _ from 'lodash';
-import { expect } from 'chai';
+import {expect} from 'chai';
 
 import MissionMap from './MissionMap';
 
@@ -60,7 +60,7 @@ const setup = () => {
 
 describe('MissionMap', () => {
   it('should have all props defined', () => {
-    const { enzymeWrapper } = setup();
+    const {enzymeWrapper} = setup();
 
     expect(enzymeWrapper.props().markers).to.be.defined;
     expect(enzymeWrapper.props().onMapClick).to.be.defined;

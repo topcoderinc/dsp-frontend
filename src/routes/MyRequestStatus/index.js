@@ -1,4 +1,4 @@
-import { injectReducer } from '../../store/reducers';
+import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
   path: 'my-request-status',
@@ -8,7 +8,7 @@ export default (store) => ({
       const MyRequestStatus = require('./containers/MyRequestStatusContainer').default;
       const reducer = require('./modules/MyRequestStatus').default;
 
-      injectReducer(store, { key: 'myRequestStatus', reducer });
+      injectReducer(store, {key: 'myRequestStatus', reducer});
       cb(null, MyRequestStatus);
     }, 'MyRequestStatus');
   },

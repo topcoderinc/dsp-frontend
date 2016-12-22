@@ -1,3 +1,5 @@
+/* eslint max-lines: 0 */
+
 import _ from 'lodash';
 import superagent from 'superagent';
 import superagentPromise from 'superagent-promise';
@@ -487,7 +489,7 @@ export default class APIService {
       resolve();
     })).then(() => (
       filterByStatus && filterByStatus !== 'all'
-        ? _.filter(myRequestStatus, (request) => request.status === filterByStatus)
+        ? _.filter(myRequestStatus, {status: filterByStatus})
         : myRequestStatus
     ));
   }
@@ -525,27 +527,27 @@ export default class APIService {
     });
   }
 
-  static createMission(mission) {
+  static createMission(values) {
     return regAndAuth().then((authRes) => {
       const accessToken = authRes.body.accessToken;
 
       return request
         .post(`${config.API_BASE_PATH}/api/v1/missions`)
         .set('Authorization', `Bearer ${accessToken}`)
-        .send(mission)
+        .send(values)
         .end()
         .then((res) => res.body);
     });
   }
 
-  static updateMission(id, mission) {
+  static updateMission(id, values) {
     return regAndAuth().then((authRes) => {
       const accessToken = authRes.body.accessToken;
 
       return request
         .put(`${config.API_BASE_PATH}/api/v1/missions/${id}`)
         .set('Authorization', `Bearer ${accessToken}`)
-        .send(mission)
+        .send(values)
         .end()
         .then((res) => res.body);
     });

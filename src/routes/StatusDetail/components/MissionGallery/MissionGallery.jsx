@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Slider from 'react-slick';
 import _ from 'lodash';
@@ -15,7 +15,7 @@ const sliderProps = {
   variableWidth: false,
 };
 
-export const MissionGallery = ({ title, items, note }) => (
+export const MissionGallery = ({title, items, note}) => (
   <div styleName="mission-gallery">
     <header styleName="header">
       <h2 styleName="title">{title}</h2>
