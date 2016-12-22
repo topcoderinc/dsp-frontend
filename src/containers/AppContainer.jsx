@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
-import { ReduxAsyncConnect } from 'redux-connect';
-import { Router } from 'react-router';
-import { Provider } from 'react-redux';
+import React, {PropTypes} from 'react';
+import {ReduxAsyncConnect} from 'redux-connect';
+import {Router} from 'react-router';
+import {Provider} from 'react-redux';
 import ReduxToastr from 'react-redux-toastr';
 
-const AppContainer = ({ history, routes, routerKey, store }) => (
+const AppContainer = ({history, routes, routerKey, store}) => (
   <Provider store={store}>
     <div>
       <Router history={history} render={(props) => <ReduxAsyncConnect {...props} />} key={routerKey}>{routes}</Router>

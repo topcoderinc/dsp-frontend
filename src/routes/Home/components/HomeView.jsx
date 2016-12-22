@@ -33,6 +33,7 @@ HomeView.propTypes = {
   popularDrones: PropTypes.array.isRequired,
   promotedServices: PropTypes.array.isRequired,
   categories: PropTypes.array.isRequired,
+  lastCompletedMissionsData: PropTypes.object.isRequired,
 };
 
 export default CSSModules(HomeView, styles);

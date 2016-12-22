@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Rate from 'components/Rate';
 import styles from './OverallDronePerformance.scss';
 
-export const OverallDronePerformance = ({ total, speed, easeOfuse, flight, camera }) => (
+export const OverallDronePerformance = ({total, speed, easeOfuse, flight, camera}) => (
   <div styleName="overall-drone-performance">
     <header styleName="header">
       <div>

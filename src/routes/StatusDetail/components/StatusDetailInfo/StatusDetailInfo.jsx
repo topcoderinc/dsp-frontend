@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import dateFormat from 'dateformat';
 import TimeAgo from 'react-timeago';
 import styles from './StatusDetailInfo.scss';
 
-export const StatusDetailInfo = ({ launchedAt, completedAt, speed, distance, driver }) => (
+export const StatusDetailInfo = ({launchedAt, completedAt, speed, distance, driver}) => (
   <div styleName="status-detail-info">
     <table styleName="table">
       <thead>

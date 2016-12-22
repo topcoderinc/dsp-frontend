@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { reduxForm } from 'redux-form';
+import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
+import {reduxForm} from 'redux-form';
 import Button from 'components/Button';
 import styles from './TelemetryTabs.scss';
 import TelemetryDataForm from '../TelemetryDataForm';
@@ -78,5 +78,5 @@ const validate = (values) => {
   return errors;
 };
 
-export default reduxForm({ form: 'editDataForm', fields, validate })(CSSModules(TelemetryTabs, styles));
+export default reduxForm({form: 'editDataForm', fields, validate})(CSSModules(TelemetryTabs, styles));
 

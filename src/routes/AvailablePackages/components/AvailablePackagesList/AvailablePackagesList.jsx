@@ -1,14 +1,11 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './AvailablePackagesList.scss';
-import Button from 'components/Button';
 import AvailablePackagesItem from '../AvailablePackagesItem';
 
-{
 /*
 * AvailablePackagesList
 */
-}
 export const AvailablePackagesList = ({availablePackagesData}) => (
   <div styleName="available-pakages">
     <div styleName="packages-head">
@@ -24,6 +21,7 @@ export const AvailablePackagesList = ({availablePackagesData}) => (
 );
 
 AvailablePackagesList.propTypes = {
+  availablePackagesData: PropTypes.array.isRequired,
 };
 
 export default CSSModules(AvailablePackagesList, styles);

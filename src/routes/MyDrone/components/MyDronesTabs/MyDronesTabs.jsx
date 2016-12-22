@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import styles from './MyDronesTabs.scss';
 import MyDronesTable from '../MyDronesTable';
 

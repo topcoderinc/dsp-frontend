@@ -1,6 +1,6 @@
-import React, { PropTypes, Component } from 'react';
+import React, {PropTypes, Component} from 'react';
 import CSSModules from 'react-css-modules';
-import { withGoogleMap, GoogleMap, Marker, Polyline } from 'react-google-maps';
+import {withGoogleMap, GoogleMap, Marker, Polyline} from 'react-google-maps';
 import _ from 'lodash';
 import styles from './MissionMap.scss';
 
@@ -31,7 +31,7 @@ export const MissionGoogleMap = withGoogleMap((props) => (
     onClick={props.onMapClick}
   >
     {props.markers.map((marker, index) => (
-      <Marker {...marker} onDrag={(event) => props.onMarkerDrag(event, index)} />
+      <Marker key={index} {...marker} onDrag={(event) => props.onMarkerDrag(event, index)} />
     ))}
     <Polyline {...polylineConfig} path={props.lineMarkerPosistions} />
   </GoogleMap>
@@ -90,10 +90,10 @@ export class MissionMap extends Component {
       <div style={{height: '100%'}}>
         <MissionGoogleMap
           containerElement={
-            <div style={{ height: '100%' }} />
+            <div style={{height: '100%'}} />
           }
           mapElement={
-            <div style={{ height: '100%' }} />
+            <div style={{height: '100%'}} />
           }
           onMapLoad={this.handleMapLoad}
           onMapClick={this.props.onMapClick}

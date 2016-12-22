@@ -1,3 +1,3 @@
-import LogInModal from './LogInModal';
+import LogInModal from './LoginModal';
 
 export default LogInModal;

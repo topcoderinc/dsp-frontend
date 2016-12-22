@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './LastCompletedMissions.scss';
 import LastCompletedMissionsItem from '../LastCompletedMissionsItem';
@@ -15,7 +15,7 @@ export const LastCompletedMissions = ({lastCompletedMissionsData}) => (
       <div styleName="completed-mission-conatiner">
         {lastCompletedMissionsData.map((lastCompletedMissionItemData, index) =>
           <LastCompletedMissionsItem key={index} lastCompletedMissionItemData={lastCompletedMissionItemData} />
-				)}
+        )}
       </div>
     </div>
   </div>

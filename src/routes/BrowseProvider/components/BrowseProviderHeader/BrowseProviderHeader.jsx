@@ -1,19 +1,17 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Dropdown from 'react-dropdown';
 import styles from './BrowseProviderHeader.scss';
 
 const options = [
-  { value: 1, label: 'Popularity' },
-  { value: 2, label: 'Rating' },
-  { value: 3, label: 'Distance' },
-  { value: 4, label: 'Name' },
+  {value: 1, label: 'Popularity'},
+  {value: 2, label: 'Rating'},
+  {value: 3, label: 'Distance'},
+  {value: 4, label: 'Name'},
 ];
 
 const defaultOption = options[0];
-function onChange(val) {
-  console.log(val.value);
-}
+
 export const BrowseProviderHeader = ({handleFilterToggle, toggleFilterValue}) => (
   <div styleName="browse-provider-header">
     <div styleName="search-filter-row">
@@ -23,7 +21,7 @@ export const BrowseProviderHeader = ({handleFilterToggle, toggleFilterValue}) =>
       </div>
 
       <div styleName="filter">
-        <a href="javascript:;" styleName="filter-btn" onClick={(e) => handleFilterToggle(!toggleFilterValue)}>
+        <a href="javascript:;" styleName="filter-btn" onClick={() => handleFilterToggle(!toggleFilterValue)}>
           {!toggleFilterValue && <span>Filter</span>}
           {!toggleFilterValue && <i styleName="icon-filter" />}
           {toggleFilterValue && <span>Cancel</span>}
@@ -38,7 +36,6 @@ export const BrowseProviderHeader = ({handleFilterToggle, toggleFilterValue}) =>
           <span />
           <Dropdown
             options={options}
-            onChange={onChange}
             value={defaultOption}
             placeholder=""
           />
@@ -49,6 +46,8 @@ export const BrowseProviderHeader = ({handleFilterToggle, toggleFilterValue}) =>
 );
 
 BrowseProviderHeader.propTypes = {
+  handleFilterToggle: PropTypes.func,
+  toggleFilterValue: PropTypes.bool,
 };
 
 export default CSSModules(BrowseProviderHeader, styles);

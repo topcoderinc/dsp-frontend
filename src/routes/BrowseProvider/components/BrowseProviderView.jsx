@@ -26,6 +26,8 @@ export const BrowseProviderView = ({providers, handleFilterToggle, toggleFilterV
 
 BrowseProviderView.propTypes = {
   providers: PropTypes.array.isRequired,
+  handleFilterToggle: PropTypes.func,
+  toggleFilterValue: PropTypes.bool,
 };
 
 export default CSSModules(BrowseProviderView, styles);

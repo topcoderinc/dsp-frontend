@@ -1,10 +1,10 @@
-import { asyncConnect } from 'redux-connect';
-import { actions } from '../modules/MyRequestStatus';
+import {asyncConnect} from 'redux-connect';
+import {actions} from '../modules/MyRequestStatus';
 
 import MyRequestStatusView from '../components/MyRequestStatusView';
 
 const resolve = [{
-  promise: ({ store }) => store.dispatch(actions.load()),
+  promise: ({store}) => store.dispatch(actions.load()),
 }];
 
 const mapState = (state) => state.myRequestStatus;

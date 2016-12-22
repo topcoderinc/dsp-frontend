@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Button from 'components/Button';
 import styles from './UploadPictureForm.scss';
@@ -36,7 +36,7 @@ class UploadPictureForm extends React.Component {
   }
 
   render() {
-    const { file } = this.state;
+    const {file} = this.state;
 
     return (
       <div styleName="upload-picture">

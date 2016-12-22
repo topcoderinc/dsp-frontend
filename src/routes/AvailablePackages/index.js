@@ -1,4 +1,4 @@
-import { injectReducer } from '../../store/reducers';
+import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
   path: 'available-packages',
@@ -8,7 +8,7 @@ export default (store) => ({
       const AvailablePackages = require('./containers/AvailablePackagesContainer').default;
       const reducer = require('./modules/AvailablePackages').default;
 
-      injectReducer(store, { key: 'availablePackages', reducer });
+      injectReducer(store, {key: 'availablePackages', reducer});
       cb(null, AvailablePackages);
     }, 'AvailablePackages');
   },

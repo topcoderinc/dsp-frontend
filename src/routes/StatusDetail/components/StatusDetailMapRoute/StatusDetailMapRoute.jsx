@@ -1,11 +1,11 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import MissionPlanner from 'components/MissionPlanner';
 import MapLegends from 'components/MapLegends';
 import DroneLocationsETA from '../DroneLocationsETA';
 import styles from './StatusDetailMapRoute.scss';
 
-export const StatusDetailMapRoute = ({ distance, eta, showMapLegends, providerCoords, droneCoords, mission, isSmall }) => (
+export const StatusDetailMapRoute = ({distance, eta, showMapLegends, providerCoords, droneCoords, mission, isSmall}) => (
   <div styleName="status-detail-map-route">
     <MissionPlanner
       {...{

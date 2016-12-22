@@ -1,4 +1,4 @@
-import { injectReducer } from '../../store/reducers';
+import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
   path: 'my-request',
@@ -9,7 +9,7 @@ export default (store) => ({
       const MyRequest = require('./containers/MyRequestContainer').default;
       const reducer = require('./modules/MyRequest').default;
 
-      injectReducer(store, { key: 'myRequest', reducer });
+      injectReducer(store, {key: 'myRequest', reducer});
       cb(null, MyRequest);
     }, 'MyRequest');
   },

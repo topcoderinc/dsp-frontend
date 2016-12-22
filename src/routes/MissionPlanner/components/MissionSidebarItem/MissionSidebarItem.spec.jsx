@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {shallow} from 'enzyme';
 import _ from 'lodash';
-import { expect } from 'chai';
+import {expect} from 'chai';
 
 import MissionSidebarItem from './MissionSidebarItem';
 
@@ -36,7 +36,7 @@ const setup = () => {
 
 describe('MissionSidebarItem', () => {
   it('should have all props defined', () => {
-    const { enzymeWrapper } = setup();
+    const {enzymeWrapper} = setup();
 
     expect(enzymeWrapper.props().uid).to.be.defined;
     expect(enzymeWrapper.props().autoContinue).to.be.defined;

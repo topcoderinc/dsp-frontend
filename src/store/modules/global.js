@@ -1,8 +1,9 @@
-import { handleActions, createAction } from 'redux-actions';
-import { browserHistory } from 'react-router';
+import {handleActions, createAction} from 'redux-actions';
+import {browserHistory} from 'react-router';
 import UserApi from 'api/User.js';
-const config = require('../../config');
-const userApi = new UserApi(config.default.api.basePath);
+import config from '../../config';
+
+const userApi = new UserApi(config.api.basePath);
 
 // ------------------------------------
 // Actions
@@ -10,19 +11,20 @@ const userApi = new UserApi(config.default.api.basePath);
 let isLogged = false;
 let hasError = false;
 let errorText = '';
-const userData = {};
+
 export const sendLoginRequest = (values) => new Promise((resolve) => {
   userApi.login(values.email, values.password).then((authResult) => {
     isLogged = true;
     hasError = false;
-    if (authResult.user.role=='consumer')
+    if (authResult.user.role === 'consumer') {
       browserHistory.push('/browse-provider');
-    else if (authResult.user.role=='provider')
+    } else if (authResult.user.role === 'provider') {
       browserHistory.push('/dashboard');
-    else if (authResult.user.role=='admin')
+    } else if (authResult.user.role === 'admin') {
       browserHistory.push('/admin');
-    else if (authResult.user.role=='pilot')
+    } else if (authResult.user.role === 'pilot') {
       browserHistory.push('/pilot');
+    }
   }).catch((err) => {
     isLogged = false;
     hasError = true;
@@ -32,7 +34,7 @@ export const sendLoginRequest = (values) => new Promise((resolve) => {
 });
 
 export const sendSignupRequest = (values) => new Promise((resolve) => {
-  userApi.register('name', values.email, values.password).then((authResult) => {
+  userApi.register('name', values.email, values.password).then(() => {
     isLogged = true;
     hasError = false;
     browserHistory.push('/browse-provider');
@@ -61,10 +63,10 @@ export default handleActions({
   [toggleNotification]: (state, action) => ({
     ...state, toggleNotif: action.payload,
   }),
-  [loginAction]: (state, action) => ({
+  [loginAction]: (state) => ({
     ...state, loggedUser: isLogged, hasError, errorText,
   }),
-  [signupAction]: (state, action) => ({
+  [signupAction]: (state) => ({
     ...state, loggedUser: isLogged, hasError, errorText,
   }),
 }, {
@@ -73,17 +75,27 @@ export default handleActions({
   location: 'Jakarta, Indonesia',
   selectedCategory: 'Category',
   categories: [
-    { name: 'Category1' },
-    { name: 'Category2' },
+    {name: 'Category1'},
+    {name: 'Category2'},
   ],
   user: {
     name: 'John Doe',
   },
   notifications: [
-    {id: 1, droneName: 'XdroneManiac', status: 'completed',
-      time: '2 minutes ago', request: 'has completed your "Deliver My Package" request.'},
-    {id: 2, droneName: 'XdroneManiac', status: 'started',
-      time: '2 minutes ago', request: 'has started your "Deliver My Package" request.'},
+    {
+      id: 1,
+      droneName: 'XdroneManiac',
+      status: 'completed',
+      time: '2 minutes ago',
+      request: 'has completed your "Deliver My Package" request.',
+    },
+    {
+      id: 2,
+      droneName: 'XdroneManiac',
+      status: 'started',
+      time: '2 minutes ago',
+      request: 'has started your "Deliver My Package" request.',
+    },
   ],
 
 });

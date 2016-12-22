@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './DroneDetailBanner.scss';
 
@@ -7,7 +7,7 @@ const getImage = (name) => `${window.location.origin}/img/drones/${name}`;
 /*
 * DroneDetailBanner
 */
-export const DroneDetailBanner = ({}) => (
+export const DroneDetailBanner = () => (
   <div styleName="drone-detail-banner">
     <ul>
       <li>

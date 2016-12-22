@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './ProvidersGridItem.scss';
 import ProvidersGridTooltips from '../ProvidersGridTooltips';
@@ -6,9 +6,6 @@ import ProvidersGridTooltips from '../ProvidersGridTooltips';
 const getImage = (name) => `${window.location.origin}/img/drones/${name}`;
 
 class ProvidersGridItem extends React.Component {
-  componentDidMount() {
-    const { droneInfo } = this.props;
-  }
   constructor() {
     super();
     this.state = {
@@ -18,7 +15,7 @@ class ProvidersGridItem extends React.Component {
 
   toggleHidden() {
     this.setState({
-      isHidden: this.state.isHidden ? false : true,
+      isHidden: !this.state.isHidden,
     });
   }
 

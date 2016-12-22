@@ -1,3 +1,5 @@
+/* eslint import/no-commonjs: 0 */
+
 const hook = require('css-modules-require-hook');
 const sass = require('node-sass');
 
@@ -7,7 +9,7 @@ const sass = require('node-sass');
 hook({
   extensions: ['.scss', '.css'],
   generateScopedName: '[local]___[hash:base64:5]',
-  preprocessCss: (data, file) => sass.renderSync({ file }).css,
+  preprocessCss: (data, file) => sass.renderSync({file}).css,
 });
 
 /*
@@ -20,7 +22,7 @@ const exposedProperties = ['window', 'navigator', 'document'];
 global.document = jsdom('');
 global.window = document.defaultView;
 Object.keys(document.defaultView).forEach((property) => {
-  if (typeof global[property] === 'undefined') {
+  if (!global[property]) {
     exposedProperties.push(property);
     global[property] = document.defaultView[property];
   }

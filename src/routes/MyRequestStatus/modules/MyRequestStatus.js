@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions';
+import {handleActions} from 'redux-actions';
 import APIService from 'services/APIService';
 
 // ------------------------------------
@@ -12,7 +12,7 @@ export const LOADED = 'MyRequestStatus/LOADED';
 export const load = (filterByStatus = 'all') => async(dispatch) => {
   const requests = await APIService.fetchMyRequestStatus(filterByStatus);
 
-  dispatch({ type: LOADED, payload: { requests, filterByStatus } });
+  dispatch({type: LOADED, payload: {requests, filterByStatus}});
 };
 
 export const actions = {
@@ -23,7 +23,7 @@ export const actions = {
 // Reducer
 // ------------------------------------
 export default handleActions({
-  [LOADED]: (state, { payload: { requests, filterByStatus } }) => ({ ...state, requests, filterByStatus }),
+  [LOADED]: (state, {payload: {requests, filterByStatus}}) => ({...state, requests, filterByStatus}),
 }, {
   filterByStatus: 'all',
 });

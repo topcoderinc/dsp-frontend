@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Button from 'components/Button';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import styles from './AvailablePackagesItem.scss';
 
 /*

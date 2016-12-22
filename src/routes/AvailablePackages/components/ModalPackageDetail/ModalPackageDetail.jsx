@@ -1,16 +1,11 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import { Link } from 'react-router';
-import Button from 'components/Button';
 import styles from './ModalPackageDetail.scss';
+import Modal from 'react-modal';
 
-const Modal = require('react-modal');
-
-{
 /*
 * customStyles
 */
-}
 const customStyles = {
   overlay: {
     position: 'absolute',
@@ -39,26 +34,24 @@ const customStyles = {
 
 const getImage = (name) => `${window.location.origin}/img/drones/${name}`;
 
-const ModalPackageDetail = React.createClass({
+class ModalPackageDetail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {modalIsOpen: false};
 
-  getInitialState() {
-    return { modalIsOpen: false };
-  },
+    this.openModal = () => {
+      this.setState({modalIsOpen: true});
+    };
 
-  openModal() {
-    this.setState({modalIsOpen: true});
-  },
+    this.closeModal = () => {
+      this.setState({modalIsOpen: false});
+    };
 
-  afterOpenModal() {
-  },
-
-  closeModal() {
-    this.setState({modalIsOpen: false});
-  },
-  markAsComplete() {
-    this.setState({modalIsOpen: false});
-    this.props.handleStatus('Completed');
-  },
+    this.markAsComplete = () => {
+      this.setState({modalIsOpen: false});
+      this.props.handleStatus('Completed');
+    };
+  }
 
   render() {
     return (
@@ -68,7 +61,6 @@ const ModalPackageDetail = React.createClass({
         {this.state.modalIsOpen && <div styleName="overlay-bg" />}
         <Modal
           isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
           style={customStyles}
           contentLabel="Example Modal"
@@ -93,26 +85,27 @@ const ModalPackageDetail = React.createClass({
 
               <div styleName="drone-info">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus
-                accumsan et vivez rra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient
-                montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien
-                nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                  accumsan et vivez rra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient
+                  montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien
+                  nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
                 <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
-                Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores
-                legere me lius quod ii legunt saepius.</p>
+                  Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores
+                  legere me lius quod ii legunt saepius.</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus
-                accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient
-                montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien
-                nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                  accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient
+                  montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien
+                  nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
               </div>
             </div>
           </div>
         </Modal>
       </div>
     );
-  },
-});
+  }
+}
 
 ModalPackageDetail.propTypes = {
+  handleStatus: PropTypes.func.isRequired,
 };
 
 export default CSSModules(ModalPackageDetail, styles);

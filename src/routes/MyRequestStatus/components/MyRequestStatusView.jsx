@@ -1,16 +1,16 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Breadcrumb from 'components/Breadcrumb';
 import MyRequestHeader from './MyRequestHeader';
 import MyRequestTable from './MyRequestTable';
 import styles from './MyRequestStatusView.scss';
 
-export const MyRequestStatusView = ({ requests, load, filterByStatus }) => (
+export const MyRequestStatusView = ({requests, load, filterByStatus}) => (
   <div styleName="my-request-status-view">
     <Breadcrumb
       items={[
-        { text: 'Profile', path: '/' },
-        { text: 'My Request Status' },
+        {text: 'Profile', path: '/'},
+        {text: 'My Request Status'},
       ]}
     />
     <div styleName="wrap">

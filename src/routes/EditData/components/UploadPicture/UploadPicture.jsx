@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
+import _ from 'lodash';
 import styles from './UploadPicture.scss';
 
 const getImage = (name) => `${window.location.origin}/img/uploaded/${name}`;
@@ -11,7 +12,7 @@ const getImage = (name) => `${window.location.origin}/img/uploaded/${name}`;
 
 export const UploadPicture = ({imageSrc, removePicture, index}) => (
   <li styleName="upload-picture">
-    <img src={imageSrc.indexOf('data:image') !== -1 ? imageSrc : getImage(imageSrc)} alt="uploaded" />
+    <img src={_.inclues(imageSrc, 'data:image') ? imageSrc : getImage(imageSrc)} alt="uploaded" />
     <a
       href="javascript:;"
       onClick={(event) => {
