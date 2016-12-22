@@ -18,6 +18,7 @@ import HomeRoute from './Home';
 import BrowseProviderRoute from './BrowseProvider';
 import DroneDetailsRoute from './DroneDetails';
 import AvailablePackagesRoute from './AvailablePackages';
+import ProviderDetailsRoute from './ProviderDetails';
 
 export const createRoutes = (store) => ({
   path: '/',
@@ -51,6 +52,7 @@ export const createRoutes = (store) => ({
     BrowseProviderRoute(store),
     DroneDetailsRoute(store),
     AvailablePackagesRoute(store),
+    ProviderDetailsRoute(store),
 
   ],
 });
