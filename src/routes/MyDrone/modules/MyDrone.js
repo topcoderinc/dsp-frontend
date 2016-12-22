@@ -1,5 +1,5 @@
 import { handleActions, createAction } from 'redux-actions';
-import Reactable from 'Reactable';
+import Reactable from 'reactable';
 
 const unsafe = Reactable.unsafe;
 

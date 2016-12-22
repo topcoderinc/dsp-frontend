@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
 import { Link } from 'react-router';
-import LogInModalContainer from 'routes/Home/containers/LogInModalContainer';
+import LogInModalContainer from 'routes/Home/containers/LoginModalContainer';
 import SignupModalContainer from 'routes/Home/containers/SignupModalContainer';
 import SearchInput from '../SearchInput';
 import Dropdown from '../Dropdown';

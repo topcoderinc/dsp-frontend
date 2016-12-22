@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import Reactable from 'Reactable';
+import Reactable from 'reactable';
 import CSSModules from 'react-css-modules';
 import Dropdown from 'react-dropdown';
 import styles from './MyServicesTable.scss';

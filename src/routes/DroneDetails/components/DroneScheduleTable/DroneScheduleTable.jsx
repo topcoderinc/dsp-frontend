@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
-import Reactable from 'Reactable';
+import Reactable from 'reactable';
 import styles from './DroneScheduleTable.scss';
 
 const Table = Reactable.Table;

@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 import Button from 'components/Button';
 import Checkbox from 'components/Checkbox';
 import TextField from 'components/TextField';
-import styles from './LogInModal.scss';
+import styles from './LoginModal.scss';
 const { DOM: { input } } = React;
 
 import UserApi from 'api/User.js';
@@ -168,7 +168,7 @@ class LogInModal extends React.Component {
           </form>
         </Modal>
 
-        
+
       </div>
     );
   }
