@@ -40,4 +40,4 @@ if (process.env.NODE_ENV === 'development') {
 }
 const port = config.PORT;
 app.listen(port);
-console.log(`Server is now running at http://localhost:${port}.`); // eslint-disable-line no-console
+console.log(`Server is now running on port: ${port}.`); // eslint-disable-line no-console
