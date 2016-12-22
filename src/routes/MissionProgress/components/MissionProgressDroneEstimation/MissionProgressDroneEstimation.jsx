@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Button from 'components/Button';
 import styles from './MissionProgressDroneEstimation.scss';

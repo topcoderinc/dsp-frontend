@@ -1,5 +1,7 @@
-const nodeExternals = require('webpack-node-externals');
+/* eslint import/no-commonjs: 0 */
+
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 
 export default {
   target: 'node',
@@ -31,7 +33,7 @@ export default {
         loader: 'style!css?modules',
         include: /flexboxgrid/,
       },
-      { test: /\.(png|jpg)$/, loader: 'url?limit=8192' },
+      {test: /\.(png|jpg)$/, loader: 'url?limit=8192'},
     ],
   },
   resolve: {

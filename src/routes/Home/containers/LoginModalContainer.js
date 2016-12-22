@@ -1,7 +1,6 @@
-import { connect } from 'react-redux';
-import {actions, sendLoginRequest, loginAction} from '../../../store/modules/global';
-
-import LogInModal from '../components/LogInModal';
+import {connect} from 'react-redux';
+import {sendLoginRequest, loginAction} from '../../../store/modules/global';
+import LogInModal from '../components/LoginModal';
 
 const mapState = (state) => ({...state.global, onSubmit: sendLoginRequest});
 

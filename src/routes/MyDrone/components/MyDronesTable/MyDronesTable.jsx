@@ -1,5 +1,5 @@
-import React, { PropTypes, Component } from 'react';
-import Reactable from 'Reactable';
+import React, {PropTypes, Component} from 'react';
+import Reactable from 'reactable';
 import CSSModules from 'react-css-modules';
 import Dropdown from 'react-dropdown';
 import styles from './MyDronesTable.scss';
@@ -15,17 +15,17 @@ class MyDronesTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: { value: 10, label: '10' },
+      selected: {value: 10, label: '10'},
     };
   }
 
   render() {
-    const { tableData, itemPerPage, items, displayingHandle, displaying } = this.props;
+    const {tableData, itemPerPage, items, displayingHandle, displaying} = this.props;
     let currentPageNum = 0;
     const options = [
-      { value: 10, label: '10' },
-      { value: 15, label: '15' },
-      { value: 20, label: '20' },
+      {value: 10, label: '10'},
+      {value: 15, label: '15'},
+      {value: 20, label: '20'},
     ];
 
     function calcuDisplaying(perPage, pageNum) {

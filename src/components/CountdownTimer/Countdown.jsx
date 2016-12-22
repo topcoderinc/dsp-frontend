@@ -1,4 +1,4 @@
-import React, { Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import DateBetween from './DateBetween';
 
 /**
@@ -9,7 +9,7 @@ export default class Countdown extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { remaining: null };
+    this.state = {remaining: null};
   }
 
   componentDidMount() {
@@ -25,7 +25,7 @@ export default class Countdown extends Component {
     const startDate = new Date();
     const endDate = new Date(this.props.options.endDate);
     const remaining = DateBetween(startDate, endDate);
-    this.setState({remaining });
+    this.setState({remaining});
   }
 
   render() {

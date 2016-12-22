@@ -14,7 +14,7 @@ class RequestMap extends React.Component {
     });
   }
 
-  shouldComponentUpdate() {
+  shouldComponentUpdate() { // eslint-disable-line lodash/prefer-constant
     // the whole logic is handled by google plugin
     return false;
   }

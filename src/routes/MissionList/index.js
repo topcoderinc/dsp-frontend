@@ -1,4 +1,4 @@
-import { injectReducer } from '../../store/reducers';
+import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
   path: 'mission-list',
@@ -8,7 +8,7 @@ export default (store) => ({
       const MissionList = require('./containers/MissionListContainer').default;
       const reducer = require('./modules/MissionList').default;
 
-      injectReducer(store, { key: 'missionList', reducer });
+      injectReducer(store, {key: 'missionList', reducer});
       cb(null, MissionList);
     }, 'MissionList');
   },

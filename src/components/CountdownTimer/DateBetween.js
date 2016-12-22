@@ -11,7 +11,9 @@ function DateBetween(startDate, endDate) {
 
   function pad(num, size) {
     let s = String(num);
-    while (s.length < (size || 2)) { s = `0${s}`; }
+    while (s.length < (size || 2)) {
+      s = `0${s}`;
+    }
     return s;
   }
 
@@ -29,4 +31,4 @@ function DateBetween(startDate, endDate) {
   return between;
 }
 
-module.exports = DateBetween;
+export default DateBetween;

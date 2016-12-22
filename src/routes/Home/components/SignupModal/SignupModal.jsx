@@ -1,18 +1,11 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import { Link, browserHistory } from 'react-router';
-import { Field, reduxForm } from 'redux-form';
+import {reduxForm} from 'redux-form';
 import cn from 'classnames';
 import Modal from 'react-modal';
 import Button from 'components/Button';
-import Checkbox from 'components/Checkbox';
 import TextField from 'components/TextField';
 import styles from './SignupModal.scss';
-const { DOM: { input } } = React;
-
-import UserApi from 'api/User.js';
-const config = require('../../../../config');
-const userApi = new UserApi(config.default.api.basePath);
 
 /*
 * customStyles
@@ -40,12 +33,18 @@ const customStyles = {
     zIndex: '99999',
   },
 };
-const FormField = ({label, error, touched, children}) => (
+const FormField = ({error, touched, children}) => (
   <div className={cn('form-field', {error: error && touched})}>
     {children}
     {error && touched && <div className="error-message">{error}</div>}
   </div>
 );
+FormField.propTypes = {
+  error: PropTypes.bool,
+  touched: PropTypes.bool,
+  children: PropTypes.any,
+};
+
 /*
 * SignupModal
 */
@@ -54,7 +53,7 @@ class SignupModal extends React.Component {
   constructor() {
     super();
     this.state = {
-      modalSignupIsOpen: false
+      modalSignupIsOpen: false,
     };
   }
 
@@ -62,14 +61,11 @@ class SignupModal extends React.Component {
     this.setState({modalSignupIsOpen: true});
   }
 
-  afterOpenSignupModal() {
-  }
-
   closeSignupModal() {
     this.setState({modalSignupIsOpen: false});
   }
 
-  signup(email, pass) {
+  signup() {
     this.setState({modalSignupIsOpen: true});
   }
 
@@ -77,7 +73,6 @@ class SignupModal extends React.Component {
     handleSigned();
     const _self = this;
     setTimeout(() => {
-      handleSignup();
       if (signedUser) {
         _self.setState({modalSignupIsOpen: false});
       }
@@ -85,7 +80,7 @@ class SignupModal extends React.Component {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting, fields, handleSigned, signedUser, hasError, errorText } = this.props;
+    const {handleSubmit, fields, handleSigned, signedUser, hasError, errorText} = this.props;
 
     return (
       <div styleName="signin-modal">
@@ -120,13 +115,13 @@ class SignupModal extends React.Component {
                 <span>Sign Up with Google Plus</span>
               </a>
             </div>
-            {/* login with end*/}
+            {/* login with end */}
             <div styleName="or-border">
               <div styleName="left-line" />
               <div styleName="or">or</div>
               <div styleName="right-line" />
             </div>
-            {/* or end*/}
+            {/* or end */}
             <div>
               {hasError && <span className="error-msg">{errorText.error}</span>}
               <div styleName="email-input">
@@ -140,23 +135,23 @@ class SignupModal extends React.Component {
                 </FormField>
               </div>
             </div>
-            {/* input end*/}
-            
+            {/* input end */}
+
             <div styleName="login-btn">
               <Button
                 type="submit" color="black"
-                className={styles.btnLogin} onClick={(e) => this.handleSignup(handleSigned, signedUser)}
+                className={styles.btnLogin} onClick={() => this.handleSignup(handleSigned, signedUser)}
               >
                 Sign Up
               </Button>
             </div>
             <div styleName="dont-have">
-              Don&#8217;t have an account?            <a href="javascript:;" className="singup" >Log In</a>
+              Don&#8217;t have an account? <a href="javascript:;" className="singup" >Log In</a>
             </div>
           </form>
         </Modal>
 
-        
+
       </div>
     );
   }
@@ -164,6 +159,11 @@ class SignupModal extends React.Component {
 
 SignupModal.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  fields: PropTypes.object,
+  handleSigned: PropTypes.func.isRequired,
+  signedUser: PropTypes.object,
+  hasError: PropTypes.bool,
+  errorText: PropTypes.string.isRequired,
 };
 
 const fields = ['email', 'password', 'emailUp', 'passwordUp'];
@@ -182,4 +182,4 @@ const validate = (values) => {
 };
 
 
-export default reduxForm({ form: 'signupForm', fields, validate })(CSSModules(SignupModal, styles));
+export default reduxForm({form: 'signupForm', fields, validate})(CSSModules(SignupModal, styles));

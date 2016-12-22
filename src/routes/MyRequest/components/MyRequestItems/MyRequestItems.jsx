@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
+import _ from 'lodash';
 import styles from './MyRequestItems.scss';
 import RequestItem from '../RequestItem';
 
@@ -14,7 +15,7 @@ class MyRequestItems extends React.Component {
   }
 
   _toggleDetail(i) {
-    if (this.state.openedItems.indexOf(i) === -1) {
+    if (_.includes(this.state.openedItems, i)) {
       this.state.openedItems.push(i);
     } else {
       this.state.openedItems.splice(this.state.openedItems.indexOf(i), 1);
@@ -26,7 +27,7 @@ class MyRequestItems extends React.Component {
     return (
       <ul>
         {this.props.requestItems.map((requestItem, i) => (
-          <RequestItem isOpen={this.state.openedItems.indexOf(i) > -1} _toggleDetail={this._toggleDetail.bind(this)} key={i} index={i} requestItem={requestItem} />
+          <RequestItem isOpen={_.includes(this.state.openedItems, i)} _toggleDetail={this._toggleDetail.bind(this)} key={i} index={i} requestItem={requestItem} />
         ))}
       </ul>
     );

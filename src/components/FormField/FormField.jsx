@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import cn from 'classnames';
 import styles from './FormField.scss';
@@ -19,4 +19,4 @@ FormField.propTypes = {
   children: PropTypes.any.isRequired,
 };
 
-export default CSSModules(FormField, styles, { allowMultiple: true });
+export default CSSModules(FormField, styles, {allowMultiple: true});

@@ -1,3 +1,3 @@
-import feedbackItem from './feedbackItem';
+import FeedbackItem from './FeedbackItem';
 
-export default feedbackItem;
+export default FeedbackItem;

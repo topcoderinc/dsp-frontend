@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Accordion from 'components/Accordion';
 import FormField from 'components/FormField';
@@ -12,15 +12,15 @@ import _ from 'lodash';
 import styles from './ItemRequest.scss';
 
 const worthOptions = [
-  { value: 1, label: '100 - 5000 $' },
-  { value: 2, label: '5001 - 10000 $' },
-  { value: 3, label: '> 10001 $' },
+  {value: 1, label: '100 - 5000 $'},
+  {value: 2, label: '5001 - 10000 $'},
+  {value: 3, label: '> 10001 $'},
 ];
 
 const weightOptions = [
-  { value: 1, label: '0 - 500 gms' },
-  { value: 2, label: '501 - 2500 gms' },
-  { value: 3, label: '> 2500 gms' },
+  {value: 1, label: '0 - 500 gms'},
+  {value: 2, label: '501 - 2500 gms'},
+  {value: 3, label: '> 2500 gms'},
 ];
 
 

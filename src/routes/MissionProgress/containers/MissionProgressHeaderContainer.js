@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {markAsComplete} from '../modules/MissionProgress';
 
 import MissionProgressHeader from '../components/MissionProgressHeader';

@@ -1,7 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {shallow} from 'enzyme';
 import _ from 'lodash';
-import { expect } from 'chai';
+import {expect} from 'chai';
 
 import MissionPlannerView from './MissionPlannerView';
 import styles from './MissionPlannerView.scss';
@@ -128,14 +128,14 @@ const setup = () => {
 
 describe('MissionPlannerView', () => {
   it('should renders properly', () => {
-    const { enzymeWrapper } = setup();
+    const {enzymeWrapper} = setup();
 
     expect(enzymeWrapper.find(`.${styles.header}`)).to.have.length(1);
     expect(enzymeWrapper.find(`.${styles.map}`)).to.have.length(1);
   });
 
   it('should have all props defined', () => {
-    const { enzymeWrapper } = setup();
+    const {enzymeWrapper} = setup();
 
     expect(enzymeWrapper.props().mission).to.be.defined;
     expect(enzymeWrapper.props().updateMissionItem).to.be.defined;

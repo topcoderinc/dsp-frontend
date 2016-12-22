@@ -1,22 +1,17 @@
-
-import React, { Component } from 'react';
+import React from 'react';
 import CSSModules from 'react-css-modules';
 import Countdown from './Countdown';
 
 import styles from './CountdownTimer.scss';
 
-class CountdownTimer extends Component {
-  componentDidMount() {
+const CountdownTimer = () => {
+  const OPTIONS = {endDate: '12/20/2016 12:12 AM', prefix: ''};
 
-  }
-  render() {
-    const OPTIONS = { endDate: '12/20/2016 12:12 AM', prefix: '' };
+  return (
+    <div>
+      <Countdown options={OPTIONS} />
+    </div>
+  );
+};
 
-    return (
-      <div>
-        <Countdown options={OPTIONS} />
-      </div>
-    );
-  }
-}
 export default CSSModules(CountdownTimer, styles);

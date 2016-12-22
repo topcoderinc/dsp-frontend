@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import MyServicesTable from '../components/MyServicesTable';
 import {itemPerPageAction, displayedRowsAction} from '../modules/MyServices';
 

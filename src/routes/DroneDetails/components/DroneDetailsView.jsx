@@ -26,6 +26,7 @@ export const DroneDetailsView = ({categories, feedbacks}) => (
 
 DroneDetailsView.propTypes = {
   categories: PropTypes.array.isRequired,
+  feedbacks: PropTypes.array,
 };
 
 export default CSSModules(DroneDetailsView, styles);

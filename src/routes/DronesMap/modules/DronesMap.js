@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions';
+import {handleActions} from 'redux-actions';
 import io from 'socket.io-client';
 import APIService from 'services/APIService';
 import config from '../../../../config/default';
@@ -29,9 +29,9 @@ export const DRONES_UPDATED = 'DronesMap/DRONES_UPDATED';
 
 // load drones and initialize socket
 export const init = () => async(dispatch) => {
-  const { body: {items: drones} } = await APIService.searchDrones({limit: DRONE_LIMIT});
+  const {body: {items: drones}} = await APIService.searchDrones({limit: DRONE_LIMIT});
   lastUpdated = new Date().getTime();
-  dispatch({ type: DRONES_LOADED, payload: {drones} });
+  dispatch({type: DRONES_LOADED, payload: {drones}});
   socket = io(config.API_BASE_PATH);
   socket.on('dronepositionupdate', (drone) => {
     pendingUpdates[drone.id] = drone;
@@ -39,7 +39,7 @@ export const init = () => async(dispatch) => {
       return;
     }
     updateTimeoutId = setTimeout(() => {
-      dispatch({ type: DRONES_UPDATED, payload: pendingUpdates });
+      dispatch({type: DRONES_UPDATED, payload: pendingUpdates});
       pendingUpdates = {};
       updateTimeoutId = null;
       lastUpdated = new Date().getTime();
@@ -66,8 +66,8 @@ export const actions = {
 // Reducer
 // ------------------------------------
 export default handleActions({
-  [DRONES_LOADED]: (state, { payload: {drones} }) => ({ ...state, drones }),
-  [DRONES_UPDATED]: (state, { payload: updates }) => ({
+  [DRONES_LOADED]: (state, {payload: {drones}}) => ({...state, drones}),
+  [DRONES_UPDATED]: (state, {payload: updates}) => ({
     ...state,
     drones: state.drones.map((drone) => {
       const updated = updates[drone.id];
@@ -79,6 +79,6 @@ export default handleActions({
   // it will show the whole globe
   mapSettings: {
     zoom: 3,
-    center: { lat: 0, lng: 0 },
+    center: {lat: 0, lng: 0},
   },
 });

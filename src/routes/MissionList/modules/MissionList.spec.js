@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { expect } from 'chai';
+import {expect} from 'chai';
 
 import reducer, * as module from './MissionList';
 
@@ -26,7 +26,7 @@ describe('MissionList', () => {
   describe('reducer', () => {
     it('should return the initial state', () => {
       expect(
-        reducer(undefined, {})
+        reducer(null, {})
       ).to.deep.equal(
         _.cloneDeep(defaultState)
       );
@@ -35,21 +35,21 @@ describe('MissionList', () => {
     it('should handle LOADED', () => {
       const action = {
         type: module.LOADED,
-        payload: { missions: _.cloneDeep(missions) },
+        payload: {missions: _.cloneDeep(missions)},
       };
 
       expect(
         reducer({}, action)
       ).to.deep.equal(
-        { missions: _.cloneDeep(missions) }
+        {missions: _.cloneDeep(missions)}
       );
     });
 
     it('should handle DELETE_MISSION', () => {
-      const initialState = { missions: _.cloneDeep(missions) };
+      const initialState = {missions: _.cloneDeep(missions)};
       const action = {
         type: module.DELETE_MISSION,
-        payload: { missionId: '2' },
+        payload: {missionId: '2'},
       };
       const newState = _.cloneDeep(initialState);
       newState.missions.splice(1, 1);

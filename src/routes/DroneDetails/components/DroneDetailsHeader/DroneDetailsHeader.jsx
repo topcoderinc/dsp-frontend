@@ -1,6 +1,6 @@
 import React from 'react';
 import CSSModules from 'react-css-modules';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import Button from 'components/Button';
 import styles from './DroneDetailsHeader.scss';
 

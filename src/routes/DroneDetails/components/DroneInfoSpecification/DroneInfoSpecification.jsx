@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './DroneInfoSpecification.scss';
 
@@ -7,7 +7,7 @@ const getImage = (name) => `${window.location.origin}/img/drones/${name}`;
 /*
 * DroneDetailsTabs
 */
-export const DroneInfoSpecification = ({}) => (
+export const DroneInfoSpecification = () => (
   <div styleName="drone-info-spec ">
     <div styleName="left-col">
       <img src={getImage('drone-spec.png')} alt="drone picture" />

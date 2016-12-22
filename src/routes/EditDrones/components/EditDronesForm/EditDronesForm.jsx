@@ -1,6 +1,6 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import { reduxForm } from 'redux-form';
+import {reduxForm} from 'redux-form';
 import Button from 'components/Button';
 import Checkbox from 'components/Checkbox';
 import TextField from 'components/TextField';
@@ -207,4 +207,4 @@ const validate = (values) => {
   return errors;
 };
 
-export default reduxForm({ form: 'editDrones', fields, validate })(CSSModules(EditDronesForm, styles));
+export default reduxForm({form: 'editDrones', fields, validate})(CSSModules(EditDronesForm, styles));

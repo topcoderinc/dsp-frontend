@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import MissionGallery from '../components/MissionGallery';
 
 const mapState = (state) => state.missionProgress;

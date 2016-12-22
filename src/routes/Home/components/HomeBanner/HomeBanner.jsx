@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import CSSModules from 'react-css-modules';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import styles from './HomeBanner.scss';
 import Button from 'components/Button';
 
-export const HomeBanner = ({}) => (
+export const HomeBanner = () => (
   <div styleName="home-banner">
     <div styleName="banner-bg">
       <h2>GET THINGS DONE BY DRONE</h2>

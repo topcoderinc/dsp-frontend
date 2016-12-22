@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import { Grid, Row, Col } from 'react-flexbox-grid/lib/index';
+import {Grid, Row, Col} from 'react-flexbox-grid/lib/index';
 import TextField from 'components/TextField';
 import styles from './InfoWindow.scss';
 import Select from '../Select';
@@ -80,7 +80,7 @@ class InfoWindow extends Component {
 
   toggleFullBody() {
     const newState = this.state.fullBody === 'hidden' ? 'visible' : 'hidden';
-    this.setState({ fullBody: newState });
+    this.setState({fullBody: newState});
   }
 
   handleNumberChange(name, event) {

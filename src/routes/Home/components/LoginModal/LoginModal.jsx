@@ -1,19 +1,12 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import { Link, browserHistory } from 'react-router';
-import { Field, reduxForm } from 'redux-form';
+import {reduxForm} from 'redux-form';
 import cn from 'classnames';
 import Modal from 'react-modal';
 import Button from 'components/Button';
 import Checkbox from 'components/Checkbox';
 import TextField from 'components/TextField';
-import styles from './LogInModal.scss';
-const { DOM: { input } } = React;
-
-import UserApi from 'api/User.js';
-const config = require('../../../../config');
-const userApi = new UserApi(config.default.api.basePath);
-
+import styles from './LoginModal.scss';
 /*
 * customStyles
 */
@@ -40,12 +33,18 @@ const customStyles = {
     zIndex: '99999',
   },
 };
-const FormField = ({label, error, touched, children}) => (
+const FormField = ({error, touched, children}) => (
   <div className={cn('form-field', {error: error && touched})}>
     {children}
     {error && touched && <div className="error-message">{error}</div>}
   </div>
 );
+FormField.propTypes = {
+  error: PropTypes.bool,
+  touched: PropTypes.bool,
+  children: PropTypes.any,
+};
+
 /*
 * LogInModal
 */
@@ -54,7 +53,7 @@ class LogInModal extends React.Component {
   constructor() {
     super();
     this.state = {
-      modalLoginIsOpen: false
+      modalLoginIsOpen: false,
     };
   }
 
@@ -62,14 +61,11 @@ class LogInModal extends React.Component {
     this.setState({modalLoginIsOpen: true});
   }
 
-  afterOpenLoginModal() {
-  }
-
   closeLoginModal() {
     this.setState({modalLoginIsOpen: false});
   }
 
-  login(email, pass) {
+  login() {
     this.setState({modalLoginIsOpen: true});
   }
 
@@ -86,7 +82,7 @@ class LogInModal extends React.Component {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting, fields, handleLoggedIn, loggedUser, hasError, errorText } = this.props;
+    const {handleSubmit, fields, handleLoggedIn, loggedUser, hasError, errorText} = this.props;
 
     return (
       <div styleName="signin-modal">
@@ -121,13 +117,13 @@ class LogInModal extends React.Component {
                 <span>Log In with Google Plus</span>
               </a>
             </div>
-            {/* login with end*/}
+            {/* login with end */}
             <div styleName="or-border">
               <div styleName="left-line" />
               <div styleName="or">or</div>
               <div styleName="right-line" />
             </div>
-            {/* or end*/}
+            {/* or end */}
             <div>
               {hasError && <span className="error-msg">{errorText.error}</span>}
               <div styleName="email-input">
@@ -141,11 +137,11 @@ class LogInModal extends React.Component {
                 </FormField>
               </div>
             </div>
-            {/* input end*/}
+            {/* input end */}
             <div styleName="rem-forget">
               <div styleName="rem-checkbox">
                 <Checkbox
-                  checked={this.props.fields.remember.value != true}
+                  checked={!this.props.fields.remember.value}
                   onChange={() => this.props.fields.remember.onChange(!this.props.fields.remember.value)}
                   id="remember"
                 >
@@ -157,18 +153,18 @@ class LogInModal extends React.Component {
             <div styleName="login-btn">
               <Button
                 type="submit" color="black"
-                className={styles.btnLogin} onClick={(e) => this.handleLogin(handleLoggedIn, loggedUser)}
+                className={styles.btnLogin} onClick={() => this.handleLogin(handleLoggedIn, loggedUser)}
               >
                 Log In
               </Button>
             </div>
             <div styleName="dont-have">
-              Don&#8217;t have an account?            <a href="javascript:;" className="singup" >Sign Up</a>
+              Don&#8217;t have an account? <a href="javascript:;" className="singup" >Sign Up</a>
             </div>
           </form>
         </Modal>
 
-        
+
       </div>
     );
   }
@@ -176,6 +172,11 @@ class LogInModal extends React.Component {
 
 LogInModal.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  fields: PropTypes.object,
+  handleLoggedIn: PropTypes.func.isRequired,
+  loggedUser: PropTypes.object,
+  hasError: PropTypes.bool,
+  errorText: PropTypes.string.isRequired,
 };
 
 const fields = ['remember', 'email', 'password', 'emailUp', 'passwordUp'];
@@ -194,4 +195,4 @@ const validate = (values) => {
 };
 
 
-export default reduxForm({ form: 'loginForm', fields, validate })(CSSModules(LogInModal, styles));
+export default reduxForm({form: 'loginForm', fields, validate})(CSSModules(LogInModal, styles));

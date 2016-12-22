@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
-import {actions, sendSignupRequest, signupAction} from '../../../store/modules/global';
+import {connect} from 'react-redux';
+import {sendSignupRequest, signupAction} from '../../../store/modules/global';
 
 import SignupModal from '../components/SignupModal';
 

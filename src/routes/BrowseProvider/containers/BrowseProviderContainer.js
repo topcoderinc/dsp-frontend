@@ -1,5 +1,5 @@
-import { asyncConnect } from 'redux-connect';
-import { actions, toggleFilter } from '../modules/BrowseProvider';
+import {asyncConnect} from 'redux-connect';
+import {toggleFilter} from '../modules/BrowseProvider';
 
 import BrowseProviderView from '../components/BrowseProviderView';
 

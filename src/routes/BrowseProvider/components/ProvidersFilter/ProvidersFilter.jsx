@@ -1,6 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import Select from 'react-select';
 import Dropdown from 'react-dropdown';
 import InputRange from 'react-input-range';
 import {Radio, RadioGroup} from 'react-icheck';
@@ -8,18 +7,13 @@ import cn from 'classnames';
 import Button from 'components/Button';
 import styles from './ProvidersFilter.scss';
 
-const getImage = (name) => `${window.location.origin}/img/drones/${name}`;
-
 const options = [
-  { value: 1, label: 'Any categories' },
-  { value: 2, label: 'Category one' },
-  { value: 3, label: 'Category two' },
+  {value: 1, label: 'Any categories'},
+  {value: 2, label: 'Category one'},
+  {value: 3, label: 'Category two'},
 ];
 
 const defaultOption = options[0];
-function onChange(val) {
-  console.log(val.value);
-}
 
 
 class ProvidersFilter extends React.Component {
@@ -51,7 +45,7 @@ class ProvidersFilter extends React.Component {
   }
   toggleHidden() {
     this.setState({
-      isHidden: this.state.isHidden ? false : true,
+      isHidden: !this.state.isHidden,
     });
   }
   selectHourRent(index) {
@@ -75,7 +69,6 @@ class ProvidersFilter extends React.Component {
               <div styleName="category-dropdown">
                 <Dropdown
                   options={options}
-                  onChange={onChange}
                   value={defaultOption}
                   placeholder=""
                 />
@@ -170,7 +163,7 @@ class ProvidersFilter extends React.Component {
           </div>
           {/* carry weight row end */}
           <div styleName="actions">
-            <Button color="gray" className={styles.btnMargin} onClick={(e) => this.props.handleFilterToggle(!this.props.toggleFilterValue)}>Cancel</Button>
+            <Button color="gray" className={styles.btnMargin} onClick={() => this.props.handleFilterToggle(!this.props.toggleFilterValue)}>Cancel</Button>
             <Button type="submit" color="blue">Filter</Button>
           </div>
         </div>
@@ -181,6 +174,8 @@ class ProvidersFilter extends React.Component {
 
 
 ProvidersFilter.propTypes = {
+  handleFilterToggle: PropTypes.func.isRequired,
+  toggleFilterValue: PropTypes.bool,
 };
 
 export default CSSModules(ProvidersFilter, styles);

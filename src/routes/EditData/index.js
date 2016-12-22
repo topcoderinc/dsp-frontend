@@ -1,4 +1,4 @@
-import { injectReducer } from '../../store/reducers';
+import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
   path: 'edit-data',
@@ -9,7 +9,7 @@ export default (store) => ({
       const EditData = require('./containers/EditDataContainer').default;
       const reducer = require('./modules/EditData').default;
 
-      injectReducer(store, { key: 'editData', reducer });
+      injectReducer(store, {key: 'editData', reducer});
       cb(null, EditData);
     }, 'EditData');
   },

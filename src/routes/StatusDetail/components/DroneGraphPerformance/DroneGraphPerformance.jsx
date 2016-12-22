@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import ReactHighcharts from 'react-highcharts';
 import SelectDropdown from 'components/SelectDropdown';
@@ -87,22 +87,22 @@ function getConfig(currentGraphType, graphTypeOptions, dataList) {
   const config = _.cloneDeep(configReactHighcharts);
   const data = dataList[currentGraphType];
 
-  config.series[0].name = _.find(graphTypeOptions, { value: currentGraphType }).label;
+  config.series[0].name = _.find(graphTypeOptions, {value: currentGraphType}).label;
   config.series[0].data = data;
 
   config.tooltip.valueSuffix = currentGraphType === 'altitude' ? ' ft' : ' mph';
   // set the max y-axis 10% more then max value of the data
-  config.yAxis.max = Math.ceil(_.max(_.values(_.fromPairs(data))) * 1.1);
+  config.yAxis.max = Math.ceil(_(data).fromPairs().values().max() * 1.1);
 
   return config;
 }
 
 const graphTypeOptions = [
-  { value: 'altitude', label: 'Altitude' },
-  { value: 'speed', label: 'Speed' },
+  {value: 'altitude', label: 'Altitude'},
+  {value: 'speed', label: 'Speed'},
 ];
 
-export const DroneGraphPerformance = ({ altitude, speed, currentGraphType, setCurrentGraphType }) => (
+export const DroneGraphPerformance = ({altitude, speed, currentGraphType, setCurrentGraphType}) => (
   <div styleName="drone-graph-performance">
     <header styleName="header">
       <div>
@@ -112,7 +112,7 @@ export const DroneGraphPerformance = ({ altitude, speed, currentGraphType, setCu
       <SelectDropdown options={graphTypeOptions} value={currentGraphType} onChange={(value) => setCurrentGraphType(value)} />
     </header>
     <div styleName="content">
-      <ReactHighcharts config={getConfig(currentGraphType, graphTypeOptions, { altitude, speed })} />
+      <ReactHighcharts config={getConfig(currentGraphType, graphTypeOptions, {altitude, speed})} />
     </div>
   </div>
 );

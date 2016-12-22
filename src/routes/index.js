@@ -32,7 +32,7 @@ export const createRoutes = (store) => ({
   },
   childRoutes: [
     ServiceRequestRoute(store),
-	DashboardRoute(store),
+    DashboardRoute(store),
     MissionList(store),
     MissionPlanner(store),
     MyRequestRoute(store),

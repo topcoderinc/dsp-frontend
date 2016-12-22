@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import _ from 'lodash';
 import MissionSidebarItem from '../MissionSidebarItem';
 import styles from './MissionSidebar.scss';
 
-export const MissionSidebar = ({ missionItems, onUpdate, onDelete }) => (
+export const MissionSidebar = ({missionItems, onUpdate, onDelete}) => (
   <div styleName="mission-sidebar">
     {missionItems.length ? (
         missionItems.map((missionItem) => (

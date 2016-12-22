@@ -1,4 +1,4 @@
-import { handleActions, createAction } from 'redux-actions';
+import {handleActions, createAction} from 'redux-actions';
 
 // ------------------------------------
 // Actions
@@ -26,13 +26,13 @@ export default handleActions({
 }, {
   // initial data
   providers: [
-  	{imgSrc: 'drone-1.png', droneName: 'Drone Maniac', completedJob: 21, sponsored: true, hasBadge: true},
-  	{imgSrc: 'drone-2.png', droneName: 'Pro Flying', completedJob: 20, sponsored: false, hasBadge: true},
-  	{imgSrc: 'drone-3.png', droneName: 'XtremeDrone', completedJob: 21, sponsored: false, hasBadge: true},
-  	{imgSrc: 'drone-4.png', droneName: 'Drone Maniac', completedJob: 11, sponsored: false, hasBadge: true},
-  	{imgSrc: 'drone-3.png', droneName: 'XtremeDrone', completedJob: 21, sponsored: false, hasBadge: true},
-  	{imgSrc: 'drone-2.png', droneName: 'Pro Flying', completedJob: 31, sponsored: false, hasBadge: true},
-  	{imgSrc: 'drone-1.png', droneName: 'Drone Maniac', completedJob: 25, sponsored: false, hasBadge: true},
+    {imgSrc: 'drone-1.png', droneName: 'Drone Maniac', completedJob: 21, sponsored: true, hasBadge: true},
+    {imgSrc: 'drone-2.png', droneName: 'Pro Flying', completedJob: 20, sponsored: false, hasBadge: true},
+    {imgSrc: 'drone-3.png', droneName: 'XtremeDrone', completedJob: 21, sponsored: false, hasBadge: true},
+    {imgSrc: 'drone-4.png', droneName: 'Drone Maniac', completedJob: 11, sponsored: false, hasBadge: true},
+    {imgSrc: 'drone-3.png', droneName: 'XtremeDrone', completedJob: 21, sponsored: false, hasBadge: true},
+    {imgSrc: 'drone-2.png', droneName: 'Pro Flying', completedJob: 31, sponsored: false, hasBadge: true},
+    {imgSrc: 'drone-1.png', droneName: 'Drone Maniac', completedJob: 25, sponsored: false, hasBadge: true},
     {imgSrc: 'drone-1.png', droneName: 'XtremeDrone', completedJob: 22, sponsored: true, hasBadge: true},
     {imgSrc: 'drone-2.png', droneName: 'Drone Maniac', completedJob: 21, sponsored: false, hasBadge: true},
     {imgSrc: 'drone-3.png', droneName: 'Pro Flying', completedJob: 21, sponsored: false, hasBadge: true},

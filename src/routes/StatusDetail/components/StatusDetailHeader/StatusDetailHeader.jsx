@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import StatusLabel from 'components/StatusLabel';
 import styles from './StatusDetailHeader.scss';
 
-export const StatusDetailHeader = ({ title, status, children }) => (
+export const StatusDetailHeader = ({title, status, children}) => (
   <div styleName="status-detail-header">
     <h1 styleName="title">{title}</h1>
     <div styleName="status">

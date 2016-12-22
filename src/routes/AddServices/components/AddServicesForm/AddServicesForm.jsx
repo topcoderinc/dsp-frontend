@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Button from 'components/Button';
 import TextField from 'components/TextField';
 import FormField from 'components/FormField';
 import TextareaField from 'components/TextareaField';
-import { reduxForm } from 'redux-form';
+import {reduxForm} from 'redux-form';
 import styles from './AddServicesForm.scss';
 import AddPackages from '../AddPackages';
 
@@ -83,4 +83,4 @@ const validate = (values) => {
   return errors;
 };
 
-export default reduxForm({ form: 'editDrones', fields, validate })(CSSModules(AddServicesForm, styles));
+export default reduxForm({form: 'editDrones', fields, validate})(CSSModules(AddServicesForm, styles));

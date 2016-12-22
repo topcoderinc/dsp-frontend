@@ -1,8 +1,8 @@
 import {handleActions} from 'redux-actions';
-import { push } from 'react-router-redux';
+import {push} from 'react-router-redux';
 import _ from 'lodash';
 import APIService from 'services/APIService';
-import { getUID, poluteMissionWithUID, cloneMissionUID, clearMissionUID } from './utils/missionUID.js';
+import {getUID, poluteMissionWithUID, cloneMissionUID, clearMissionUID} from './utils/missionUID.js';
 
 // ------------------------------------
 // Constants
@@ -36,7 +36,7 @@ export const load = (id) => async(dispatch) => {
     we will add custom unique ids to use them later as "key" property to prevent rerendering
   */
   mission = poluteMissionWithUID(mission);
-  dispatch({ type: LOADED, payload: { mission } });
+  dispatch({type: LOADED, payload: {mission}});
 };
 
 export const save = () => async (dispatch, getState) => {
@@ -61,16 +61,16 @@ export const save = () => async (dispatch, getState) => {
       but to prevent redrawing we copy uids
     */
     mission = cloneMissionUID(missionToSave, mission);
-    dispatch({ type: UPDATED, payload: { mission } });
+    dispatch({type: UPDATED, payload: {mission}});
   } else {
     await APIService.createMission(missionToSave);
-    dispatch({ type: CREATED });
+    dispatch({type: CREATED});
     dispatch(push('/mission-list'));
   }
 };
 
 export const updateMissionItem = (id, missionItem) => async (dispatch) => {
-  dispatch({ type: UPDATE_MISSION_ITEM, payload: { id, missionItem } });
+  dispatch({type: UPDATE_MISSION_ITEM, payload: {id, missionItem}});
 };
 
 export const addMissionItem = (markerPosition) => async (dispatch, getState) => {
@@ -80,19 +80,19 @@ export const addMissionItem = (markerPosition) => async (dispatch, getState) => 
   if (!getState().missionPlanner.mission.plannedHomePosition) {
     uids.push(getUID());
   }
-  dispatch({ type: ADD_MISSION_ITEM, payload: { markerPosition, uids } });
+  dispatch({type: ADD_MISSION_ITEM, payload: {markerPosition, uids}});
 };
 
 export const deleteMissionItem = (missionItemId) => async (dispatch) => {
-  dispatch({ type: DELETE_MISSION_ITEM, payload: { missionItemId } });
+  dispatch({type: DELETE_MISSION_ITEM, payload: {missionItemId}});
 };
 
 export const clearMission = () => async (dispatch) => {
-  dispatch({ type: CLEAR_MISSION });
+  dispatch({type: CLEAR_MISSION});
 };
 
 export const updateMissionName = (missionName) => async (dispatch) => {
-  dispatch({ type: UPDATE_MISSION_NAME, payload: { missionName } });
+  dispatch({type: UPDATE_MISSION_NAME, payload: {missionName}});
 };
 
 export const actions = {
@@ -109,21 +109,21 @@ export const actions = {
 // Reducer
 // ------------------------------------
 export default handleActions({
-  [LOADED]: (state, { payload: { mission } }) => {
+  [LOADED]: (state, {payload: {mission}}) => {
     const newState = _.cloneDeep(state);
 
     newState.mission = mission;
 
     return newState;
   },
-  [UPDATED]: (state, { payload: { mission } }) => {
+  [UPDATED]: (state, {payload: {mission}}) => {
     const newState = _.cloneDeep(state);
 
     newState.mission = mission;
 
     return newState;
   },
-  [UPDATE_MISSION_ITEM]: (state, {payload: {id, missionItem} }) => {
+  [UPDATE_MISSION_ITEM]: (state, {payload: {id, missionItem}}) => {
     const newState = _.cloneDeep(state);
 
     if (id === 0) {
@@ -133,7 +133,7 @@ export default handleActions({
     }
     return newState;
   },
-  [ADD_MISSION_ITEM]: (state, { payload: { markerPosition, uids } }) => {
+  [ADD_MISSION_ITEM]: (state, {payload: {markerPosition, uids}}) => {
     const newState = _.cloneDeep(state);
     const missionItem = {
       uid: uids[0], // use first uid
@@ -177,7 +177,7 @@ export default handleActions({
 
     return newState;
   },
-  [DELETE_MISSION_ITEM]: (state, { payload: { missionItemId } }) => {
+  [DELETE_MISSION_ITEM]: (state, {payload: {missionItemId}}) => {
     const newState = _.cloneDeep(state);
 
     // cannot delete home point, only missionItems
@@ -207,7 +207,7 @@ export default handleActions({
 
     return newState;
   },
-  [UPDATE_MISSION_NAME]: (state, { payload: { missionName } }) => {
+  [UPDATE_MISSION_NAME]: (state, {payload: {missionName}}) => {
     const newState = _.cloneDeep(state);
 
     newState.mission.missionName = missionName;
