@@ -7,6 +7,9 @@ import Button from 'components/Button';
 import Checkbox from 'components/Checkbox';
 import TextField from 'components/TextField';
 import styles from './LoginModal.scss';
+import APIService from '../../../../services/APIService';
+import {toastr} from 'react-redux-toastr';
+import {browserHistory} from 'react-router';
 /*
 * customStyles
 */
@@ -50,10 +53,11 @@ FormField.propTypes = {
 */
 
 class LogInModal extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       modalLoginIsOpen: false,
+      showForgetPassword: false,
     };
   }
 
@@ -62,7 +66,7 @@ class LogInModal extends React.Component {
   }
 
   closeLoginModal() {
-    this.setState({modalLoginIsOpen: false});
+    this.setState({modalLoginIsOpen: false, showForgetPassword: false});
   }
 
   login() {
@@ -81,9 +85,27 @@ class LogInModal extends React.Component {
     }, 100);
   }
 
-  render() {
-    const {handleSubmit, fields, handleLoggedIn, loggedUser, hasError, errorText} = this.props;
+  forgetPassword() {
+    this.setState({showForgetPassword: true});
+  }
 
+  /**
+   * This method is invoked when reset password request is submitted
+   */
+  handleForgetPassword(data) {
+    APIService.forgotPassword({email: data.emailUp}).then((result) => {
+      toastr.success('', 'Reset password link emailed to your email address');
+      this.closeLoginModal();
+    }).catch((reason) => {
+      const message = reason.response.body.error || 'something went wrong, please try again';
+      toastr.error(`${message}`);
+      this.closeLoginModal();
+    });
+  }
+
+  render() {
+    const _self = this;
+    const {handleSubmit, fields, handleLoggedIn, loggedUser, hasError, errorText} = this.props;
     return (
       <div styleName="signin-modal">
         <div styleName="login-signup">
@@ -100,71 +122,88 @@ class LogInModal extends React.Component {
 
           <div styleName="modal-header">
             <div onClick={this.closeLoginModal.bind(this)} styleName="icon-close-modal" />
-            <div styleName="title">Login to Your Account</div>
+            {this.state.showForgetPassword === false && <div styleName="title">Login to Your Account</div>}
+            {this.state.showForgetPassword === true && <div styleName="title">Reset forgotten password</div>}
           </div>
-
-          <form styleName="login-form" onSubmit={handleSubmit}>
-            <div styleName="login-with-fb">
-              <a href="javascript:;">
-                <i styleName="icon-facebook" />
-                <span>Log In with Facebook</span>
-              </a>
-            </div>
-
-            <div styleName="login-with-gplus">
-              <a href="javascript:;">
-                <i styleName="icon-gplus" />
-                <span>Log In with Google Plus</span>
-              </a>
-            </div>
-            {/* login with end */}
-            <div styleName="or-border">
-              <div styleName="left-line" />
-              <div styleName="or">or</div>
-              <div styleName="right-line" />
-            </div>
-            {/* or end */}
-            <div>
-              {hasError && <span className="error-msg">{errorText.error}</span>}
-              <div styleName="email-input">
-                <FormField {...fields.email}>
-                  <TextField {...fields.email} login type="email" label="Email" />
-                </FormField>
+          {this.state.showForgetPassword === false &&
+            <form styleName="login-form" onSubmit={handleSubmit}>
+              <div styleName="login-with-fb">
+                <a href="javascript:;">
+                  <i styleName="icon-facebook" />
+                  <span>Log In with Facebook</span>
+                </a>
               </div>
+
+              <div styleName="login-with-gplus">
+                <a href="javascript:;">
+                  <i styleName="icon-gplus" />
+                  <span>Log In with Google Plus</span>
+                </a>
+              </div>
+              {/* login with end */}
+              <div styleName="or-border">
+                <div styleName="left-line" />
+                <div styleName="or">or</div>
+                <div styleName="right-line" />
+              </div>
+              {/* or end */}
               <div>
-                <FormField {...fields.password}>
-                  <TextField {...fields.password} login type="password" label="Password" />
-                </FormField>
+                {hasError && <span className="error-msg">{errorText.error}</span>}
+                <div styleName="email-input">
+                  <FormField {...fields.email}>
+                    <TextField {...fields.email} login type="email" label="Email" />
+                  </FormField>
+                </div>
+                <div>
+                  <FormField {...fields.password}>
+                    <TextField {...fields.password} login type="password" label="Password" />
+                  </FormField>
+                </div>
               </div>
-            </div>
-            {/* input end */}
-            <div styleName="rem-forget">
-              <div styleName="rem-checkbox">
-                <Checkbox
-                  checked={!this.props.fields.remember.value}
-                  onChange={() => this.props.fields.remember.onChange(!this.props.fields.remember.value)}
-                  id="remember"
+              {/* input end */}
+              <div styleName="rem-forget">
+                <div styleName="rem-checkbox">
+                  <Checkbox
+                    checked={!this.props.fields.remember.value}
+                    onChange={() => this.props.fields.remember.onChange(!this.props.fields.remember.value)}
+                    id="remember"
+                  >
+                    Remember me
+                  </Checkbox>
+                </div>
+                <div styleName="forget"><a href="javascript:;" onClick={this.forgetPassword.bind(this)}>Forget Password?</a></div>
+              </div>
+              <div styleName="login-btn">
+                <Button
+                  type="submit" color="black"
+                  className={styles.btnLogin} onClick={() => this.handleLogin(handleLoggedIn, loggedUser)}
                 >
-                  Remember me
-                </Checkbox>
+                  Log In
+                </Button>
               </div>
-              <div styleName="forget"><a href="javascript:;">Forget Password?</a></div>
-            </div>
-            <div styleName="login-btn">
-              <Button
-                type="submit" color="black"
-                className={styles.btnLogin} onClick={() => this.handleLogin(handleLoggedIn, loggedUser)}
-              >
-                Log In
-              </Button>
-            </div>
-            <div styleName="dont-have">
-              Don&#8217;t have an account? <a href="javascript:;" className="singup" >Sign Up</a>
-            </div>
-          </form>
+              <div styleName="dont-have">
+                Don&#8217;t have an account? <a href="javascript:;" className="singup">Sign Up</a>
+              </div>
+            </form>
+          }
+          { this.state.showForgetPassword === true &&
+            <form styleName="login-form" onSubmit={handleSubmit((data) => _self.handleForgetPassword(data))}>
+              <div>
+                {hasError && <span className="error-msg">{errorText.error}</span>}
+                <div styleName="email-input">
+                  <FormField {...fields.emailUp}>
+                    <TextField {...fields.emailUp} login type="email" label="Email" />
+                  </FormField>
+                </div>
+              </div>
+              <div styleName="login-btn">
+                <Button type="submit" color="black" className={styles.btnLogin}>
+                  Reset Password
+                </Button>
+              </div>
+            </form>
+          }
         </Modal>
-
-
       </div>
     );
   }
@@ -181,8 +220,20 @@ LogInModal.propTypes = {
 
 const fields = ['remember', 'email', 'password', 'emailUp', 'passwordUp'];
 
-const validate = (values) => {
+const validate = (values, props) => {
   const errors = {};
+  if (!values.emailUp && !values.email) {
+    errors.emailUp = 'Email is required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.emailUp) && !values.email) {
+    errors.emailUp = 'Invalid email address';
+  }
+
+  if (errors.emailUp && (values.emailUp || values.email)) {
+    return errors;
+  } else if (values.emailUp) {
+    return errors;
+  }
+
   if (!values.email) {
     errors.email = 'Email is required';
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
