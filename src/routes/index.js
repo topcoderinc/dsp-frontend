@@ -20,6 +20,7 @@ import DroneDetailsRoute from './DroneDetails';
 import AvailablePackagesRoute from './AvailablePackages';
 import ProviderDetailsRoute from './ProviderDetails';
 import ResetPasswordRoute from './ResetPassword';
+import {defaultAuth0Service} from '../services/AuthService';
 
 export const createRoutes = (store) => ({
   path: '/',
@@ -28,8 +29,15 @@ export const createRoutes = (store) => ({
   component: CoreLayout,
   indexRoute: {
     onEnter: (nextState, replace, cb) => {
-      replace('/dashboard');
-      cb();
+      // parse the hash if present
+      if (nextState.location.hash) {
+        defaultAuth0Service.parseHash(nextState.location.hash);
+        replace('/dashboard');
+        cb();
+      } else {
+        replace('/dashboard');
+        cb();
+      }
     },
   },
   childRoutes: [

@@ -9,7 +9,8 @@ import TextField from 'components/TextField';
 import styles from './LoginModal.scss';
 import APIService from '../../../../services/APIService';
 import {toastr} from 'react-redux-toastr';
-import {browserHistory} from 'react-router';
+import {defaultAuth0Service} from '../../../../services/AuthService';
+
 /*
 * customStyles
 */
@@ -90,15 +91,41 @@ class LogInModal extends React.Component {
   }
 
   /**
+   * Login using google social network,
+   * this method internally uses auth0 service
+   */
+  googleLogin() {
+    defaultAuth0Service.login({connection: 'google-oauth2'}, (error) => {
+      if (error) {
+        const message = error.message || 'something went wrong, please try again';
+        toastr.error(message);
+      }
+    });
+  }
+
+  /**
+   * Login using facebook social network,
+   * this method internally uses auth0 service
+   */
+  facebookLogin() {
+    defaultAuth0Service.login({connection: 'facebook'}, (error) => {
+      if (error) {
+        const message = error.message || 'something went wrong, please try again';
+        toastr.error(message);
+      }
+    });
+  }
+
+  /**
    * This method is invoked when reset password request is submitted
    */
   handleForgetPassword(data) {
-    APIService.forgotPassword({email: data.emailUp}).then((result) => {
+    APIService.forgotPassword({email: data.emailUp}).then(() => {
       toastr.success('', 'Reset password link emailed to your email address');
       this.closeLoginModal();
     }).catch((reason) => {
       const message = reason.response.body.error || 'something went wrong, please try again';
-      toastr.error(`${message}`);
+      toastr.error(message);
       this.closeLoginModal();
     });
   }
@@ -128,14 +155,14 @@ class LogInModal extends React.Component {
           {this.state.showForgetPassword === false &&
             <form styleName="login-form" onSubmit={handleSubmit}>
               <div styleName="login-with-fb">
-                <a href="javascript:;">
+                <a href="javascript:;" onClick={this.facebookLogin.bind(this)}>
                   <i styleName="icon-facebook" />
                   <span>Log In with Facebook</span>
                 </a>
               </div>
 
               <div styleName="login-with-gplus">
-                <a href="javascript:;">
+                <a href="javascript:;" onClick={this.googleLogin.bind(this)}>
                   <i styleName="icon-gplus" />
                   <span>Log In with Google Plus</span>
                 </a>
@@ -220,7 +247,7 @@ LogInModal.propTypes = {
 
 const fields = ['remember', 'email', 'password', 'emailUp', 'passwordUp'];
 
-const validate = (values, props) => {
+const validate = (values) => {
   const errors = {};
   if (!values.emailUp && !values.email) {
     errors.emailUp = 'Email is required';

@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2016 Topcoder Inc, All rights reserved.
  */
-
+/* eslint no-console: 0 */
 /**
  * auth0 Authentication service for the app.
  *
@@ -9,71 +9,138 @@
  * @version      1.0.0
  */
 
-import Auth0Lock from 'auth0-lock'
-import config from 'config/default';
-import UserApi from 'api/UserApi';
+import Auth0 from 'auth0-js';
+import config from '../../config/default';
+import UserApi from '../api/User';
 
-const userApi = new UserApi(config.api.basePath);
 
-export default class AuthService {
+const userApi = new UserApi(config.API_BASE_PATH);
 
+class AuthService {
+
+  /**
+   * Default constructor
+   * @param  {String}     clientId      the auth0 client id
+   * @param  {String}     domain        the auth0 domain
+   */
   constructor(clientId, domain) {
-    // Configure Auth0
-    this.lock = new Auth0Lock(clientId, domain, {
-      allowedConnections: ['google-oauth2', 'facebook', 'github'],
-      autoclose: true
+    this.auth0 = new Auth0({
+      clientID: clientId,
+      domain,
+      responseType: 'token',
+      callbackURL: config.AUTH0_CALLBACK,
     });
-    // Add callback for lock `authenticated` event
-    this.lock.on('authenticated', this._doAuthentication.bind(this));
-    // binds login functions to keep this context
     this.login = this.login.bind(this);
+    this.parseHash = this.parseHash.bind(this);
+    this.loggedIn = this.loggedIn.bind(this);
+    this.logout = this.logout.bind(this);
+    this.getProfile = this.getProfile.bind(this);
+    this.getHeader = this.getHeader.bind(this);
   }
 
-  _doAuthentication(authResult, a, b, c) {
-    // Saves the user token
-    this.setToken(authResult.idToken);
-    var that = this;
-    this.lock.getProfile(authResult.idToken, function(error, profile) {
+  /**
+   * Redirects the user to appropriate social network for oauth2 authentication
+   *
+   * @param  {Object}     params        any params to pass to auth0 client
+   * @param  {Function}   onError       function to execute on error
+   */
+  login(params, onError) {
+    // redirects the call to auth0 instance
+    this.auth0.login(params, onError);
+  }
+
+  /**
+   * Parse the hash fragment of url
+   * This method will actually parse the token
+   * will create a user profile if not already present and save the id token in local storage
+   * if there is some error delete the access token
+   * @param  {String}     hash            the hash fragment
+   */
+  parseHash(hash) {
+    const _self = this;
+    const authResult = _self.auth0.parseHash(hash);
+    if (authResult && authResult.idToken) {
+      _self.setToken(authResult.idToken);
+      // get social profile
+      _self.getProfile((error, profile) => {
         if (error) {
-          console.log(error);
-          return;
+          // remove the id token
+          _self.removeToken();
+          throw error;
+        } else {
+          userApi.registerSocialUser(profile.name, profile.email, _self.getToken()).then((loginResult) => {
+            console.log('user registered successfully', loginResult);
+          }).catch((reason) => {
+            // remove the id token
+            _self.removeToken();
+            throw reason;
+          });
         }
-        userApi.registerSocialUser(profile.name, profile.email).then((authResult) => {
-            that.setToken(authResult.accessToken);
-        }).catch((err) => {
-            console.error(err);
-        });
-    });
+      });
+    }
   }
 
-  login() {
-    // Call the show method to display the widget.
-    this.lock.show()
-  }
-
+  /**
+   * Check if the user is logged in
+   * @param  {String}     hash            the hash fragment
+   */
   loggedIn() {
     // Checks if there is a saved token and it's still valid
     return !!this.getToken();
   }
 
+  /**
+   * Set the id token to be stored in local storage
+   * @param  {String}     idToken          the token to store
+   */
   setToken(idToken) {
-    // Saves user token to sessionStorage
-    sessionStorage.setItem('id_token', idToken);
+    // Saves user token to localStorage
+    localStorage.setItem('id_token', idToken);
   }
 
+  /**
+   * Get the stored id token from local storage
+   */
   getToken() {
-    // Retrieves the user token from sessionStorage
-    return sessionStorage.getItem('id_token');
+    // Retrieves the user token from localStorage
+    return localStorage.getItem('id_token');
   }
 
+  /**
+   * Remove the id token from local storage
+   */
+  removeToken() {
+    // Clear user token and profile data from localStorage
+    localStorage.removeItem('id_token');
+  }
+
+  /**
+   * Logout the user from the application, delete the id token
+   */
   logout() {
-    // Clear user token and profile data from sessionStorage
-    sessionStorage.removeItem('id_token');
+    this.removeToken();
   }
 
+  /**
+   * Get the authorization header for API access
+   */
   getHeader() {
     return {
-      Authorization: `Bearer ${this.getToken()}`
-    }
+      Authorization: `Bearer ${this.getToken()}`,
+    };
+  }
+
+  /**
+   * Get the profile of currently logged in user
+   *
+   * @param   {callback}     the callback function to call after operation finishes
+   * @return  {Object}       the profile of logged in user
+   */
+  getProfile(callback) {
+    this.auth0.getProfile(this.getToken(), callback);
   }
 }
+
+const defaultAuth0Service = new AuthService(config.REACT_APP_AUTH0_CLIENT_ID, config.REACT_APP_AUTH0_CLIENT_DOMAIN);
+
+export {AuthService as default, defaultAuth0Service};
