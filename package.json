@@ -5,11 +5,20 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server",
-    "start": "cross-env NODE_ENV=production node server",
-    "build": "cross-env NODE_ENV=production webpack --bail --progress --build --tc",
+    "start": "node --max-old-space-size=512 server",
+    "build": "node --max-old-space-size=512 ./node_modules/webpack/bin/webpack --bail --progress --build --tc",
     "lint": "eslint --ext jsx --ext js .",
     "lint:fix": "npm run lint -- --fix",
-    "test": "mocha-webpack --require setup-test.js --webpack-config webpack.config-test.js \"src/**/*.spec.(jsx|js)\""
+    "test": "mocha-webpack --require setup-test.js --webpack-config webpack.config-test.js \"src/**/*.spec.(jsx|js)\"",
+    "postinstall":"npm run build",
+    "heroku:prod:init":"git remote remove production && heroku create --remote production && heroku config:set NODE_ENV=production --remote production",
+    "heroku:dev:init": "git remote remove dev && heroku create --remote dev && heroku config:set NODE_ENV=development NPM_CONFIG_PRODUCTION=false --remote dev",
+    "heroku:staging:init":  "git remote remove staging && heroku create --remote staging && heroku config:set NODE_ENV=staging --remote staging",
+    "heroku:test:init": "git remote remove test && heroku create --remote test && heroku config:set NODE_ENV=test --remote test",
+    "heroku:prod:deploy":"git push production master",
+    "heroku:dev:deploy":"git push dev master",
+    "heroku:staging:deploy":"git push staging master",
+    "heroku:test:deploy":"git push test master"
   },
   "author": "",
   "license": "MIT",

@@ -34,3 +34,24 @@ See Guild https://github.com/lorenwest/node-config/wiki/Configuration-Files
 |`lint:fix`|Lint and fix all `.js` files. [Read more on this](http://eslint.org/docs/user-guide/command-line-interface.html#fix).|
 |`test`|Run tests using [mocha-webpack](https://github.com/webpack/mocha-loader) for all `*.spec.(js|jsx)` files in the `src` dir.|
 
+## Local deploy
+    NODE_ENV=production npm run build
+    NODE_ENV=production npm run start
+
+## Heroku deploy
+
+### Prerequisites
+  - Heroku CLI
+
+### set up
+    npm run heroku:[ENV]:init
+    npm run heroku:[ENV]:deploy
+
+### update
+    npm run heroku:[ENV]:deploy
+
+`npm run heroku:[ENV]:init` will create a new git remote in current git repository and a new app in remote server.
+
+`npm run heroku:[ENV]:deploy` line will push current branch to corresponding remote environment.
+
+`ENV` can be 'prod', 'dev', 'staging', 'test'.
