@@ -19,6 +19,7 @@ import BrowseProviderRoute from './BrowseProvider';
 import DroneDetailsRoute from './DroneDetails';
 import AvailablePackagesRoute from './AvailablePackages';
 import ProviderDetailsRoute from './ProviderDetails';
+import ResetPasswordRoute from './ResetPassword';
 
 export const createRoutes = (store) => ({
   path: '/',
@@ -53,7 +54,7 @@ export const createRoutes = (store) => ({
     DroneDetailsRoute(store),
     AvailablePackagesRoute(store),
     ProviderDetailsRoute(store),
-
+    ResetPasswordRoute(store),
   ],
 });
 
