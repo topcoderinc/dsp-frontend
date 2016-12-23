@@ -25,13 +25,13 @@ class ResetPasswordView extends Component {
         <form onSubmit={handleSubmit((data) => _self.onSubmit({...data, code: token}))}>
           <div styleName="row">
             <label htmlFor="email">Email:</label>
-            <FormField {...fields.email}>
+            <FormField {...fields.email} className="email-field">
               <TextField {...fields.email} label={'email'} />
             </FormField>
           </div>
           <div styleName="row">
             <label htmlFor="password">Password:</label>
-            <FormField {...fields.password}>
+            <FormField {...fields.password} className="password-field">
               <TextField {...fields.password} label={'New Password'} />
             </FormField>
           </div>
