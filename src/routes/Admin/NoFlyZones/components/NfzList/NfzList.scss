@@ -1,0 +1,30 @@
+.nfz-list {
+  padding: 20px;
+
+  :global {
+
+  }
+}
+
+.label {
+  line-height: 36px;
+}
+
+.item {
+  margin-top: 15px;
+
+  + .item {
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+  }
+}
+
+.actions {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+
+  button {
+    margin: 0 5px;
+  }
+}

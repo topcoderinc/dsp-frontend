@@ -10,7 +10,7 @@
     margin: 0;
     width: 100%;
     display: flex;
-    
+
     > li {
       height: 60px;
       display: flex;
@@ -21,7 +21,7 @@
       + li {
         border-left: 1px solid #484848;
       }
-      
+
       &.search {
         flex-grow: 1;
       }
@@ -64,16 +64,16 @@
             align-items: center;
             padding: 8px 8px 0;
             border-bottom: 8px solid transparent;
-            &:hover, &:focus {
+            &:hover {
               border-bottom: 8px solid #315b95;
             }
           }
 
-        } 
+        }
 
         :global {
           .active {
-            border-bottom: 5px solid #214A84;
+            border-bottom: 8px solid #214A84;
           }
         }
       }
@@ -124,5 +124,5 @@
     color: #fff;
     font-weight: bold;
   }
-  
+
 }

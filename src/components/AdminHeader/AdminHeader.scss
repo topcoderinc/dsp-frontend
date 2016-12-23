@@ -1,0 +1,13 @@
+.admin-header {
+  composes: header from '../Header/Header.scss'
+}
+
+.branding {
+  composes: branding from '../Header/Header.scss'
+}
+
+.pages {
+  composes: pages from '../Header/Header.scss'
+}
+
+

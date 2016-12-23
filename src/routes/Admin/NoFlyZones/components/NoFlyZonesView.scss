@@ -1,0 +1,14 @@
+.no-fly-zones-view {
+  height: calc(100vh - 60px - 42px - 50px); // header height - breadcrumb height - footer height
+  display: flex;
+}
+
+.col-1 {
+  width: 400px;
+  overflow: auto;
+}
+
+.col-2 {
+  height: 100%;
+  flex: 1 0 auto;
+}

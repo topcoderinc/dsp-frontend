@@ -100,7 +100,7 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         GOOGLE_API_KEY: JSON.stringify(process.env.GOOGLE_API_KEY),
-        API_BASE_URL: JSON.stringify(process.env.API_BASE_URL),
+        API_BASE_PATH: JSON.stringify(process.env.API_BASE_PATH),
       },
     }),
     new HtmlWebpackPlugin({

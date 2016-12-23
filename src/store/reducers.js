@@ -4,10 +4,12 @@ import {reducer as reduxAsyncConnect} from 'redux-connect';
 import {reducer as form} from 'redux-form';
 import {reducer as toastr} from 'react-redux-toastr';
 import global from './modules/global';
+import searchNFZ from './modules/searchNFZ';
 
 export const makeRootReducer = (asyncReducers) => combineReducers({
   router,
   global,
+  searchNFZ,
   form,
   reduxAsyncConnect,
   ...asyncReducers,

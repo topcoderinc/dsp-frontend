@@ -64,7 +64,7 @@ export const getMarkerProps = (item, updateMissionItem) => {
   return markerProps;
 };
 
-export const MissionPlannerView = ({mission, updateMissionItem, addMissionItem, deleteMissionItem}) => {
+export const MissionPlannerView = ({mission, updateMissionItem, addMissionItem, deleteMissionItem, loadNfz, noFlyZones}) => {
   const missionItemsExt = getMissionItemsExt(mission);
   const markersExt = missionItemsExt.map((item) => getMarkerProps(item, updateMissionItem));
 
@@ -74,7 +74,12 @@ export const MissionPlannerView = ({mission, updateMissionItem, addMissionItem, 
         <MissionPlannerHeader />
       </div>
       <div styleName="map">
-        <MissionMap markers={markersExt} onMapClick={(event) => addMissionItem({lat: event.latLng.lat(), lng: event.latLng.lng()})} />
+        <MissionMap
+          loadNfz={loadNfz}
+          noFlyZones={noFlyZones}
+          markers={markersExt}
+          onMapClick={(event) => addMissionItem({lat: event.latLng.lat(), lng: event.latLng.lng()})}
+        />
         <MissionSidebar missionItems={missionItemsExt} onUpdate={updateMissionItem} onDelete={deleteMissionItem} />
       </div>
     </div>
@@ -86,6 +91,8 @@ MissionPlannerView.propTypes = {
   updateMissionItem: PropTypes.func.isRequired,
   addMissionItem: PropTypes.func.isRequired,
   deleteMissionItem: PropTypes.func.isRequired,
+  loadNfz: PropTypes.func.isRequired,
+  noFlyZones: PropTypes.array.isRequired,
 };
 
 export default CSSModules(MissionPlannerView, styles);

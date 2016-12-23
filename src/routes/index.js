@@ -1,4 +1,5 @@
 import CoreLayout from 'layouts/CoreLayout';
+import AdminLayout from 'layouts/AdminLayout';
 import MissionProgressRoute from './MissionProgress';
 import ServiceRequestRoute from './ServiceRequest';
 import DashboardRoute from './Dashboard';
@@ -18,12 +19,12 @@ import HomeRoute from './Home';
 import BrowseProviderRoute from './BrowseProvider';
 import DroneDetailsRoute from './DroneDetails';
 import AvailablePackagesRoute from './AvailablePackages';
+import AdminDashboard from './Admin/AdminDashboard';
+import NoFlyZones from './Admin/NoFlyZones';
 
 export const createRoutes = (store) => ({
   path: '/',
-  name: 'CoreLayout', /* Breadcrumb name */
-  staticName: true,
-  component: CoreLayout,
+  name: 'CoreLayout',
   indexRoute: {
     onEnter: (nextState, replace, cb) => {
       replace('/dashboard');
@@ -31,27 +32,52 @@ export const createRoutes = (store) => ({
     },
   },
   childRoutes: [
-    ServiceRequestRoute(store),
-    DashboardRoute(store),
-    MissionList(store),
-    MissionPlanner(store),
-    MyRequestRoute(store),
-    MyRequestStatusRoute(store),
-    StatusDetailRoute(store),
-    DronesMapRoute(store),
-    MissionProgressRoute(store),
-    EditDataRoute(store),
-    MyDroneRoute(store),
-    DroneDetailsRoute(store),
-    EditDronesRoute(store),
-    MyServicesRoute(store),
-    ServiceDetailsRoute(store),
-    AddServicesRoute(store),
-    HomeRoute(store),
-    BrowseProviderRoute(store),
-    DroneDetailsRoute(store),
-    AvailablePackagesRoute(store),
+    // non-admin routes
+    {
+      name: 'CoreLayout', /* Breadcrumb name */
+      staticName: true,
+      component: CoreLayout,
+      childRoutes: [
+        ServiceRequestRoute(store),
+        DashboardRoute(store),
+        MissionList(store),
+        MissionPlanner(store),
+        MyRequestRoute(store),
+        MyRequestStatusRoute(store),
+        StatusDetailRoute(store),
+        DronesMapRoute(store),
+        MissionProgressRoute(store),
+        EditDataRoute(store),
+        MyDroneRoute(store),
+        DroneDetailsRoute(store),
+        EditDronesRoute(store),
+        MyServicesRoute(store),
+        ServiceDetailsRoute(store),
+        AddServicesRoute(store),
+        HomeRoute(store),
+        BrowseProviderRoute(store),
+        DroneDetailsRoute(store),
+        AvailablePackagesRoute(store),
+      ],
+    },
 
+    // admin routes
+    {
+      path: 'admin',
+      name: 'Admin',
+      indexRoute: {
+        onEnter: (nextState, replace, cb) => {
+          replace('/admin/dashboard');
+          cb();
+        },
+      },
+      staticName: true,
+      component: AdminLayout,
+      childRoutes: [
+        AdminDashboard(store),
+        NoFlyZones(store),
+      ],
+    },
   ],
 });
 

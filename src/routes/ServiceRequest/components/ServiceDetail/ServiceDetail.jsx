@@ -4,6 +4,7 @@ import Button from 'components/Button';
 import {reduxForm} from 'redux-form';
 import Location from '../Location';
 import ItemRequest from '../ItemRequest';
+import Zones from '../Zones';
 import ContactDetails from '../ContactDetails';
 import EstimatedAmountToPay from '../EstimatedAmountToPay';
 import styles from './ServiceDetail.scss';
@@ -13,7 +14,7 @@ import styles from './ServiceDetail.scss';
 * ServiceDetail
 */
 
-export const ServiceDetail = ({fields, handleSubmit, startLocation, endLocation, resetForm}) => (
+export const ServiceDetail = ({fields, handleSubmit, startLocation, endLocation, resetForm, zones, ...rest}) => (
   <div>
     <form onSubmit={handleSubmit} styleName="service-detail">
       <div styleName="locations">
@@ -22,6 +23,7 @@ export const ServiceDetail = ({fields, handleSubmit, startLocation, endLocation,
       </div>
       {/* locations end */}
       <div styleName="data">
+        <Zones {...rest} zones={zones} styles={null} />
         <ItemRequest fields={fields} />
         <ContactDetails fields={fields} />
         <EstimatedAmountToPay fields={fields} />
@@ -38,6 +40,7 @@ export const ServiceDetail = ({fields, handleSubmit, startLocation, endLocation,
 
 ServiceDetail.propTypes = {
   fields: PropTypes.object.isRequired,
+  zones: PropTypes.array.isRequired,
   startLocation: PropTypes.object.isRequired,
   endLocation: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,

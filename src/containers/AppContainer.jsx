@@ -6,7 +6,7 @@ import ReduxToastr from 'react-redux-toastr';
 
 const AppContainer = ({history, routes, routerKey, store}) => (
   <Provider store={store}>
-    <div>
+    <div style={{height: '100%'}}>
       <Router history={history} render={(props) => <ReduxAsyncConnect {...props} />} key={routerKey}>{routes}</Router>
       <ReduxToastr
         timeOut={3000}
