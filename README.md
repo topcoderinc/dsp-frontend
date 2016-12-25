@@ -10,7 +10,7 @@
 
 
 ## Configuration
-Configuration files are located under `config` dir.
+Configuration files are located under `config` and `src/config` directories.
 See Guild https://github.com/lorenwest/node-config/wiki/Configuration-Files
 
 |Name|Description|
@@ -18,6 +18,10 @@ See Guild https://github.com/lorenwest/node-config/wiki/Configuration-Files
 |`PORT`| The port to listen|
 |`GOOGLE_API_KEY`| The google api key see (https://developers.google.com/maps/documentation/javascript/get-api-key#key)|
 |`API_BASE_URL`| The base URL for Drone API |
+|`REACT_APP_API_BASE_PATH`| The React app  api base path`|
+|`REACT_APP_SOCKET_URL`| The React app app socket url`|
+|`REACT_APP_AUTH0_CLIEND_ID`| The React app auth0 client id`|
+|`REACT_APP_AUTH0_DOMAIN`| The React app auth0 domain`|
 
 
 ## Install dependencies

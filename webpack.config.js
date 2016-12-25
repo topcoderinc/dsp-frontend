@@ -2,7 +2,6 @@
 
 const path = require('path');
 const _ = require('lodash');
-const ip = require('ip');
 const webpack = require('webpack');
 const config = require('config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -100,7 +99,10 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         GOOGLE_API_KEY: JSON.stringify(process.env.GOOGLE_API_KEY),
-        API_BASE_URL: JSON.stringify(process.env.API_BASE_URL),
+        REACT_APP_API_BASE_PATH: JSON.stringify(process.env.REACT_APP_API_BASE_PATH),
+        REACT_APP_SOCKET_URL: JSON.stringify(process.env.REACT_APP_SOCKET_URL),
+        REACT_APP_AUTH0_CLIEND_ID: JSON.stringify(process.env.REACT_APP_AUTH0_CLIEND_ID),
+        REACT_APP_AUTH0_DOMAIN: JSON.stringify(process.env.REACT_APP_AUTH0_DOMAIN),
       },
     }),
     new HtmlWebpackPlugin({
