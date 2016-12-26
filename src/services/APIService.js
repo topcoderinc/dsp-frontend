@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import superagent from 'superagent';
 import superagentPromise from 'superagent-promise';
-import config from '../../config/default';
+import config from '../config/index';
 
 // DEMO: emulate API requests with dummy data for demo purposes
 
@@ -467,13 +467,13 @@ const testUser = {
 };
 
 const register = () => request
-  .post(`${config.API_BASE_PATH}/api/v1/register`)
+  .post(`${config.api.basePath}/api/v1/register`)
   .send(testUser)
   .set('Content-Type', 'application/json')
   .end();
 
 const authorize = () => request
-  .post(`${config.API_BASE_PATH}/api/v1/login`)
+  .post(`${config.api.basePath}/api/v1/login`)
   .set('Content-Type', 'application/json')
   .send(_.pick(testUser, 'email', 'password'))
   .end();
@@ -505,12 +505,12 @@ export default class APIService {
       const accessToken = authRes.body.accessToken;
 
       return request
-        .get(`${config.API_BASE_PATH}/api/v1/missions`)
+        .get(`${config.api.basePath}/api/v1/missions`)
         .set('Authorization', `Bearer ${accessToken}`)
         .end()
         .then((res) => res.body.items.map((item) => ({
           ...item,
-          downloadLink: `${config.API_BASE_PATH}/api/v1/missions/${item.id}/download?token=${accessToken}`,
+          downloadLink: `${config.api.basePath}/api/v1/missions/${item.id}/download?token=${accessToken}`,
         })));
     });
   }
@@ -520,7 +520,7 @@ export default class APIService {
       const accessToken = authRes.body.accessToken;
 
       return request
-        .get(`${config.API_BASE_PATH}/api/v1/missions/${id}`)
+        .get(`${config.api.basePath}/api/v1/missions/${id}`)
         .set('Authorization', `Bearer ${accessToken}`)
         .end()
         .then((res) => res.body);
@@ -532,7 +532,7 @@ export default class APIService {
       const accessToken = authRes.body.accessToken;
 
       return request
-        .post(`${config.API_BASE_PATH}/api/v1/missions`)
+        .post(`${config.api.basePath}/api/v1/missions`)
         .set('Authorization', `Bearer ${accessToken}`)
         .send(values)
         .end()
@@ -545,7 +545,7 @@ export default class APIService {
       const accessToken = authRes.body.accessToken;
 
       return request
-        .put(`${config.API_BASE_PATH}/api/v1/missions/${id}`)
+        .put(`${config.api.basePath}/api/v1/missions/${id}`)
         .set('Authorization', `Bearer ${accessToken}`)
         .send(values)
         .end()
@@ -558,7 +558,7 @@ export default class APIService {
       const accessToken = authRes.body.accessToken;
 
       return request
-        .del(`${config.API_BASE_PATH}/api/v1/missions/${id}`)
+        .del(`${config.api.basePath}/api/v1/missions/${id}`)
         .set('Authorization', `Bearer ${accessToken}`)
         .end()
         .then((res) => res.body);
@@ -574,7 +574,7 @@ export default class APIService {
    */
   static searchDrones(params) {
     return request
-      .get(`${config.API_BASE_PATH}/api/v1/drones`)
+      .get(`${config.api.basePath}/api/v1/drones`)
       .query(params)
       .end();
   }
