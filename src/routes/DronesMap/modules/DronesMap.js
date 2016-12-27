@@ -1,5 +1,6 @@
 import {handleActions} from 'redux-actions';
 import io from 'socket.io-client';
+import _ from 'lodash';
 import APIService from 'services/APIService';
 import config from '../../../config/index';
 
@@ -11,6 +12,8 @@ const MIN_REDRAW_DIFF = 3000;
 // map will be very slow
 const DRONE_LIMIT = 10000;
 
+const LOCATION_LIMIT = 100;
+
 let socket;
 let pendingUpdates = {};
 let lastUpdated = null;
@@ -21,7 +24,10 @@ let updateTimeoutId;
 // ------------------------------------
 export const DRONES_LOADED = 'DronesMap/DRONES_LOADED';
 export const DRONES_UPDATED = 'DronesMap/DRONES_UPDATED';
-
+export const LOCATIONS_LOADED = 'DronesMap/LOCATIONS_LOADED';
+export const SHOW_DRONE_INFO = 'DronesMap/SHOW_DRONE_INFO';
+export const HIDE_DRONE_INFO = 'DronesMap/HIDE_DRONE_INFO';
+export const HIDE_HISTORY = 'DronesMap/HIDE_HISTORY';
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -57,9 +63,34 @@ export const disconnect = () => () => {
   lastUpdated = null;
 };
 
+// get location history of drone
+export const getLocations = (id) => async(dispatch) => {
+  const { body: { items: locations } } = await APIService.getLocations(id, LOCATION_LIMIT);
+  dispatch({ type: LOCATIONS_LOADED, payload: { drone: id, locations: _.reverse(locations) } });
+};
+
+// clear location history of drone
+export const hideHistory = () => (dispatch) => {
+  dispatch({ type: HIDE_HISTORY });
+};
+
+// show info window of drone
+export const showInfo = (drone, pos) => (dispatch) => {
+  dispatch({ type: SHOW_DRONE_INFO, payload: { drone, pos } });
+};
+
+// hide info window of drone
+export const hideInfo = () => (dispatch) => {
+  dispatch({ type: HIDE_DRONE_INFO });
+};
+
 export const actions = {
   init,
   disconnect,
+  getLocations,
+  hideHistory,
+  showInfo,
+  hideInfo,
 };
 
 // ------------------------------------
@@ -73,6 +104,22 @@ export default handleActions({
       const updated = updates[drone.id];
       return updated || drone;
     }),
+  }),
+  [LOCATIONS_LOADED]: (state, { payload: { drone, locations } }) => ({ ...state, historyDrone: drone, locations }),
+  [SHOW_DRONE_INFO]: (state, { payload: { drone, pos } }) => ({
+    ...state,
+    infoDrone: drone,
+    infoPos: pos,
+  }),
+  [HIDE_DRONE_INFO]: (state) => ({
+    ...state,
+    infoDrone: null,
+    infoPos: null,
+  }),
+  [HIDE_HISTORY]: (state) => ({
+    ...state,
+    locations: null,
+    historyDrone: null,
   }),
 }, {
   drones: null,

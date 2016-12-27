@@ -1,4 +1,35 @@
-.map-view {
+.map-wrap {
   width: 100%;
-  height: calc(100vh - 60px - 42px - 50px); // header height - breadcrumb height - footer height
+  height: calc(100vh - 60px - 42px - 49px); // header height - breadcrumb height - footer height
+  position: relative;
+}
+.map-view{
+  width: 100%;
+  height: 100%;
+}
+.map-popover{
+  position: absolute;
+}
+.map-history{
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background-color: rgba(0,0,0,0.85);
+  .history-inner{
+    position:absolute;
+    top:30px;
+    bottom:30px;
+    left:30px;
+    right:30px;
+  }
+  .close{
+    position:absolute;
+    top:10px;
+    right:10px;
+    color:#fff;
+    font-size:18px;
+    cursor:pointer;
+  }
 }

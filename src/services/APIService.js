@@ -578,4 +578,14 @@ export default class APIService {
       .query(params)
       .end();
   }
+
+  /**
+   * get location history of drone
+   * @param  {String} id    id of drone
+   * @param  {Number} limit limit to search
+   * @returns {{total: Number, items: Array}} the result
+   */
+  static getLocations(id, limit) {
+    return request.get(`${config.api.basePath}/api/v1/droneposition/${id}`).query({ limit }).end();
+  }
 }

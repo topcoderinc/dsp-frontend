@@ -162,6 +162,11 @@ module.exports = {
         loaders: ['style', 'css?modules'],
         include: /flexboxgrid/,
       }),
+	fixStyleLoader({
+        test: /\.css$/,
+        loaders: ['style', 'css'],
+        include: /rc-slider/,
+      }),
       {
         test: /\.woff(\?.*)?$/,
         loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff',
