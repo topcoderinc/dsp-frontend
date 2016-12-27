@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './Info.scss';
 
-export const Info = ({ drone: { name, serialNumber }, showHistory }) => (
+export const Info = ({drone: {name, serialNumber}, showHistory}) => (
   <div styleName="info">
     <div styleName="group">
       <div styleName="label">Drone Name</div>

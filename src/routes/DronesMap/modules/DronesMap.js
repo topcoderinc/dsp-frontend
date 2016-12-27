@@ -65,23 +65,23 @@ export const disconnect = () => () => {
 
 // get location history of drone
 export const getLocations = (id) => async(dispatch) => {
-  const { body: { items: locations } } = await APIService.getLocations(id, LOCATION_LIMIT);
-  dispatch({ type: LOCATIONS_LOADED, payload: { drone: id, locations: _.reverse(locations) } });
+  const {body: {items: locations}} = await APIService.getLocations(id, LOCATION_LIMIT);
+  dispatch({type: LOCATIONS_LOADED, payload: {drone: id, locations: _.reverse(locations)}});
 };
 
 // clear location history of drone
 export const hideHistory = () => (dispatch) => {
-  dispatch({ type: HIDE_HISTORY });
+  dispatch({type: HIDE_HISTORY});
 };
 
 // show info window of drone
 export const showInfo = (drone, pos) => (dispatch) => {
-  dispatch({ type: SHOW_DRONE_INFO, payload: { drone, pos } });
+  dispatch({type: SHOW_DRONE_INFO, payload: {drone, pos}});
 };
 
 // hide info window of drone
 export const hideInfo = () => (dispatch) => {
-  dispatch({ type: HIDE_DRONE_INFO });
+  dispatch({type: HIDE_DRONE_INFO});
 };
 
 export const actions = {
@@ -105,8 +105,8 @@ export default handleActions({
       return updated || drone;
     }),
   }),
-  [LOCATIONS_LOADED]: (state, { payload: { drone, locations } }) => ({ ...state, historyDrone: drone, locations }),
-  [SHOW_DRONE_INFO]: (state, { payload: { drone, pos } }) => ({
+  [LOCATIONS_LOADED]: (state, {payload: {drone, locations}}) => ({...state, historyDrone: drone, locations}),
+  [SHOW_DRONE_INFO]: (state, {payload: {drone, pos}}) => ({
     ...state,
     infoDrone: drone,
     infoPos: pos,

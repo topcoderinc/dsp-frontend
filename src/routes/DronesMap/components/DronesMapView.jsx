@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import MarkerClusterer from 'node-js-marker-clusterer';
 import MapHistory from 'components/MapHistory';
@@ -20,7 +20,7 @@ const getIcon = (status) => {
 
 const HIDE_INFO_DELAY = 500;
 
-const getLatLng = ({ currentLocation }) => ({ lng: currentLocation[0], lat: currentLocation[1] });
+const getLatLng = ({currentLocation}) => ({lng: currentLocation[0], lat: currentLocation[1]});
 
 const getMarkerPoint = (marker, overlay) => (overlay.getProjection().fromLatLngToContainerPixel(marker.getPosition()));
 
@@ -35,12 +35,14 @@ class DronesMapView extends React.Component {
   }
 
   componentDidMount() {
-    const { drones, mapSettings, showInfo, hideInfo } = this.props;
+    const {drones, mapSettings, showInfo, hideInfo} = this.props;
     this.map = new google.maps.Map(this.node, mapSettings);
     const overlay = new google.maps.OverlayView();
     overlay.draw = () => {};
     overlay.setMap(this.map);
-    const hideInfoWindow = () => { this.props.infoDrone && hideInfo(); };
+    const hideInfoWindow = () => {
+      this.props.infoDrone && hideInfo();
+    };
     this.map.addListener('zoom_changed', hideInfoWindow);
     this.map.addListener('dragstart', hideInfoWindow);
     const id2Marker = {};
@@ -73,11 +75,11 @@ class DronesMapView extends React.Component {
       return marker;
     });
     this.id2Marker = id2Marker;
-    this.markerCluster = new MarkerClusterer(this.map, markers, { imagePath: '/img/m' });
+    this.markerCluster = new MarkerClusterer(this.map, markers, {imagePath: '/img/m'});
   }
 
   componentWillReceiveProps(nextProps) {
-    const { drones } = nextProps;
+    const {drones} = nextProps;
     drones.forEach((drone) => {
       const marker = this.id2Marker[drone.id];
       if (marker) {
@@ -114,7 +116,7 @@ class DronesMapView extends React.Component {
       <div styleName="map-view" ref={(node) => (this.node = node)} />
       {
                 this.props.infoDrone ?
-                (<div styleName="map-popover" onMouseEnter={this.cancelHideInfo} onMouseLeave={this.props.hideInfo} style={{ top: this.props.infoPos.y - 30, left: this.props.infoPos.x }}>
+                (<div styleName="map-popover" onMouseEnter={this.cancelHideInfo} onMouseLeave={this.props.hideInfo} style={{top: this.props.infoPos.y - 30, left: this.props.infoPos.x}}>
                   <Info drone={this.props.infoDrone} showHistory={this.showHistory} />
                 </div>) : null
               }

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import _ from 'lodash';
 import moment from 'moment';
@@ -28,7 +28,9 @@ class MapHistory extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.locations.length === 0) return;
+    if (this.props.locations.length === 0) {
+      return;
+    }
     const bounds = this.getBounds();
     const mapSettings = {
       center: bounds.getCenter(),
@@ -164,7 +166,9 @@ class MapHistory extends React.Component {
 
     // clear exsiting markers
     if (this.markers) {
-      _.each(this.markers, (m) => { m.setMap(null); });
+      _.each(this.markers, (m) => {
+        m.setMap(null);
+      });
     }
 
     // create markers based on filtered locations
@@ -206,7 +210,11 @@ class MapHistory extends React.Component {
       this.props.locations.length === 0 ?
       (<div styleName="no-history">No location history</div>) :
       (<div styleName="history-wrap">
-        <div styleName="map-history" ref={(node) => { this.node = node; }} />
+        <div
+          styleName="map-history" ref={(node) => {
+            this.node = node;
+          }}
+        />
         <div styleName="history-toolbar">
           <div styleName="slider">
             <Slider

@@ -162,7 +162,7 @@ module.exports = {
         loaders: ['style', 'css?modules'],
         include: /flexboxgrid/,
       }),
-	fixStyleLoader({
+      fixStyleLoader({
         test: /\.css$/,
         loaders: ['style', 'css'],
         include: /rc-slider/,
