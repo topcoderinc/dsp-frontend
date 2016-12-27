@@ -23,6 +23,7 @@ See Guild https://github.com/lorenwest/node-config/wiki/Configuration-Files
 |`REACT_APP_AUTH0_CLIEND_ID`| The React app auth0 client id`|
 |`REACT_APP_AUTH0_DOMAIN`| The React app auth0 domain`|
 
+Environment variables will be loaded from the .env file during build. Create the .env file based on the provided env.example
 
 ## Install dependencies
 `npm i`

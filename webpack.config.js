@@ -3,6 +3,8 @@
 const path = require('path');
 const _ = require('lodash');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
+
 const config = require('config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -94,16 +96,12 @@ module.exports = {
     publicPath: '/',
   },
   plugins: [
+    new Dotenv({
+      path: '.env', // if not simply .env 
+      safe: true // lets load the .env.example file as well 
+    }),
     new webpack.DefinePlugin({
-      __COVERAGE__: !argv.watch && process.env.NODE_ENV === 'test',
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        GOOGLE_API_KEY: JSON.stringify(process.env.GOOGLE_API_KEY),
-        REACT_APP_API_BASE_PATH: JSON.stringify(process.env.REACT_APP_API_BASE_PATH),
-        REACT_APP_SOCKET_URL: JSON.stringify(process.env.REACT_APP_SOCKET_URL),
-        REACT_APP_AUTH0_CLIEND_ID: JSON.stringify(process.env.REACT_APP_AUTH0_CLIEND_ID),
-        REACT_APP_AUTH0_DOMAIN: JSON.stringify(process.env.REACT_APP_AUTH0_DOMAIN),
-      },
+      __COVERAGE__: !argv.watch && process.env.NODE_ENV === 'test'
     }),
     new HtmlWebpackPlugin({
       GOOGLE_API_KEY: config.GOOGLE_API_KEY,
