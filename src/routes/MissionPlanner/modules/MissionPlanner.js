@@ -1,4 +1,4 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 import { push } from 'react-router-redux';
 import _ from 'lodash';
 import APIService from 'services/APIService';
@@ -123,7 +123,7 @@ export default handleActions({
 
     return newState;
   },
-  [UPDATE_MISSION_ITEM]: (state, {payload: {id, missionItem} }) => {
+  [UPDATE_MISSION_ITEM]: (state, { payload: { id, missionItem } }) => {
     const newState = _.cloneDeep(state);
 
     if (id === 0) {

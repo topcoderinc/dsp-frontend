@@ -3,7 +3,7 @@ import CSSModules from 'react-css-modules';
 import styles from './RequestDetails.scss';
 import RequestMapContainer from '../../containers/RequestMapContainer';
 
-export const RequestDetails = ({requestItem, index, _toggleDetail}) => (
+export const RequestDetails = ({ requestItem, index, _toggleDetail }) => (
   <div styleName="container">
     <div styleName="left-col">
       <h3>Request Details</h3>

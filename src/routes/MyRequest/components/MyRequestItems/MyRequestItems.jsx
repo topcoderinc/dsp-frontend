@@ -19,7 +19,7 @@ class MyRequestItems extends React.Component {
     } else {
       this.state.openedItems.splice(this.state.openedItems.indexOf(i), 1);
     }
-    this.setState({openedItems: this.state.openedItems});
+    this.setState({ openedItems: this.state.openedItems });
   }
 
   render() {

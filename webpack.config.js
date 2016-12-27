@@ -18,7 +18,7 @@ const fixStyleLoader = (loader) => {
   if (!__DEV__) {
     const first = loader.loaders[0];
     const rest = loader.loaders.slice(1);
-    console.log("first: "+first+" , rest:"+rest.join('!'));
+    console.log(`first: ${first} , rest:${rest.join('!')}`); // eslint-disable-line no-console
     loader.loader = ExtractTextPlugin.extract(first, rest.join('!'));
     delete loader.loaders;
   }
@@ -158,8 +158,13 @@ module.exports = {
       }),
       fixStyleLoader({
         test: /\.css$/,
-        loaders: ['style','css?modules'],
+        loaders: ['style', 'css?modules'],
         include: /flexboxgrid/,
+      }),
+      fixStyleLoader({
+        test: /\.css$/,
+        loaders: ['style', 'css'],
+        include: /rc-slider/,
       }),
       {
         test: /\.woff(\?.*)?$/,

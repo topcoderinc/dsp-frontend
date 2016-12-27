@@ -18,7 +18,7 @@ const _renderRecentExecutedRequests = (message, i) => (
   </li>
 );
 
-export const NotificationBox = ({notificationType, messages}) => (
+export const NotificationBox = ({ notificationType, messages }) => (
   <div styleName="notification-box">
     <h3>{notificationType}</h3>
 

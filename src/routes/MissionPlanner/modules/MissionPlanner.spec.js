@@ -336,7 +336,7 @@ describe('MissionPlanner', () => {
       };
       const newMission = _.cloneDeep(initialState).mission;
       newMission.missionItems.splice(2, 1);
-      newMission.missionItems = newMission.missionItems.map((item, index) => ({...item, id: index + 1}));
+      newMission.missionItems = newMission.missionItems.map((item, index) => ({ ...item, id: index + 1 }));
 
       const newState = { mission: newMission };
 

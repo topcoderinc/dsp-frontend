@@ -1,11 +1,11 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './DashboardView.scss';
 import DashboardStatus from '../components/DashboardStatus';
 import DashboardRequest from '../components/DashboardRequest';
 import NotificationBox from '../components/NotificationBox';
 
-export const DashboardView = ({latestNotifications, recentExecutedRequests, dashboardStatus, dashboardRequests}) => (
+export const DashboardView = ({ latestNotifications, recentExecutedRequests, dashboardStatus, dashboardRequests }) => (
   <div styleName="dashboard-view">
     <h2>Dashboard</h2>
     <div>

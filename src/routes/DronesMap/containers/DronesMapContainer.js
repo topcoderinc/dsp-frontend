@@ -1,5 +1,5 @@
 import { asyncConnect } from 'redux-connect';
-import {actions} from '../modules/DronesMap';
+import { actions } from '../modules/DronesMap';
 
 import DronesMapView from '../components/DronesMapView';
 

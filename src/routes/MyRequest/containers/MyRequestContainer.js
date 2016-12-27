@@ -1,5 +1,5 @@
 import { asyncConnect } from 'redux-connect';
-import {actions} from '../modules/MyRequest';
+import { actions } from '../modules/MyRequest';
 
 import MyRequestView from '../components/MyRequestView';
 

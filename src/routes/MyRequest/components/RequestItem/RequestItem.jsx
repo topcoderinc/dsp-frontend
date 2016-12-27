@@ -4,7 +4,7 @@ import styles from './RequestItem.scss';
 import RequestItemControls from '../RequestItemControls';
 import RequestDetails from '../RequestDetails';
 
-export const RequestItem = ({requestItem, index, isOpen, _toggleDetail}) => (
+export const RequestItem = ({ requestItem, index, isOpen, _toggleDetail }) => (
   <div styleName="item-container">
     <div styleName="item-summary">
       <ul>

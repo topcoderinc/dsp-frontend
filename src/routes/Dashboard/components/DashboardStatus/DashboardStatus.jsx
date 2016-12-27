@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './DashboardStatus.scss';
 
-export const DashboardStatus = ({pendingRequests, scheduledMissions, inProgressMissions, completedMissions, totalDrones}) => (
+export const DashboardStatus = ({ pendingRequests, scheduledMissions, inProgressMissions, completedMissions, totalDrones }) => (
   <div styleName="dashboard-status-container">
     <div styleName="pending-requests">
       <div styleName="counter">{pendingRequests || 0}</div>

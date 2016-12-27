@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './RequestItemControls.scss';
 
-export const RequestItemControls = ({_toggleDetail, isOpen, index}) => (
+export const RequestItemControls = ({ _toggleDetail, isOpen, index }) => (
   <div styleName="item-controls">
     <div styleName={isOpen ? 'view-detail-open' : 'view-detail'} onClick={() => _toggleDetail(index)}>View Detail</div>
     <div styleName="accept">Accept</div>

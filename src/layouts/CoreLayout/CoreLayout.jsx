@@ -5,7 +5,7 @@ import HeaderContainer from 'containers/HeaderContainer';
 import Footer from 'components/Footer';
 import styles from './CoreLayout.scss';
 
-export const CoreLayout = ({children, routes, params}) => (
+export const CoreLayout = ({ children, routes, params }) => (
   <div styleName="core-layout">
     <HeaderContainer routes={routes} />
     <div className="breadcrumb-container">

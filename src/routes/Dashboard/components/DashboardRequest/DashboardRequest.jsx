@@ -12,7 +12,7 @@ const tabList = [{
   name: 'Today\'s Mission',
 }];
 
-export const DashboardRequest = ({activeTab, dashboardRequests}) => (
+export const DashboardRequest = ({ activeTab, dashboardRequests }) => (
   <div styleName="dashboard-request">
     <div styleName="tab-container">
       <Tabs activeTab={activeTab || 0} tabList={tabList} />

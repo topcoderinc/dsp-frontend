@@ -487,7 +487,7 @@ export default class APIService {
       resolve();
     })).then(() => (
       filterByStatus && filterByStatus !== 'all'
-        ? _.filter(myRequestStatus, (request) => request.status === filterByStatus)
+        ? _.filter(myRequestStatus, (req) => req.status === filterByStatus)
         : myRequestStatus
     ));
   }
@@ -525,27 +525,27 @@ export default class APIService {
     });
   }
 
-  static createMission(mission) {
+  static createMission(missionEntity) {
     return regAndAuth().then((authRes) => {
       const accessToken = authRes.body.accessToken;
 
       return request
         .post(`${config.API_BASE_PATH}/api/v1/missions`)
         .set('Authorization', `Bearer ${accessToken}`)
-        .send(mission)
+        .send(missionEntity)
         .end()
         .then((res) => res.body);
     });
   }
 
-  static updateMission(id, mission) {
+  static updateMission(id, missionEntity) {
     return regAndAuth().then((authRes) => {
       const accessToken = authRes.body.accessToken;
 
       return request
         .put(`${config.API_BASE_PATH}/api/v1/missions/${id}`)
         .set('Authorization', `Bearer ${accessToken}`)
-        .send(mission)
+        .send(missionEntity)
         .end()
         .then((res) => res.body);
     });
@@ -575,5 +575,15 @@ export default class APIService {
       .get(`${config.API_BASE_PATH}/api/v1/drones`)
       .query(params)
       .end();
+  }
+
+  /**
+   * get location history of drone
+   * @param  {String} id    id of drone
+   * @param  {Number} limit limit to search
+   * @returns {{total: Number, items: Array}} the result
+   */
+  static getLocations(id, limit) {
+    return request.get(`${config.API_BASE_PATH}/api/v1/droneposition/${id}`).query({ limit }).end();
   }
 }

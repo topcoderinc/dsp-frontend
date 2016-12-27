@@ -1,5 +1,9 @@
 ## DSP app
 
+## Challenge 30055967 --- DRONE SERIES - LOCATION HISTORY MAP
+verification video url: https://youtu.be/nPOLNBC8yqo
+I use a local backend server in this video, thus the data might be different from that heroku version.
+
 ## Requirements
 * node v6 (https://nodejs.org)
 

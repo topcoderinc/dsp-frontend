@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './MyRequestFilter.scss';
 
-export const MyRequestFilter = ({itemStartIndex, itemLastIndex, totalNumberOfItems, displayType, onPressFilter}) => (
+export const MyRequestFilter = ({ itemStartIndex, itemLastIndex, totalNumberOfItems, displayType, onPressFilter }) => (
   <div styleName="filter">
     <div styleName="display-info">
       Displaying {itemStartIndex} - {itemLastIndex} of {totalNumberOfItems} {displayType} requests:

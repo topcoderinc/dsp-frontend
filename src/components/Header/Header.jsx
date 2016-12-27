@@ -5,7 +5,7 @@ import SearchInput from '../SearchInput';
 import Dropdown from '../Dropdown';
 import styles from './Header.scss';
 
-export const Header = ({location, selectedCategory, categories, user, notifications, routes}) => (
+export const Header = ({ location, selectedCategory, categories, user, notifications, routes }) => (
   <nav styleName="header">
     <ul>
       <li styleName="branding">

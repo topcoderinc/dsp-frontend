@@ -4,7 +4,7 @@ import _ from 'lodash';
 import cn from 'classnames';
 import styles from './Button.scss';
 
-export const Button = ({children, color, size, ...rest}) => (
+export const Button = ({ children, color, size, ...rest }) => (
   <button {..._.omit(rest, 'styles')} styleName={cn('button', `color-${color}`, `size-${size}`)}>
     {children}
   </button>

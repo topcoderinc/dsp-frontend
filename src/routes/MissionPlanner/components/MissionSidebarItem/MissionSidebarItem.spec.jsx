@@ -24,7 +24,7 @@ const missionSidebarItemProps = {
 };
 
 const setup = () => {
-  const props = {...missionSidebarItemProps};
+  const props = { ...missionSidebarItemProps };
 
   const enzymeWrapper = shallow(<MissionSidebarItem {...props} />);
 

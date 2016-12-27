@@ -87,7 +87,7 @@ export class MissionMap extends Component {
 
   render() {
     return (
-      <div style={{height: '100%'}}>
+      <div style={{ height: '100%' }}>
         <MissionGoogleMap
           containerElement={
             <div style={{ height: '100%' }} />

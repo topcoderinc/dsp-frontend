@@ -11,7 +11,7 @@ const pageOptions = [
 ];
 
 
-export const Pagination = ({pages, activePageIndex}) => (
+export const Pagination = ({ pages, activePageIndex }) => (
   <div styleName="pagination">
     <div styleName="show-per-page">
       <span>Show</span>

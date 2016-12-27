@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import CSSModules from 'react-css-modules';
 import Tabs from 'components/Tabs';
 import Pagination from 'components/Pagination';
@@ -16,7 +16,7 @@ const tabList = [{
   name: 'Completed (3)',
 }];
 
-export const MyRequestView = ({activeTab}) => (
+export const MyRequestView = ({ activeTab }) => (
   <div styleName="my-request-view">
     <h2>Requests</h2>
     <div styleName="content">
