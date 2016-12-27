@@ -8,7 +8,7 @@ import styles from './MapHistory.scss';
 
 const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 
-const tipFormatter = (v) => moment(v).format(DATE_FORMAT);
+const tipFormatter = (v) => moment(v).format(DATE_FORMAT);// eslint-disable-line new-cap
 
 class MapHistory extends React.Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class MapHistory extends React.Component {
 
     // a overlay to translate from pixel to latlng and the reverse
     this.overlay = new google.maps.OverlayView();
-    this.overlay.draw = () => {};
+    this.overlay.draw = _.noop;
     this.overlay.setMap(this.map);
 
     // a info window to show location created date
@@ -58,7 +58,7 @@ class MapHistory extends React.Component {
   // get map's bounds based on locations
   getBounds() {
     const bounds = new google.maps.LatLngBounds();
-    _.each(this.props.locations, (l) => {
+    _.forEach(this.props.locations, (l) => {
       bounds.extend(_.pick(l, 'lat', 'lng'));
     });
     return bounds;
@@ -86,7 +86,7 @@ class MapHistory extends React.Component {
     });
 
     // interpolate start location if not existed
-    _.each(this.props.locations, (l, i, c) => {
+    _.forEach(this.props.locations, (l, i, c) => {
       const time1 = new Date(l.createdAt).getTime();
       if (time1 >= this.dateRange[0]) {
         if (time1 > this.dateRange[0]) {
@@ -104,7 +104,7 @@ class MapHistory extends React.Component {
     });
 
     // interpolate end location if not existed
-    _.eachRight(this.props.locations, (l, i, c) => {
+    _.forEachRight(this.props.locations, (l, i, c) => {
       const time1 = new Date(l.createdAt).getTime();
       if (time1 <= this.dateRange[1]) {
         if (time1 < this.dateRange[1]) {
@@ -128,7 +128,7 @@ class MapHistory extends React.Component {
   filterMarkers() {
     this.omitMarkers = 0;
     let lastMarker;
-    _.each(this.markers, (m) => {
+    _.forEach(this.markers, (m) => {
       if (!lastMarker) {
         lastMarker = m;
         m.setVisible(true);
@@ -166,7 +166,7 @@ class MapHistory extends React.Component {
 
     // clear exsiting markers
     if (this.markers) {
-      _.each(this.markers, (m) => {
+      _.forEach(this.markers, (m) => {
         m.setMap(null);
       });
     }

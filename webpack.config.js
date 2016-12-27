@@ -97,11 +97,11 @@ module.exports = {
   },
   plugins: [
     new Dotenv({
-      path: '.env', // if not simply .env 
-      safe: true // lets load the .env.example file as well 
+      path: '.env', // if not simply .env
+      safe: true, // lets load the .env.example file as well
     }),
     new webpack.DefinePlugin({
-      __COVERAGE__: !argv.watch && process.env.NODE_ENV === 'test'
+      __COVERAGE__: !argv.watch && process.env.NODE_ENV === 'test',
     }),
     new HtmlWebpackPlugin({
       GOOGLE_API_KEY: config.GOOGLE_API_KEY,

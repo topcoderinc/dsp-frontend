@@ -35,8 +35,10 @@ export const HIDE_HISTORY = 'DronesMap/HIDE_HISTORY';
 
 // load drones and initialize socket
 export const init = () => async(dispatch) => {
-  const {body: {items: drones}} = await APIService.searchDrones({limit: DRONE_LIMIT});
+  const {body: {items: allDrones}} = await APIService.searchDrones({limit: DRONE_LIMIT});
   lastUpdated = new Date().getTime();
+  const drones = _.filter(allDrones,
+    (d) => d.currentLocation && d.currentLocation.length > 0);
   dispatch({type: DRONES_LOADED, payload: {drones}});
   socket = io(config.socket.url);
   socket.on('dronepositionupdate', (drone) => {

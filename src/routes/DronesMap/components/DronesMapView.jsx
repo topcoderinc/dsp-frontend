@@ -4,6 +4,7 @@ import MarkerClusterer from 'node-js-marker-clusterer';
 import MapHistory from 'components/MapHistory';
 import Info from './Info';
 import styles from './DronesMapView.scss';
+const _ = require('lodash');
 
 const getIcon = (status) => {
   switch (status) {
@@ -38,7 +39,7 @@ class DronesMapView extends React.Component {
     const {drones, mapSettings, showInfo, hideInfo} = this.props;
     this.map = new google.maps.Map(this.node, mapSettings);
     const overlay = new google.maps.OverlayView();
-    overlay.draw = () => {};
+    overlay.draw = _.noop;
     overlay.setMap(this.map);
     const hideInfoWindow = () => {
       this.props.infoDrone && hideInfo();
