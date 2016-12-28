@@ -588,4 +588,57 @@ export default class APIService {
   static getLocations(id, limit) {
     return request.get(`${config.api.basePath}/api/v1/droneposition/${id}`).query({limit}).end();
   }
+
+  /**
+   * Search nfz
+   * @param {Object} params
+   * @param {Number} params.limit the limit
+   * @param {Number} params.offset the offset
+   * @param {Object} params.geometry the view geometry
+   * @returns {{total: Number, items: Array}} the result
+   */
+  static searchNfz(params) {
+    return request
+      .post(`${config.api.basePath}/api/v1/nfz/search`)
+      .send(params)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Create nfz
+   * @param {Object} params
+   * @returns {Object} the created nfz
+   */
+  static createNfz(params) {
+    return request
+      .post(`${config.api.basePath}/api/v1/nfz`)
+      .send(params)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Update nfz
+   * @param {Number} id
+   * @param {Object} params
+   * @returns {Object} the updated nfz
+   */
+  static updateNfz(id, params) {
+    return request
+      .put(`${config.api.basePath}/api/v1/nfz/${id}`)
+      .send(params)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Delete nfz
+   * @param {Number} id
+   */
+  static deleteNfz(id) {
+    return request
+      .del(`${config.api.basePath}/api/v1/nfz/${id}`)
+      .end();
+  }
 }

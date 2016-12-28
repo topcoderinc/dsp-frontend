@@ -11,7 +11,7 @@
     "google": true,
   },
   "rules": {
-    "import/no-unresolved": [2, { ignore: ['^components/', '^containers/', '^services/', '^layouts/', '^store/', '^api/', '^routes/'] }],
+    "import/no-unresolved": [2, { ignore: ['^components/', '^containers/', '^services/', '^layouts/', '^store/', '^api/', '^routes/', '^Const'] }],
 
     // temporary for in-progress features
     "no-alert": 0,

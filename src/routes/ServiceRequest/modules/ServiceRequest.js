@@ -1,23 +1,64 @@
-import {handleActions} from 'redux-actions';
+import {handleActions, createAction} from 'redux-actions';
+
+// ------------------------------------
+// Constants
+// ------------------------------------
+export const ADD_ZONE = 'ServiceRequest/ADD_ZONE';
+export const UPDATE_ZONE = 'ServiceRequest/UPDATE_ZONE';
+export const DELETE_ZONE = 'ServiceRequest/DELETE_ZONE';
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 
 
-export const sendRequest = (values) => new Promise((resolve) => {
-  alert(JSON.stringify(values, null, 2));
+export const sendRequest = (values, dispatch, state) => new Promise((resolve) => {
+  alert(JSON.stringify({...values, zones: state.zones}, null, 2));
   resolve();
 });
 
 
 export const actions = {
+  addZone: createAction(ADD_ZONE),
+  updateZone: createAction(UPDATE_ZONE),
+  deleteZone: createAction(DELETE_ZONE),
 };
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 export default handleActions({
+  [ADD_ZONE]: (state, {payload: {coordinates, point}}) => {
+    const zone = {
+      id: new Date().getTime(),
+      description: 'New Zone',
+      location: point ? {
+        type: 'Point',
+        coordinates: point,
+      }
+      : {
+        type: 'Polygon',
+        coordinates: [[...coordinates, coordinates[0]]],
+      },
+      style: {
+        fillColor: 'green',
+      },
+    };
+    return {...state, zones: [zone, ...state.zones]};
+  },
+  [UPDATE_ZONE]: (state, {payload: zone}) => ({
+    ...state,
+    zones: state.zones.map((item) => {
+      if (item.id === zone.id) {
+        return zone;
+      }
+      return item;
+    }),
+  }),
+  [DELETE_ZONE]: (state, {payload: zone}) => ({
+    ...state,
+    zones: state.zones.filter((item) => item.id !== zone.id),
+  }),
 }, {
 
   startLocation: {
@@ -65,4 +106,5 @@ export default handleActions({
     },
   ],
   distance: '8 km',
+  zones: [],
 });

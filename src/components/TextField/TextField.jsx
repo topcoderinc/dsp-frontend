@@ -11,7 +11,7 @@ export const TextField = (props) => (
 );
 
 TextField.propTypes = {
-  type: PropTypes.oneOf(['text', 'email', 'password']),
+  type: PropTypes.oneOf(['text', 'email', 'password', 'date']),
   size: PropTypes.oneOf(['normal', 'narrow']),
   readOnly: PropTypes.bool,
   label: PropTypes.string,

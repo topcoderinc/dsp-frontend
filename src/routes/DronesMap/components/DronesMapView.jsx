@@ -3,6 +3,7 @@ import _ from 'lodash';
 import CSSModules from 'react-css-modules';
 import MarkerClusterer from 'node-js-marker-clusterer';
 import MapHistory from 'components/MapHistory';
+import {GOOGLE_MAPS_BOUNDS_TIMEOUT} from 'Const';
 import Info from './Info';
 import styles from './DronesMapView.scss';
 
@@ -30,14 +31,18 @@ class DronesMapView extends React.Component {
   constructor(props) {
     super(props);
 
+	// google maps objects for no fly zones
+    this.nfzElements = [];
     this.showHistory = this.showHistory.bind(this);
     this.hideHistory = this.hideHistory.bind(this);
     this.cancelHideInfo = this.cancelHideInfo.bind(this);
   }
 
   componentDidMount() {
-    const {drones, mapSettings, showInfo, hideInfo} = this.props;
+    const {drones, mapSettings, showInfo, hideInfo, loadNfz} = this.props;
     this.map = new google.maps.Map(this.node, mapSettings);
+    this.nfzElements = [];
+
     const overlay = new google.maps.OverlayView();
     overlay.draw = _.noop;
     overlay.setMap(this.map);
@@ -78,6 +83,10 @@ class DronesMapView extends React.Component {
     this.id2Marker = id2Marker;
     this.markerCluster = new MarkerClusterer(this.map, markers, {imagePath: '/img/m'});
 
+    google.maps.event.addListener(this.map, 'bounds_changed', _.debounce(() => {
+      const bounds = this.map.getBounds().toJSON();
+      loadNfz(bounds);
+    }, GOOGLE_MAPS_BOUNDS_TIMEOUT));
     navigator.geolocation.getCurrentPosition((pos) => {
       this.map.setCenter({
         lat: pos.coords.latitude,
@@ -98,6 +107,29 @@ class DronesMapView extends React.Component {
         marker.setLabel(drone.name);
       }
     });
+    if (nextProps.noFlyZones !== this.props.noFlyZones) {
+      this.nfzElements.forEach((zone) => zone.setMap(null));
+      this.nfzElements = nextProps.noFlyZones.map((zone) => {
+        let element;
+        if (zone.circle) {
+          element = new google.maps.Circle({
+            ...zone.style,
+            radius: zone.circle.radius,
+            center: {
+              lng: zone.circle.center[0],
+              lat: zone.circle.center[1],
+            },
+          });
+        } else {
+          element = new google.maps.Polygon({
+            ...zone.style,
+            path: zone.location.coordinates[0].map((pair) => ({lng: pair[0], lat: pair[1]})),
+          });
+        }
+        element.setMap(this.map);
+        return element;
+      });
+    }
     this.markerCluster.repaint();
   }
 
@@ -148,6 +180,8 @@ DronesMapView.propTypes = {
   drones: PropTypes.array.isRequired,
   disconnect: PropTypes.func.isRequired,
   mapSettings: PropTypes.object.isRequired,
+  loadNfz: PropTypes.func.isRequired,
+  noFlyZones: PropTypes.array.isRequired,
   showInfo: PropTypes.func.isRequired,
   hideInfo: PropTypes.func.isRequired,
   getLocations: PropTypes.func.isRequired,

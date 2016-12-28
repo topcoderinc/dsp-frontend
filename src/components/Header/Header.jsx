@@ -39,23 +39,23 @@ export const Header = ({
           return (
             <li styleName="pages">
               <ul>
-                <li className={currentRoute === 'Dashboard' ? 'active' : null}>
-                  <Link to="/dashboard">Dashboard</Link>
+                <li>
+                  <Link to="/dashboard" activeClassName="active">Dashboard</Link>
                 </li>
-                <li className={currentRoute === 'Requests' ? 'active' : null}>
-                  <Link to="/my-request">Requests</Link>
+                <li>
+                  <Link to="/my-request" activeClassName="active">Requests</Link>
                 </li>
-                <li className={currentRoute === 'My Drones' ? 'active' : null}>
+                <li>
                   <Link to="/my-drone" activeClassName="active">My Drones</Link>
                 </li>
-                <li className={currentRoute === 'My Services' ? 'active' : null}>
+                <li>
                   <Link to="/my-services" activeClassName="active">My Services</Link>
                 </li>
                 <li><Link to="javascript:;" activeClassName="active">Analytics</Link></li>
                 <li className={currentRoute === 'DroneMap' ? 'active' : null}>
-                  <Link to="/drones-map">Drone Traffic</Link></li>
+                  <Link to="/drones-map" activeClassName="active">Drone Traffic</Link></li>
                 <li className={currentRoute === 'MissionPlanner' ? 'active' : null}>
-                  <Link to="/mission-planner">MissionPlanner</Link></li>
+                  <Link to="/mission-planner" activeClassName="active">MissionPlanner</Link></li>
               </ul>
             </li>
           );

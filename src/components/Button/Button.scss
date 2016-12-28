@@ -3,6 +3,11 @@
   color: white;
   border: none;
   font-weight: bold;
+
+  &[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
 .color-gray {
@@ -20,6 +25,13 @@
 .size-medium {
   height: 38px;
   padding: 0 10px;
+}
+
+.size-xs {
+  height: 20px;
+  padding: 0 5px;
+  font-size: 12px;
+  font-weight: normal;
 }
 
 .color-black {
