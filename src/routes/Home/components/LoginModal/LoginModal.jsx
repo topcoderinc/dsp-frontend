@@ -77,7 +77,6 @@ class LogInModal extends React.Component {
   }
 
   handleLogin(handleLoggedIn, loggedUser) {
-    handleLoggedIn();
     const _self = this;
     setTimeout(() => {
       handleLoggedIn();
