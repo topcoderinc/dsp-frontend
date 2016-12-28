@@ -128,6 +128,9 @@ export default handleActions({
   // it will show the whole globe
   mapSettings: {
     zoom: 3,
-    center: {lat: 0, lng: 0},
+    center: {
+      lat: 0,
+      lng: 0,
+    },
   },
 });

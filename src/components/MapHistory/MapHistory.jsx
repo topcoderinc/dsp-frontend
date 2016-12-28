@@ -191,7 +191,7 @@ class MapHistory extends React.Component {
 
       // show info window when mouse hover
       marker.addListener('mouseover', () => {
-        this.infoWindow.setContent(new moment(l.createdAt).format(DATE_FORMAT));
+        this.infoWindow.setContent(new moment(l.createdAt).format(DATE_FORMAT)); // eslint-disable-line new-cap
         this.infoWindow.setPosition(marker.getPosition());
         this.infoWindow.open(this.map);
       });

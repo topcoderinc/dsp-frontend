@@ -1,10 +1,10 @@
 import React, {PropTypes} from 'react';
+import _ from 'lodash';
 import CSSModules from 'react-css-modules';
 import MarkerClusterer from 'node-js-marker-clusterer';
 import MapHistory from 'components/MapHistory';
 import Info from './Info';
 import styles from './DronesMapView.scss';
-const _ = require('lodash');
 
 const getIcon = (status) => {
   switch (status) {
@@ -77,6 +77,16 @@ class DronesMapView extends React.Component {
     });
     this.id2Marker = id2Marker;
     this.markerCluster = new MarkerClusterer(this.map, markers, {imagePath: '/img/m'});
+
+    navigator.geolocation.getCurrentPosition((pos) => {
+      this.map.setCenter({
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude,
+      });
+    },
+      null,
+      {timeout: 60000}
+    );
   }
 
   componentWillReceiveProps(nextProps) {
