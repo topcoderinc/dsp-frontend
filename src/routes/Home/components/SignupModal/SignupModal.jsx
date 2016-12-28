@@ -6,6 +6,8 @@ import Modal from 'react-modal';
 import Button from 'components/Button';
 import TextField from 'components/TextField';
 import styles from './SignupModal.scss';
+import {defaultAuth0Service} from '../../../../services/AuthService';
+import {toastr} from 'react-redux-toastr';
 
 /*
 * customStyles
@@ -79,6 +81,32 @@ class SignupModal extends React.Component {
     }, 100);
   }
 
+  /**
+   * Login using google social network,
+   * this method internally uses auth0 service
+   */
+  googleLogin() {
+    defaultAuth0Service.login({connection: 'google-oauth2'}, (error) => {
+      if (error) {
+        const message = error.message || 'something went wrong, please try again';
+        toastr.error(message);
+      }
+    });
+  }
+
+  /**
+   * Login using facebook social network,
+   * this method internally uses auth0 service
+   */
+  facebookLogin() {
+    defaultAuth0Service.login({connection: 'facebook'}, (error) => {
+      if (error) {
+        const message = error.message || 'something went wrong, please try again';
+        toastr.error(message);
+      }
+    });
+  }
+
   render() {
     const {handleSubmit, fields, handleSigned, signedUser, hasError, errorText} = this.props;
 
@@ -103,14 +131,14 @@ class SignupModal extends React.Component {
 
           <form styleName="login-form" onSubmit={handleSubmit}>
             <div styleName="login-with-fb">
-              <a href="javascript:;">
+              <a href="javascript:;" onClick={this.facebookLogin.bind(this)}>
                 <i styleName="icon-facebook" />
                 <span>Sign Up with Facebook</span>
               </a>
             </div>
 
             <div styleName="login-with-gplus">
-              <a href="javascript:;">
+              <a href="javascript:;" onClick={this.googleLogin.bind(this)}>
                 <i styleName="icon-gplus" />
                 <span>Sign Up with Google Plus</span>
               </a>
