@@ -6,6 +6,8 @@ import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
 import {reduxForm} from 'redux-form';
 import {sendRequest} from '../modules/ResetPassword';
+import {browserHistory} from 'react-router';
+import {toastr} from 'react-redux-toastr';
 
 class ResetPasswordView extends Component {
 
@@ -14,7 +16,13 @@ class ResetPasswordView extends Component {
    * This is triggered by handleSubmit
    */
   onSubmit(data) {
-    return sendRequest(data);
+    sendRequest(data).then(() => {
+      toastr.success('', 'Password reset successfuly, kindly login again');
+      browserHistory.push('/');
+    }).catch((reason) => {
+      const message = reason.response.body.error || 'something went wrong, please try again';
+      toastr.error(message);
+    });
   }
 
   render() {
@@ -32,7 +40,7 @@ class ResetPasswordView extends Component {
           <div styleName="row">
             <label htmlFor="password">Password:</label>
             <FormField {...fields.password} className="password-field">
-              <TextField {...fields.password} label={'New Password'} />
+              <TextField {...fields.password} type={'password'} label={'New Password'} />
             </FormField>
           </div>
 

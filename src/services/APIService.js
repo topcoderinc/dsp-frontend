@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import superagent from 'superagent';
 import superagentPromise from 'superagent-promise';
-import config from '../../config/default';
+import config from '../config';
 
 // DEMO: emulate API requests with dummy data for demo purposes
 

@@ -1,7 +1,7 @@
 import {handleActions} from 'redux-actions';
 import io from 'socket.io-client';
 import APIService from 'services/APIService';
-import config from '../../../../config/default';
+import config from '../../../config';
 
 // Drones will be updated and map will be redrawn every 3s
 // Otherwise if drones are updated with high frequency (e.g. 0.5s), the map will be freezing
@@ -32,7 +32,7 @@ export const init = () => async(dispatch) => {
   const {body: {items: drones}} = await APIService.searchDrones({limit: DRONE_LIMIT});
   lastUpdated = new Date().getTime();
   dispatch({type: DRONES_LOADED, payload: {drones}});
-  socket = io(config.API_BASE_PATH);
+  socket = io(config.socket.url);
   socket.on('dronepositionupdate', (drone) => {
     pendingUpdates[drone.id] = drone;
     if (updateTimeoutId) {

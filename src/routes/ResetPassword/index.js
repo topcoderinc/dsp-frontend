@@ -11,7 +11,7 @@ export default (store) => ({
 
       injectReducer(store, {key: 'resetPassword', reducer});
       if (!nextState.location.query.token) {
-        cb(new Error('Invalid route invokation'));
+        cb(new Error('Invalid route invocation'));
       } else {
         cb(null, Dashboard);
       }

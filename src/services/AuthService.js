@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2016 Topcoder Inc, All rights reserved.
  */
-/* eslint no-console: 0 */
+
 /**
  * auth0 Authentication service for the app.
  *
@@ -10,11 +10,13 @@
  */
 
 import Auth0 from 'auth0-js';
-import config from '../../config/default';
+import config from '../config';
 import UserApi from '../api/User';
+import _ from 'lodash';
 
 
 const userApi = new UserApi(config.API_BASE_PATH);
+const idTokenKey = 'id_token';
 
 class AuthService {
 
@@ -68,9 +70,7 @@ class AuthService {
           _self.removeToken();
           throw error;
         } else {
-          userApi.registerSocialUser(profile.name, profile.email, _self.getToken()).then((loginResult) => {
-            console.log('user registered successfully', loginResult);
-          }).catch((reason) => {
+          userApi.registerSocialUser(profile.name, profile.email, _self.getToken()).then(_.noop).catch((reason) => {
             // remove the id token
             _self.removeToken();
             throw reason;
@@ -95,7 +95,7 @@ class AuthService {
    */
   setToken(idToken) {
     // Saves user token to localStorage
-    localStorage.setItem('id_token', idToken);
+    localStorage.setItem(idTokenKey, idToken);
   }
 
   /**
@@ -103,7 +103,7 @@ class AuthService {
    */
   getToken() {
     // Retrieves the user token from localStorage
-    return localStorage.getItem('id_token');
+    return localStorage.getItem(idTokenKey);
   }
 
   /**
@@ -111,7 +111,7 @@ class AuthService {
    */
   removeToken() {
     // Clear user token and profile data from localStorage
-    localStorage.removeItem('id_token');
+    localStorage.removeItem(idTokenKey);
   }
 
   /**

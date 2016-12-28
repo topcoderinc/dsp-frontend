@@ -1,7 +1,7 @@
 import {handleActions, createAction} from 'redux-actions';
 import {browserHistory} from 'react-router';
 import UserApi from 'api/User.js';
-import config from '../../../config/default';
+import config from '../../config';
 
 const userApi = new UserApi(config.API_BASE_PATH);
 
