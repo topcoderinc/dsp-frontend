@@ -1,6 +1,6 @@
 /* eslint-disable import/no-commonjs */
 /**
- * Main config file
+ * Main config file for the server which is hosting the reat app
  */
 module.exports = {
   // below env variables are NOT visible in frontend

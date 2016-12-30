@@ -641,4 +641,28 @@ export default class APIService {
       .del(`${config.api.basePath}/api/v1/nfz/${id}`)
       .end();
   }
+
+  /**
+   * Reset the user password
+   * @param  {Object}   entity    the client request payload
+   */
+  static resetPassword(entity) {
+    return request
+      .post(`${config.API_BASE_PATH}/api/v1/reset-password`)
+      .set('Content-Type', 'application/json')
+      .send(entity)
+      .end();
+  }
+
+  /**
+   * Send the forgot password link to user's email account
+   * @param  {Object}   entity    the client request payload
+   */
+  static forgotPassword(entity) {
+    return request
+      .post(`${config.API_BASE_PATH}/api/v1/forgot-password`)
+      .set('Content-Type', 'application/json')
+      .send(entity)
+      .end();
+  }
 }

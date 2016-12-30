@@ -56,7 +56,7 @@ class UserApi {
       })});
   }
 
-  registerSocialUser(name, email) {
+  registerSocialUser(name, email, token) {
     const url = `${this.basePath}/api/v1/login/social`;
 
     return reqwest({
@@ -64,6 +64,9 @@ class UserApi {
       method: 'post',
       type: 'json',
       contentType: 'application/json',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       data: JSON.stringify({
         name,
         email,
