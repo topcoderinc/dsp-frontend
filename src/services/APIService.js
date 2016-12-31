@@ -484,6 +484,8 @@ const regAndAuth = () => authorize().then(
 );
 
 export default class APIService {
+
+  
   static fetchMyRequestStatus(filterByStatus) {
     return (new Promise((resolve) => {
       resolve();
@@ -501,68 +503,50 @@ export default class APIService {
   }
 
   static fetchMissionList() {
-    return regAndAuth().then((authRes) => {
-      const accessToken = authRes.body.accessToken;
-
-      return request
-        .get(`${config.api.basePath}/api/v1/missions`)
-        .set('Authorization', `Bearer ${accessToken}`)
-        .end()
-        .then((res) => res.body.items.map((item) => ({
-          ...item,
-          downloadLink: `${config.api.basePath}/api/v1/missions/${item.id}/download?token=${accessToken}`,
-        })));
-    });
+    const token = this.accessToken;
+    return request
+      .get(`${config.api.basePath}/api/v1/missions`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .send()
+      .end()
+      .then((res) => res.body.items.map((item) => ({
+        ...item,
+        downloadLink: `${config.api.basePath}/api/v1/missions/${item.id}/download?token=${token}`,
+      })));
   }
 
   static getMission(id) {
-    return regAndAuth().then((authRes) => {
-      const accessToken = authRes.body.accessToken;
-
-      return request
-        .get(`${config.api.basePath}/api/v1/missions/${id}`)
-        .set('Authorization', `Bearer ${accessToken}`)
-        .end()
-        .then((res) => res.body);
-    });
+    return request
+      .get(`${config.api.basePath}/api/v1/missions/${id}`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
   }
 
   static createMission(values) {
-    return regAndAuth().then((authRes) => {
-      const accessToken = authRes.body.accessToken;
-
-      return request
-        .post(`${config.api.basePath}/api/v1/missions`)
-        .set('Authorization', `Bearer ${accessToken}`)
-        .send(values)
-        .end()
-        .then((res) => res.body);
-    });
+    return request
+      .post(`${config.api.basePath}/api/v1/missions`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .send(values)
+      .end()
+      .then((res) => res.body);
   }
 
   static updateMission(id, values) {
-    return regAndAuth().then((authRes) => {
-      const accessToken = authRes.body.accessToken;
-
-      return request
-        .put(`${config.api.basePath}/api/v1/missions/${id}`)
-        .set('Authorization', `Bearer ${accessToken}`)
-        .send(values)
-        .end()
-        .then((res) => res.body);
-    });
+    return request
+      .put(`${config.api.basePath}/api/v1/missions/${id}`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .send(values)
+      .end()
+      .then((res) => res.body);
   }
 
   static deleteMission(id) {
-    return regAndAuth().then((authRes) => {
-      const accessToken = authRes.body.accessToken;
-
-      return request
-        .del(`${config.api.basePath}/api/v1/missions/${id}`)
-        .set('Authorization', `Bearer ${accessToken}`)
-        .end()
-        .then((res) => res.body);
-    });
+    return request
+      .del(`${config.api.basePath}/api/v1/missions/${id}`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
   }
 
   /**
@@ -648,7 +632,7 @@ export default class APIService {
    */
   static resetPassword(entity) {
     return request
-      .post(`${config.API_BASE_PATH}/api/v1/reset-password`)
+      .post(`${config.api.basePath}/api/v1/reset-password`)
       .set('Content-Type', 'application/json')
       .send(entity)
       .end();
@@ -660,7 +644,7 @@ export default class APIService {
    */
   static forgotPassword(entity) {
     return request
-      .post(`${config.API_BASE_PATH}/api/v1/forgot-password`)
+      .post(`${config.api.basePath}/api/v1/forgot-password`)
       .set('Content-Type', 'application/json')
       .send(entity)
       .end();

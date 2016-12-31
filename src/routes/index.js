@@ -68,9 +68,9 @@ export const createRoutes = (store) => ({
         BrowseProviderRoute(store),
         DroneDetailsRoute(store),
         AvailablePackagesRoute(store),
+        ProviderDetailsRoute(store),
       ],
     },
-    ProviderDetailsRoute(store),
     ResetPasswordRoute(store),
     // admin routes
     {

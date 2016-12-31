@@ -40,7 +40,7 @@ class UserApi {
     });
   }
 
-  register(name, email, password) {
+  register(firstName, lastName, email, password) {
     const url = `${this.basePath}/api/v1/register`;
     return reqwest({
       url,
@@ -48,8 +48,8 @@ class UserApi {
       type: 'json',
       contentType: 'application/json',
       data: JSON.stringify({
-        firstName: name,
-        lastName: name,
+        firstName: firstName,
+        lastName: lastName,
         email,
         phone: '1',
         password,

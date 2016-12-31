@@ -1,12 +1,12 @@
 import Header from 'components/Header';
 import {asyncConnect} from 'redux-connect';
-import {toggleNotification, loginAction} from '../store/modules/global';
+import {actions, toggleNotification, loginAction, logoutAction, logout} from '../store/modules/global';
 
 const resolve = [{
   promise: () => Promise.resolve(),
 }];
 
-const mapState = (state) => state.global;
+const mapState = (state) => ({...state.global, doLogout:logout});
 
 const mapDispatchToProps = (dispatch) => ({
   handleNotification: (value) => {
@@ -15,5 +15,5 @@ const mapDispatchToProps = (dispatch) => ({
   handleLogin: (userObj) => dispatch(loginAction(userObj)),
 });
 
-export default asyncConnect(resolve, mapState, mapDispatchToProps)(Header);
+export default asyncConnect(resolve, mapState, {...actions, logoutAction})(Header);
 

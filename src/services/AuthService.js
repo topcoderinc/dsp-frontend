@@ -15,7 +15,7 @@ import UserApi from '../api/User';
 import _ from 'lodash';
 
 
-const userApi = new UserApi(config.API_BASE_PATH);
+const userApi = new UserApi(config.api.basePath);
 const idTokenKey = 'id_token';
 
 class AuthService {
@@ -70,7 +70,10 @@ class AuthService {
           _self.removeToken();
           throw error;
         } else {
-          userApi.registerSocialUser(profile.name, profile.email, _self.getToken()).then(_.noop).catch((reason) => {
+          userApi.registerSocialUser(profile.name, profile.email, _self.getToken()).then(
+            (authResult)=>{
+              localStorage.setItem("userInfo", JSON.stringify(authResult));
+            }).catch((reason) => {
             // remove the id token
             _self.removeToken();
             throw reason;
@@ -141,6 +144,6 @@ class AuthService {
   }
 }
 
-const defaultAuth0Service = new AuthService(config.REACT_APP_AUTH0_CLIENT_ID, config.REACT_APP_AUTH0_CLIENT_DOMAIN);
+const defaultAuth0Service = new AuthService(config.AUTH0_CLIENT_ID, config.AUTH0_CLIENT_DOMAIN);
 
 export {AuthService as default, defaultAuth0Service};
