@@ -3,6 +3,7 @@ import CSSModules from 'react-css-modules';
 import {reduxForm} from 'redux-form';
 import cn from 'classnames';
 import Modal from 'react-modal';
+import Select from 'components/Select';
 import Button from 'components/Button';
 import TextField from 'components/TextField';
 import styles from './SignupModal.scss';
@@ -157,6 +158,16 @@ class SignupModal extends React.Component {
                   <TextField {...fields.email} login type="email" label="Email" />
                 </FormField>
               </div>
+              <div styleName="email-input">
+                <FormField {...fields.firstName}>
+                  <TextField {...fields.firstName} login type="text" label="First Name" />
+                </FormField>
+              </div>
+              <div styleName="email-input">
+                <FormField {...fields.lastName}>
+                  <TextField {...fields.lastName} login type="text" label="lastName" />
+                </FormField>
+              </div>
               <div>
                 <FormField {...fields.password}>
                   <TextField {...fields.password} login type="password" label="Password" />
@@ -194,7 +205,7 @@ SignupModal.propTypes = {
   errorText: PropTypes.string,
 };
 
-const fields = ['email', 'password', 'emailUp', 'passwordUp'];
+const fields = ['email', 'password', 'firstName', 'lastName', 'emailUp', 'passwordUp'];
 
 const validate = (values) => {
   const errors = {};
@@ -202,6 +213,12 @@ const validate = (values) => {
     errors.email = 'Email is required';
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address';
+  }
+  if (!values.firstName) {
+    errors.firstName = 'First Name is required';
+  }
+  if (!values.lastName) {
+    errors.lastName = 'Last Name is required';
   }
   if (!values.password) {
     errors.password = 'Password is required';
