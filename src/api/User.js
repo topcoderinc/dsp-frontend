@@ -40,7 +40,7 @@ class UserApi {
     });
   }
 
-  register(name, email, password) {
+  register(firstName, lastName, email, password) {
     const url = `${this.basePath}/api/v1/register`;
     return reqwest({
       url,
@@ -48,15 +48,15 @@ class UserApi {
       type: 'json',
       contentType: 'application/json',
       data: JSON.stringify({
-        firstName: name,
-        lastName: name,
+        firstName,
+        lastName,
         email,
         phone: '1',
         password,
       })});
   }
 
-  registerSocialUser(name, email) {
+  registerSocialUser(name, email, token) {
     const url = `${this.basePath}/api/v1/login/social`;
 
     return reqwest({
@@ -64,6 +64,9 @@ class UserApi {
       method: 'post',
       type: 'json',
       contentType: 'application/json',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       data: JSON.stringify({
         name,
         email,

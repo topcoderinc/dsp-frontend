@@ -10,4 +10,8 @@
   composes: pages from '../Header/Header.scss'
 }
 
+.notifications {
+  composes: notifications from '../Header/Header.scss'
+}
+
 

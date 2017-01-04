@@ -10,7 +10,7 @@ import styles from './Header.scss';
 
 export const Header = ({
   location, selectedCategory, categories, user, notifications,
-  routes, handleNotification, toggleNotif, loggedUser,
+  routes, handleNotification, doLogout, toggleNotif, loggedUser,
 }) => (
 
   <nav styleName="header">
@@ -20,45 +20,48 @@ export const Header = ({
       </li>
       {
         (() => {
-          const currentRoute = routes[routes.length - 1].name;
-          if (currentRoute === 'ServiceRequest'
-            || currentRoute === 'Home'
-            || currentRoute === 'MyRequestStatus'
-            || currentRoute === 'StatusDetail') {
+          if (user.role == 'consumer') {
             return (
-            [(<li key="location" styleName="location">
-              <i />
-              {location}
-            </li>),
-                (<li key="search" styleName="search">
-                  <SearchInput placeholder="Type your search here..." />
-                </li>),
-            ]
+              <li styleName="pages">
+                <ul>
+                  <li>
+                    <Link to="/home" activeClassName="active">Home</Link>
+                  </li>
+                  <li>
+                    <Link to="/my-request-status" activeClassName="active">My Requests</Link>
+                  </li>
+                  <li>
+                    <Link to="/browse-provider" activeClassName="active">Browse Services</Link>
+                  </li>
+                  <li><Link to="javascript:;" activeClassName="active">Analytics</Link></li>
+                  <li><Link to="/drones-map" activeClassName="active">Drone Traffic</Link></li>
+                  <li><Link to="/mission-planner" activeClassName="active">MissionPlanner</Link></li>
+                </ul>
+              </li>
+            );
+          } else if (user.role == 'provider') {
+            return (
+              <li styleName="pages">
+                <ul>
+                  <li>
+                    <Link to="/dashboard" activeClassName="active">Dashboard</Link>
+                  </li>
+                  <li>
+                    <Link to="/my-request" activeClassName="active">Requests</Link>
+                  </li>
+                  <li>
+                    <Link to="/my-drone" activeClassName="active">My Drones</Link>
+                  </li>
+                  <li>
+                    <Link to="/my-services" activeClassName="active">My Services</Link>
+                  </li>
+                  <li><Link to="javascript:;" activeClassName="active">Analytics</Link></li>
+                  <li><Link to="/drones-map" activeClassName="active">Drone Traffic</Link></li>
+                  <li><Link to="/mission-planner" activeClassName="active">MissionPlanner</Link></li>
+                </ul>
+              </li>
             );
           }
-          return (
-            <li styleName="pages">
-              <ul>
-                <li>
-                  <Link to="/dashboard" activeClassName="active">Dashboard</Link>
-                </li>
-                <li>
-                  <Link to="/my-request" activeClassName="active">Requests</Link>
-                </li>
-                <li>
-                  <Link to="/my-drone" activeClassName="active">My Drones</Link>
-                </li>
-                <li>
-                  <Link to="/my-services" activeClassName="active">My Services</Link>
-                </li>
-                <li><Link to="javascript:;" activeClassName="active">Analytics</Link></li>
-                <li className={currentRoute === 'DroneMap' ? 'active' : null}>
-                  <Link to="/drones-map" activeClassName="active">Drone Traffic</Link></li>
-                <li className={currentRoute === 'MissionPlanner' ? 'active' : null}>
-                  <Link to="/mission-planner" activeClassName="active">MissionPlanner</Link></li>
-              </ul>
-            </li>
-          );
         })()
       }
       {
@@ -66,19 +69,26 @@ export const Header = ({
           if (!loggedUser) {
             return (
             [
-                (<li key="category">
-                  <Dropdown title={selectedCategory}>
-                    <ul>
-                      {categories.map((item, i) => <li key={i}><a href="javascript:">{item.name}</a></li>)}
-                    </ul>
-                  </Dropdown>
-                </li>),
-                (<li key="login" styleName="login">
-                  <LogInModalContainer />
-                </li>),
-                (<li key="signup" styleName="login">
-                  <SignupModalContainer />
-                </li>),
+              (<li key="location" styleName="location">
+                <i />
+                {location}
+              </li>),
+              (<li key="search" styleName="search">
+                <SearchInput placeholder="Type your search here..." />
+              </li>),
+              (<li key="category">
+                <Dropdown title={selectedCategory}>
+                  <ul>
+                    {categories.map((item, i) => <li key={i}><a href="javascript:">{item.name}</a></li>)}
+                  </ul>
+                </Dropdown>
+              </li>),
+              (<li key="login" styleName="login">
+                <LogInModalContainer />
+              </li>),
+              (<li key="signup" styleName="login">
+                <SignupModalContainer />
+              </li>),
             ]
             );
           }
@@ -91,21 +101,14 @@ export const Header = ({
                   handleNotification={handleNotification}
                 />}
               </li>),
-              (<li key="category">
-                <Dropdown title={selectedCategory}>
-                  <ul>
-                    {categories.map((item, i) => <li key={i}><a href="javascript:">{item.name}</a></li>)}
-                  </ul>
-                </Dropdown>
-              </li>),
               (<li key="welcome" styleName="user">
-                <Dropdown title={<span>Welcome,<br />{user.name}e</span>}>
+                <Dropdown title={<span>Welcome,<br />{user.name}</span>}>
                   <ul>
                     <li>
                       <a href="javascript:">Profile</a>
                     </li>
                     <li>
-                      <a href="javascript:">Logout</a>
+                      <a href="javascript:" onClick={doLogout()}>Logout</a>
                     </li>
                   </ul>
                 </Dropdown>
@@ -127,6 +130,7 @@ Header.propTypes = {
   notifications: PropTypes.array.isRequired,
   user: PropTypes.object.isRequired,
   handleNotification: PropTypes.func,
+  doLogout: PropTypes.func.isRequired,
   toggleNotif: PropTypes.bool,
   loggedUser: PropTypes.bool,
 };

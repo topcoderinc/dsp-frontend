@@ -22,14 +22,23 @@ import AvailablePackagesRoute from './AvailablePackages';
 import AdminDashboard from './Admin/AdminDashboard';
 import NoFlyZones from './Admin/NoFlyZones';
 import ProviderDetailsRoute from './ProviderDetails';
+import ResetPasswordRoute from './ResetPassword';
+import {defaultAuth0Service} from '../services/AuthService';
 
 export const createRoutes = (store) => ({
   path: '/',
   name: 'CoreLayout',
   indexRoute: {
     onEnter: (nextState, replace, cb) => {
-      replace('/dashboard');
-      cb();
+      // parse the hash if present
+      if (nextState.location.hash) {
+        defaultAuth0Service.parseHash(nextState.location.hash);
+        replace('/dashboard');
+        cb();
+      } else {
+        replace('/dashboard');
+        cb();
+      }
     },
   },
   childRoutes: [
@@ -59,10 +68,10 @@ export const createRoutes = (store) => ({
         BrowseProviderRoute(store),
         DroneDetailsRoute(store),
         AvailablePackagesRoute(store),
+        ProviderDetailsRoute(store),
       ],
     },
-    ProviderDetailsRoute(store),
-
+    ResetPasswordRoute(store),
     // admin routes
     {
       path: 'admin',

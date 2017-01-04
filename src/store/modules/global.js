@@ -3,7 +3,19 @@ import {browserHistory} from 'react-router';
 import UserApi from 'api/User.js';
 import config from '../../config';
 
+import APIService from 'services/APIService';
 const userApi = new UserApi(config.api.basePath);
+
+const userInfoKey = 'userInfo';
+
+function loadUserInfo() {
+  userInfo = localStorage.getItem(userInfoKey);
+  if (userInfo) {
+    userInfo = JSON.parse(userInfo);
+    APIService.accessToken = userInfo.accessToken;
+  }
+  return userInfo;
+}
 
 // ------------------------------------
 // Actions
@@ -11,11 +23,14 @@ const userApi = new UserApi(config.api.basePath);
 let isLogged = false;
 let hasError = false;
 let errorText = '';
+let userInfo = {};
 
 export const sendLoginRequest = (values) => new Promise((resolve) => {
   userApi.login(values.email, values.password).then((authResult) => {
     isLogged = true;
     hasError = false;
+    userInfo = authResult;
+    localStorage.setItem(userInfoKey, JSON.stringify(authResult));
     if (authResult.user.role === 'consumer') {
       browserHistory.push('/browse-provider');
     } else if (authResult.user.role === 'provider') {
@@ -34,7 +49,7 @@ export const sendLoginRequest = (values) => new Promise((resolve) => {
 });
 
 export const sendSignupRequest = (values) => new Promise((resolve) => {
-  userApi.register('name', values.email, values.password).then(() => {
+  userApi.register(values.firstName, values.lastName, values.email, values.password).then(() => {
     isLogged = true;
     hasError = false;
     browserHistory.push('/browse-provider');
@@ -46,14 +61,23 @@ export const sendSignupRequest = (values) => new Promise((resolve) => {
   resolve();
 });
 
+export const logout = () => async(dispatch) => {
+  localStorage.removeItem(userInfoKey);
+  console.log('user info removed');
+  userInfo = undefined;
+  isLogged = false;
+};
+
 export const toggleNotification = createAction('TOGGLE_NOTIFICATION');
 
 export const loginAction = createAction('LOGIN_ACTION');
 
+export const logoutAction = createAction('LOGOUT_ACTION');
+
 export const signupAction = createAction('SIGNUP_ACTION');
 
 export const actions = {
-  toggleNotification, loginAction,
+  toggleNotification, loginAction, logoutAction,
 };
 // console.log(loginAction(true))
 // ------------------------------------
@@ -64,23 +88,24 @@ export default handleActions({
     ...state, toggleNotif: action.payload,
   }),
   [loginAction]: (state) => ({
-    ...state, loggedUser: isLogged, hasError, errorText,
+    ...state, loggedUser: isLogged, hasError, errorText, user: (loadUserInfo() ? loadUserInfo().user : {}),
+  }),
+  [logoutAction]: (state) => ({
+    ...state, loggedUser: isLogged, hasError, errorText, user: (loadUserInfo() ? loadUserInfo().user : {}),
   }),
   [signupAction]: (state) => ({
-    ...state, loggedUser: isLogged, hasError, errorText,
+    ...state, loggedUser: isLogged, hasError, errorText, user: (loadUserInfo() ? loadUserInfo().user : {}),
   }),
 }, {
   toggleNotif: false,
-  loggedUser: false,
+  loggedUser: loadUserInfo() != undefined,
   location: 'Jakarta, Indonesia',
   selectedCategory: 'Category',
   categories: [
     {name: 'Category1'},
     {name: 'Category2'},
   ],
-  user: {
-    name: 'John Doe',
-  },
+  user: loadUserInfo() ? loadUserInfo().user : {},
   notifications: [
     {
       id: 1,

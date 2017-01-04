@@ -3,7 +3,7 @@ import {sendSignupRequest, signupAction} from '../../../store/modules/global';
 
 import SignupModal from '../components/SignupModal';
 
-const mapState = (state) => ({...state.global, onSubmit: sendSignupRequest});
+const mapState = (state) => ({...state.global, onSubmit: sendSignupRequest,});
 
 const mapDispatchToProps = (dispatch) => ({
   handleSigned: (value) => dispatch(signupAction(value)),

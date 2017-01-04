@@ -24,6 +24,24 @@ See Guild https://github.com/lorenwest/node-config/wiki/Configuration-Files
 |`REACT_APP_AUTH0_DOMAIN`| The React app auth0 domain`|
 
 Environment variables will be loaded from the .env file during build. Create the .env file based on the provided env.example
+### Auth0 setup
+- Create an account on auth0.
+- Click on clients in left side menu, it will redirect you to client page. Click on CREATE CLIENT button
+  to create a new client.
+- Copy the client id and client domain and export them as environment variables.
+- Add `http://localhost:3000` as Allowed callback url's in client settings.
+
+### Add social connections
+
+### Facebook social connection
+- To add facebook social connection to auth0, you have to create a facebook app.
+  Go to facebook [developers](https://developers.facebook.com/apps) and create a new app.
+- Copy the app secret and app id to auth0 social connections facebook tab.
+- You have to setup the oauth2 callback in app oauth settings.
+- For more information visit auth0 [docs](https://auth0.com/docs/connections/social/facebook)
+
+### Google social connection
+- For more information on how to connect google oauth2 client, visit official [docs](https://auth0.com/docs/connections/social/google)
 
 ## Install dependencies
 `npm i`
