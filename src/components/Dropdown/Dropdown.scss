@@ -1,17 +1,11 @@
-.dropdown {
-  :global {
-    .dropdown {
-      display: inline-block;
-    }
-
-
-    .dropdown--active .dropdown__content {
-      display: block;
-    }
+:global {
+  .dropdown {
+    display: inline-block;
+  }
+  .dropdown--active .dropdown__content {
+    display: block;
   }
 }
-
-
 
 .content {
   display: none;

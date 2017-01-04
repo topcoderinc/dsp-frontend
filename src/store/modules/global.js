@@ -4,18 +4,14 @@ import UserApi from 'api/User.js';
 import config from '../../config';
 
 import APIService from 'services/APIService';
+
 const userApi = new UserApi(config.api.basePath);
 
-const userInfoKey = 'userInfo';
+//------------------------------------------------------------------------------
+// Constants
 
-function loadUserInfo() {
-  userInfo = localStorage.getItem(userInfoKey);
-  if (userInfo) {
-    userInfo = JSON.parse(userInfo);
-    APIService.accessToken = userInfo.accessToken;
-  }
-  return userInfo;
-}
+const LOGOUT_ACTION = 'LOGOUT_ACTION';
+const USER_INFO_KEY = 'userInfo';
 
 // ------------------------------------
 // Actions
@@ -25,12 +21,21 @@ let hasError = false;
 let errorText = '';
 let userInfo = {};
 
+function loadUserInfo() {
+  userInfo = localStorage.getItem(USER_INFO_KEY);
+  if (userInfo) {
+    userInfo = JSON.parse(userInfo);
+    APIService.accessToken = userInfo.accessToken;
+  }
+  return userInfo;
+}
+
 export const sendLoginRequest = (values) => new Promise((resolve) => {
   userApi.login(values.email, values.password).then((authResult) => {
     isLogged = true;
     hasError = false;
     userInfo = authResult;
-    localStorage.setItem(userInfoKey, JSON.stringify(authResult));
+    localStorage.setItem(USER_INFO_KEY, JSON.stringify(authResult));
     if (authResult.user.role === 'consumer') {
       browserHistory.push('/browse-provider');
     } else if (authResult.user.role === 'provider') {
@@ -61,25 +66,23 @@ export const sendSignupRequest = (values) => new Promise((resolve) => {
   resolve();
 });
 
-export const logout = () => async(dispatch) => {
-  localStorage.removeItem(userInfoKey);
-  console.log('user info removed');
-  userInfo = undefined;
-  isLogged = false;
-};
-
 export const toggleNotification = createAction('TOGGLE_NOTIFICATION');
 
 export const loginAction = createAction('LOGIN_ACTION');
 
-export const logoutAction = createAction('LOGOUT_ACTION');
+export const logoutAction = () => dispatch => {
+  browserHistory.push('/home');
+  dispatch({
+    type: LOGOUT_ACTION
+  });
+}
 
 export const signupAction = createAction('SIGNUP_ACTION');
 
 export const actions = {
   toggleNotification, loginAction, logoutAction,
 };
-// console.log(loginAction(true))
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
@@ -90,15 +93,24 @@ export default handleActions({
   [loginAction]: (state) => ({
     ...state, loggedUser: isLogged, hasError, errorText, user: (loadUserInfo() ? loadUserInfo().user : {}),
   }),
-  [logoutAction]: (state) => ({
-    ...state, loggedUser: isLogged, hasError, errorText, user: (loadUserInfo() ? loadUserInfo().user : {}),
-  }),
+  [LOGOUT_ACTION]: (state) => {
+    localStorage.removeItem(USER_INFO_KEY);
+    APIService.accessToken = '';
+    isLogged = false;
+    return ({
+      ...state,
+      loggedUser: false,
+      hasError,
+      errorText,
+      user: {},
+    });
+  },
   [signupAction]: (state) => ({
     ...state, loggedUser: isLogged, hasError, errorText, user: (loadUserInfo() ? loadUserInfo().user : {}),
   }),
 }, {
   toggleNotif: false,
-  loggedUser: loadUserInfo() != undefined,
+  loggedUser: Boolean(loadUserInfo()),
   location: 'Jakarta, Indonesia',
   selectedCategory: 'Category',
   categories: [
