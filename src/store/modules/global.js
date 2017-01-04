@@ -7,6 +7,10 @@ import APIService from 'services/APIService';
 
 const userApi = new UserApi(config.api.basePath);
 
+//------------------------------------------------------------------------------
+// Constants
+
+const LOGOUT_ACTION = 'LOGOUT_ACTION';
 const USER_INFO_KEY = 'userInfo';
 
 // ------------------------------------
@@ -66,7 +70,12 @@ export const toggleNotification = createAction('TOGGLE_NOTIFICATION');
 
 export const loginAction = createAction('LOGIN_ACTION');
 
-export const logoutAction = createAction('LOGOUT_ACTION');
+export const logoutAction = () => dispatch => {
+  browserHistory.push('/home');
+  dispatch({
+    type: LOGOUT_ACTION
+  });
+}
 
 export const signupAction = createAction('SIGNUP_ACTION');
 
@@ -84,7 +93,7 @@ export default handleActions({
   [loginAction]: (state) => ({
     ...state, loggedUser: isLogged, hasError, errorText, user: (loadUserInfo() ? loadUserInfo().user : {}),
   }),
-  [logoutAction]: (state) => {
+  [LOGOUT_ACTION]: (state) => {
     localStorage.removeItem(USER_INFO_KEY);
     APIService.accessToken = '';
     isLogged = false;
