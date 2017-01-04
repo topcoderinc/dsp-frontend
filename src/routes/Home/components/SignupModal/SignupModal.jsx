@@ -3,7 +3,6 @@ import CSSModules from 'react-css-modules';
 import {reduxForm} from 'redux-form';
 import cn from 'classnames';
 import Modal from 'react-modal';
-import Select from 'components/Select';
 import Button from 'components/Button';
 import TextField from 'components/TextField';
 import styles from './SignupModal.scss';
@@ -152,7 +151,7 @@ class SignupModal extends React.Component {
             </div>
             {/* or end */}
             <div>
-              {hasError && <span className="error-msg">{errorText.error}</span>}
+              {hasError && <span className="error-msg">{errorText}</span>}
               <div styleName="email-input">
                 <FormField {...fields.email}>
                   <TextField {...fields.email} login type="email" label="Email" />

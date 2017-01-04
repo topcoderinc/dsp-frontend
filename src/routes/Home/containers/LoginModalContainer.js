@@ -1,11 +1,9 @@
 import {connect} from 'react-redux';
-import {sendLoginRequest, loginAction} from '../../../store/modules/global';
+import {loginAction} from '../../../store/modules/global';
 import LogInModal from '../components/LoginModal';
 
-const mapState = (state) => ({...state.global, onSubmit: sendLoginRequest});
+const mapState = (state) => ({...state.global});
 
-const mapDispatchToProps = (dispatch) => ({
-  handleLoggedIn: (value) => dispatch(loginAction(value)),
-});
-
-export default connect(mapState, mapDispatchToProps)(LogInModal);
+export default connect(mapState, {
+  loginAction,
+})(LogInModal);
