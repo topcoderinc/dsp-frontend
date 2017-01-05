@@ -76,17 +76,6 @@ class LogInModal extends React.Component {
     this.setState({modalLoginIsOpen: true});
   }
 
-  handleLogin(handleLoggedIn, loggedUser) {
-    const _self = this;
-    setTimeout(() => {
-      handleLoggedIn();
-      if (loggedUser) {
-        _self.setState({modalLoginIsOpen: false});
-        _self.setState({modalSignupIsOpen: false});
-      }
-    }, 100);
-  }
-
   forgetPassword() {
     this.setState({showForgetPassword: true});
   }
@@ -133,7 +122,7 @@ class LogInModal extends React.Component {
 
   render() {
     const _self = this;
-    const {handleSubmit, fields, handleLoggedIn, loggedUser, hasError, errorText} = this.props;
+    const {handleSubmit, fields, hasError, errorText} = this.props;
     return (
       <div styleName="signin-modal">
         <div styleName="login-signup">
@@ -154,7 +143,7 @@ class LogInModal extends React.Component {
             {this.state.showForgetPassword === true && <div styleName="title">Reset forgotten password</div>}
           </div>
           {this.state.showForgetPassword === false &&
-            <form styleName="login-form" onSubmit={handleSubmit}>
+            <form styleName="login-form">
               <div styleName="login-with-fb">
                 <a href="javascript:;" onClick={this.facebookLogin.bind(this)}>
                   <i styleName="icon-facebook" />
@@ -176,7 +165,7 @@ class LogInModal extends React.Component {
               </div>
               {/* or end */}
               <div>
-                {hasError && <span className="error-msg">{errorText.error}</span>}
+                {hasError && <span className="error-msg">{errorText}</span>}
                 <div styleName="email-input">
                   <FormField {...fields.email}>
                     <TextField {...fields.email} login type="email" label="Email" />
@@ -203,8 +192,9 @@ class LogInModal extends React.Component {
               </div>
               <div styleName="login-btn">
                 <Button
-                  type="submit" color="black"
-                  className={styles.btnLogin} onClick={() => this.handleLogin(handleLoggedIn, loggedUser)}
+                  color="black"
+                  className={styles.btnLogin}
+                  onClick={handleSubmit(this.props.loginAction)}
                 >
                   Log In
                 </Button>
@@ -217,7 +207,7 @@ class LogInModal extends React.Component {
           { this.state.showForgetPassword === true &&
             <form styleName="login-form" onSubmit={handleSubmit((data) => _self.handleForgetPassword(data))}>
               <div>
-                {hasError && <span className="error-msg">{errorText.error}</span>}
+                {hasError && <span className="error-msg">{errorText}</span>}
                 <div styleName="email-input">
                   <FormField {...fields.emailUp}>
                     <TextField {...fields.emailUp} login type="email" label="Email" />
@@ -238,10 +228,9 @@ class LogInModal extends React.Component {
 }
 
 LogInModal.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func,
   fields: PropTypes.object,
-  handleLoggedIn: PropTypes.func.isRequired,
-  loggedUser: PropTypes.bool,
+  loginAction: PropTypes.func.isRequired,
   hasError: PropTypes.bool,
   errorText: PropTypes.string,
 };

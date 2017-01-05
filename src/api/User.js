@@ -24,7 +24,6 @@ class UserApi {
 
   login(email, password) {
     const url = `${this.basePath}/api/v1/login`;
-
     return reqwest({
       url,
       method: 'post',
