@@ -72,6 +72,11 @@ export const loginAction = (data) => (dispatch) => {
   });
 };
 
+export const onSocialLoginSuccessAction = () => (dispatch) => {
+  dispatch({type: LOGIN_ACTION_SUCCESS});
+  browserHistory.push(LOGIN_REDIRECT[loadUserInfo().user.role]);
+};
+
 export const logoutAction = () => (dispatch) => {
   browserHistory.push('/home');
   dispatch({

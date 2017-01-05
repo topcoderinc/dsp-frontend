@@ -25,6 +25,8 @@ import ProviderDetailsRoute from './ProviderDetails';
 import ResetPasswordRoute from './ResetPassword';
 import {defaultAuth0Service} from '../services/AuthService';
 
+import {onSocialLoginSuccessAction} from 'store/modules/global';
+
 export const createRoutes = (store) => ({
   path: '/',
   name: 'CoreLayout',
@@ -32,9 +34,10 @@ export const createRoutes = (store) => ({
     onEnter: (nextState, replace, cb) => {
       // parse the hash if present
       if (nextState.location.hash) {
-        defaultAuth0Service.parseHash(nextState.location.hash);
-        replace('/dashboard');
-        cb();
+        defaultAuth0Service.parseHash(nextState.location.hash).then(() => {
+          store.dispatch(onSocialLoginSuccessAction());
+          cb();
+        });
       } else {
         replace('/dashboard');
         cb();
