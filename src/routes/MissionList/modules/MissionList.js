@@ -1,25 +1,29 @@
 import {handleActions} from 'redux-actions';
 import _ from 'lodash';
 import APIService from 'services/APIService';
+import {toastr} from 'react-redux-toastr';
 
 // ------------------------------------
 // Constants
 // ------------------------------------
 export const LOADED = 'MissionList/LOADED';
-export const DELETE_MISSION = 'MissionList/DELETE_MISSION';
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const load = () => async(dispatch) => {
-  const missions = await APIService.fetchMissionList();
-  dispatch({type: LOADED, payload: {missions}});
+export const load = (params) => async(dispatch, getState) => {
+  const allParams = {..._.pick(getState().missionList, ['offset', 'limit']), ...params};
+
+  const respond = await APIService.fetchMissionList(allParams);
+
+  dispatch({type: LOADED, payload: {missions: respond.items, total: respond.total, ...params}});
 };
 
 export const deleteMission = (id) => async(dispatch) => {
   await APIService.deleteMission(id);
+  toastr.success('Mission deleted');
 
-  dispatch({type: DELETE_MISSION, payload: {missionId: id}});
+  dispatch(load());
 };
 
 export const actions = {
@@ -31,14 +35,10 @@ export const actions = {
 // Reducer
 // ------------------------------------
 export default handleActions({
-  [LOADED]: (state, {payload: {missions}}) => ({...state, missions}),
-  [DELETE_MISSION]: (state, {payload: {missionId}}) => {
-    const newState = _.cloneDeep(state);
-
-    newState.missions = newState.missions.filter((mission) => mission.id !== missionId);
-
-    return newState;
-  },
+  [LOADED]: (state, {payload}) => ({...state, ...payload}),
 }, {
+  offset: 0,
+  limit: 10,
+  total: 0,
   missions: [],
 });

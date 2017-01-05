@@ -453,39 +453,7 @@ const statusDetail = {
   },
 };
 
-/*
-  As there is no Authorization implemented in the project.
-  Here I've hardcoded automatic registering and authorization of a dumb user to make requests to the server.
-  This should be removed when real authorizatin is implemented.
- */
-const testUser = {
-  firstName: 'test',
-  lastName: 'test',
-  email: 'kj2h34jh23424h2l34h324ljh1@khj4k234hl234hjl.com',
-  phone: '42',
-  password: 'qwerty',
-};
-
-const register = () => request
-  .post(`${config.api.basePath}/api/v1/register`)
-  .send(testUser)
-  .set('Content-Type', 'application/json')
-  .end();
-
-const authorize = () => request
-  .post(`${config.api.basePath}/api/v1/login`)
-  .set('Content-Type', 'application/json')
-  .send(_.pick(testUser, 'email', 'password'))
-  .end();
-
-const regAndAuth = () => authorize().then(
-  authorize,
-  () => register().then(authorize),
-);
-
 export default class APIService {
-
-
   static fetchMyRequestStatus(filterByStatus) {
     return (new Promise((resolve) => {
       resolve();
@@ -502,17 +470,20 @@ export default class APIService {
     })).then(() => statusDetail[id]);
   }
 
-  static fetchMissionList() {
+  static fetchMissionList(params) {
     const token = this.accessToken;
     return request
       .get(`${config.api.basePath}/api/v1/missions`)
       .set('Authorization', `Bearer ${this.accessToken}`)
-      .send()
+      .query(params)
       .end()
-      .then((res) => res.body.items.map((item) => ({
-        ...item,
-        downloadLink: `${config.api.basePath}/api/v1/missions/${item.id}/download?token=${token}`,
-      })));
+      .then((res) => ({
+        total: res.body.total,
+        items: res.body.items.map((item) => ({
+          ...item,
+          downloadLink: `${config.api.basePath}/api/v1/missions/${item.id}/download?token=${token}`,
+        })),
+      }));
   }
 
   static getMission(id) {
@@ -648,5 +619,47 @@ export default class APIService {
       .set('Content-Type', 'application/json')
       .send(entity)
       .end();
+  }
+
+  /**
+   * Get pilot checklist by mission id
+   * @param  {String}   id    mission id
+   */
+  static getPilotChecklist(id) {
+    return request
+      .get(`${config.api.basePath}/api/v1/pilot/checklist/${id}/`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Update pilot checklist by mission id
+   * @param  {String}   id          mission id
+   * @param  {Object}   checklist   checklist object
+   */
+  static updatePilotChecklist(id, checklist) {
+    return request
+      .put(`${config.api.basePath}/api/v1/pilot/checklist/${id}/`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .send(checklist)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Fetch pilot missions
+   * @param  {Object}   params          params
+   * @param  {Number}   params.limit    the limit
+   * @param  {Number}   params.offset   the offset
+   * @param  {String}   params.sortBy   sort by property name
+   */
+  static fetchPilotMissions(params) {
+    return request
+      .get(`${config.api.basePath}/api/v1/pilot/missions`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .query(params)
+      .end()
+      .then((res) => res.body);
   }
 }

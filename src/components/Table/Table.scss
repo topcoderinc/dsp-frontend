@@ -1,0 +1,101 @@
+.smart-table {
+  background-color: transparent;
+}
+
+.table-wrap {
+  :global {
+    .-loading {
+      display: none;
+    }
+
+    .-padRow {
+      display: none;
+    }
+  }
+}
+
+.table {
+  width: 100%;
+}
+
+.thead {
+  background-color: #1e526c;
+
+  th {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 14px 27px 16px;
+    text-align: left;
+  }
+
+  :global {
+    th.-cursor-pointer {
+      > div {
+        cursor: pointer;
+
+        &:after {
+          background: url('../../styles/img/icon-sort-desc.png') no-repeat;
+          content: '';
+          display: inline-block;
+          opacity: 0.5;
+          height: 7px;
+          margin-left: 8px;
+          transform: rotate(180deg);
+          width: 11px;
+        }
+      }
+    }
+
+    th.-sort-asc,
+    th.-sort-desc {
+      > div {
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+
+    th.-sort-desc {
+      > div {
+        &:after {
+          transform: none;
+        }
+      }
+    }
+  }
+}
+
+.tbody {
+  td {
+    font-size: 14px;
+    padding: 12px 23px;
+    white-space: nowrap;
+
+    > a {
+      color: #3b73b9;
+    }
+  }
+}
+
+.tr {
+  border-bottom: 1px solid #e7e8ea;
+}
+
+.navigation {
+  margin: 25px 20px;
+}
+
+.navigation:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.pagination {
+  float: right;
+}
+
+.perpage {
+  float: left;
+}

@@ -3,7 +3,6 @@ import CSSModules from 'react-css-modules';
 import {reduxForm} from 'redux-form';
 import cn from 'classnames';
 import Modal from 'react-modal';
-import Select from 'components/Select';
 import Button from 'components/Button';
 import TextField from 'components/TextField';
 import styles from './SignupModal.scss';

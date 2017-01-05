@@ -2,11 +2,17 @@ import {handleActions, createAction} from 'redux-actions';
 import {browserHistory} from 'react-router';
 import UserApi from 'api/User.js';
 import config from '../../config';
-
 import APIService from 'services/APIService';
+import _ from 'lodash';
+
 const userApi = new UserApi(config.api.basePath);
 
 const userInfoKey = 'userInfo';
+
+let isLogged = false;
+let hasError = false;
+let errorText = '';
+let userInfo = {};
 
 function loadUserInfo() {
   userInfo = localStorage.getItem(userInfoKey);
@@ -20,11 +26,6 @@ function loadUserInfo() {
 // ------------------------------------
 // Actions
 // ------------------------------------
-let isLogged = false;
-let hasError = false;
-let errorText = '';
-let userInfo = {};
-
 export const sendLoginRequest = (values) => new Promise((resolve) => {
   userApi.login(values.email, values.password).then((authResult) => {
     isLogged = true;
@@ -38,7 +39,7 @@ export const sendLoginRequest = (values) => new Promise((resolve) => {
     } else if (authResult.user.role === 'admin') {
       browserHistory.push('/admin');
     } else if (authResult.user.role === 'pilot') {
-      browserHistory.push('/pilot');
+      browserHistory.push('/pilot-missions');
     }
   }).catch((err) => {
     isLogged = false;
@@ -61,10 +62,9 @@ export const sendSignupRequest = (values) => new Promise((resolve) => {
   resolve();
 });
 
-export const logout = () => async(dispatch) => {
+export const logout = () => async() => {
   localStorage.removeItem(userInfoKey);
-  console.log('user info removed');
-  userInfo = undefined;
+  userInfo = null;
   isLogged = false;
 };
 
@@ -98,7 +98,7 @@ export default handleActions({
   }),
 }, {
   toggleNotif: false,
-  loggedUser: loadUserInfo() != undefined,
+  loggedUser: !_.isNil(loadUserInfo()),
   location: 'Jakarta, Indonesia',
   selectedCategory: 'Category',
   categories: [

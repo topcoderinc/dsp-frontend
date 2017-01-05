@@ -1,0 +1,52 @@
+.pilot-missions-view {
+  background-color: transparent;
+
+  :global {
+
+  }
+}
+
+.wrap {
+  padding: 0 30px 35px;
+}
+
+.header {
+  border-bottom: 1px solid #d5d5d5;
+  display: flex;
+  margin-bottom: 19px;
+  justify-content: space-between;
+  padding-bottom: 17px;
+  padding-top: 21px;
+  position: relative;
+}
+
+.title {
+  color: #333333;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.panel {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  padding: 19px 24px;
+}
+
+.create-btn {
+  background: #315b95;
+  border: none;
+  color: white;
+  display: inline-block;
+  font-weight: bold;
+  min-width: 115px;
+  margin-left: 10px;
+  padding: 13px 10px;
+
+  &:hover {
+    color: #fff;
+  }
+}

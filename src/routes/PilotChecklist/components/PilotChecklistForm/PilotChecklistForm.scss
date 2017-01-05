@@ -1,0 +1,62 @@
+.pilot-checklist-form {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.question {
+  border-bottom: 1px solid #d5d5d5;
+  margin-bottom: 30px;
+  padding-bottom: 34px;
+
+  &:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+}
+
+.radioboxes {
+  display: flex;
+}
+
+.radiobox {
+  margin-right: 50px;
+}
+
+.note {
+  margin-top: 10px;
+}
+
+.note-label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.actions {
+  border-top: 1px solid #d5d5d5;
+  padding-bottom: 30px;
+  text-align: right;
+
+  button {
+    margin-left: 12px;
+  }
+}
+
+.error {
+  color: #f00;
+  height: 40px;
+  line-height: 40px;
+}
+
+.note-label-wrap {
+  display: flex;
+
+  .error {
+    height: auto;
+    line-height: inherit;
+    margin-left: 30px;
+  }
+}
+
+.global-error {
+  height: 40px;
+}

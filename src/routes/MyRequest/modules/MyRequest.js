@@ -21,6 +21,8 @@ export const actions = {
 // ------------------------------------
 export default handleActions({
 }, {
+  limit: 10,
+  offset: 0,
   requestItems: [{
     status: 'new',
     requestId: '123ASDD',

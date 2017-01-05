@@ -9,8 +9,7 @@ import Notification from '../Notification';
 import styles from './Header.scss';
 
 export const Header = ({
-  location, selectedCategory, categories, user, notifications,
-  routes, handleNotification, doLogout, toggleNotif, loggedUser,
+  location, selectedCategory, categories, user, notifications, handleNotification, doLogout, toggleNotif, loggedUser,
 }) => (
 
   <nav styleName="header">
@@ -18,112 +17,104 @@ export const Header = ({
       <li styleName="branding">
         DRONE MARKET
       </li>
-      {
-        (() => {
-          if (user.role == 'consumer') {
-            return (
-              <li styleName="pages">
+      {user.role === 'consumer' &&
+        <li styleName="pages">
+          <ul>
+            <li>
+              <Link to="/home" activeClassName="active">Home</Link>
+            </li>
+            <li>
+              <Link to="/my-request-status" activeClassName="active">My Requests</Link>
+            </li>
+            <li>
+              <Link to="/browse-provider" activeClassName="active">Browse Services</Link>
+            </li>
+            <li><Link to="javascript:;" activeClassName="active">Analytics</Link></li>
+            <li><Link to="/drones-map" activeClassName="active">Drone Traffic</Link></li>
+            <li><Link to="/mission-planner" activeClassName="active">MissionPlanner</Link></li>
+          </ul>
+        </li>
+      }
+      {user.role === 'provider' &&
+        <li styleName="pages">
+          <ul>
+            <li>
+              <Link to="/dashboard" activeClassName="active">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/my-request" activeClassName="active">Requests</Link>
+            </li>
+            <li>
+              <Link to="/my-drone" activeClassName="active">My Drones</Link>
+            </li>
+            <li>
+              <Link to="/my-services" activeClassName="active">My Services</Link>
+            </li>
+            <li><Link to="javascript:;" activeClassName="active">Analytics</Link></li>
+            <li><Link to="/drones-map" activeClassName="active">Drone Traffic</Link></li>
+            <li><Link to="/mission-planner" activeClassName="active">MissionPlanner</Link></li>
+          </ul>
+        </li>
+      }
+      {user.role === 'pilot' &&
+        <li styleName="pages">
+          <ul>
+            <li><Link to="/pilot-missions" activeClassName="active">Pilot Missions</Link></li>
+          </ul>
+        </li>
+      }
+      {!loggedUser ? (
+      [
+            (<li key="location" styleName="location">
+              <i />
+              {location}
+            </li>),
+            (<li key="search" styleName="search">
+              <SearchInput placeholder="Type your search here..." />
+            </li>),
+            (<li key="category">
+              <Dropdown title={selectedCategory}>
+                <ul>
+                  {categories.map((item, i) => <li key={i}><a href="javascript:">{item.name}</a></li>)}
+                </ul>
+              </Dropdown>
+            </li>),
+            (<li key="login" styleName="login">
+              <LogInModalContainer />
+            </li>),
+            (<li key="signup" styleName="login">
+              <SignupModalContainer />
+            </li>),
+      ]
+        ) : (
+      [
+            (<li key="notification" styleName="notifications" onClick={() => handleNotification(!toggleNotif)}>
+              {notifications.length > 0 && <span styleName="counter">{notifications.length}</span>}
+              {toggleNotif && <Notification
+                notifications={notifications} toggleNotif={toggleNotif}
+                handleNotification={handleNotification}
+              />}
+            </li>),
+            (<li key="welcome" styleName="user">
+              <Dropdown title={<span>Welcome,<br />{user.name}</span>}>
                 <ul>
                   <li>
-                    <Link to="/home" activeClassName="active">Home</Link>
+                    <a href="javascript:">Profile</a>
                   </li>
                   <li>
-                    <Link to="/my-request-status" activeClassName="active">My Requests</Link>
+                    <a href="javascript:" onClick={doLogout()}>Logout</a>
                   </li>
-                  <li>
-                    <Link to="/browse-provider" activeClassName="active">Browse Services</Link>
-                  </li>
-                  <li><Link to="javascript:;" activeClassName="active">Analytics</Link></li>
-                  <li><Link to="/drones-map" activeClassName="active">Drone Traffic</Link></li>
-                  <li><Link to="/mission-planner" activeClassName="active">MissionPlanner</Link></li>
                 </ul>
-              </li>
-            );
-          } else if (user.role == 'provider') {
-            return (
-              <li styleName="pages">
-                <ul>
-                  <li>
-                    <Link to="/dashboard" activeClassName="active">Dashboard</Link>
-                  </li>
-                  <li>
-                    <Link to="/my-request" activeClassName="active">Requests</Link>
-                  </li>
-                  <li>
-                    <Link to="/my-drone" activeClassName="active">My Drones</Link>
-                  </li>
-                  <li>
-                    <Link to="/my-services" activeClassName="active">My Services</Link>
-                  </li>
-                  <li><Link to="javascript:;" activeClassName="active">Analytics</Link></li>
-                  <li><Link to="/drones-map" activeClassName="active">Drone Traffic</Link></li>
-                  <li><Link to="/mission-planner" activeClassName="active">MissionPlanner</Link></li>
-                </ul>
-              </li>
-            );
-          }
-        })()
+              </Dropdown>
+            </li>),
+      ]
+        )
       }
-      {
-        (() => {
-          if (!loggedUser) {
-            return (
-            [
-              (<li key="location" styleName="location">
-                <i />
-                {location}
-              </li>),
-              (<li key="search" styleName="search">
-                <SearchInput placeholder="Type your search here..." />
-              </li>),
-              (<li key="category">
-                <Dropdown title={selectedCategory}>
-                  <ul>
-                    {categories.map((item, i) => <li key={i}><a href="javascript:">{item.name}</a></li>)}
-                  </ul>
-                </Dropdown>
-              </li>),
-              (<li key="login" styleName="login">
-                <LogInModalContainer />
-              </li>),
-              (<li key="signup" styleName="login">
-                <SignupModalContainer />
-              </li>),
-            ]
-            );
-          }
-          return (
-          [
-              (<li key="notification" styleName="notifications" onClick={() => handleNotification(!toggleNotif)}>
-                {notifications.length > 0 && <span styleName="counter">{notifications.length}</span>}
-                {toggleNotif && <Notification
-                  notifications={notifications} toggleNotif={toggleNotif}
-                  handleNotification={handleNotification}
-                />}
-              </li>),
-              (<li key="welcome" styleName="user">
-                <Dropdown title={<span>Welcome,<br />{user.name}</span>}>
-                  <ul>
-                    <li>
-                      <a href="javascript:">Profile</a>
-                    </li>
-                    <li>
-                      <a href="javascript:" onClick={doLogout()}>Logout</a>
-                    </li>
-                  </ul>
-                </Dropdown>
-              </li>),
-          ]
-          );
-        })()
-      }
-
     </ul>
   </nav>
 );
 
 Header.propTypes = {
-  routes: PropTypes.any.isRequired,
   location: PropTypes.string.isRequired,
   selectedCategory: PropTypes.string.isRequired,
   categories: PropTypes.array.isRequired,

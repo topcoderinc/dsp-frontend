@@ -19,6 +19,7 @@ Button.propTypes = {
 Button.defaultProps = {
   type: 'button',
   size: 'normal',
+  color: 'blue',
 };
 
 export default CSSModules(Button, styles, {allowMultiple: true});
