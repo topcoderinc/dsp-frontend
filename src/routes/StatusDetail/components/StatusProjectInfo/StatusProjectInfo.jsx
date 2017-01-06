@@ -2,16 +2,12 @@ import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './StatusProjectInfo.scss';
 
-export const StatusProjectInfo = ({name, description, address, contactName, tel}) => (
+export const StatusProjectInfo = ({name, address, contactName, tel}) => (
   <table styleName="status-project-info">
     <tbody>
       <tr>
         <th>Project name:</th>
         <td>{name}</td>
-      </tr>
-      <tr>
-        <th>Project description:</th>
-        <td>{description}</td>
       </tr>
       <tr>
         <th>Address:</th>
@@ -31,7 +27,6 @@ export const StatusProjectInfo = ({name, description, address, contactName, tel}
 
 StatusProjectInfo.propTypes = {
   name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   contactName: PropTypes.string.isRequired,
   tel: PropTypes.string.isRequired,

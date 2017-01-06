@@ -1,0 +1,63 @@
+:global{
+  .ReactModal__Body--open{
+    overflow: hidden;
+  }
+}
+.title{
+  height: 50px;
+  background-color: #E1E2E5;
+  line-height: 50px;
+  padding-left:20px;
+  border-bottom: 1px solid #333;
+}
+.icon-close{
+  background-image: url("icon-close-modal.png");
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top:12px;
+  right:12px;
+  cursor: pointer;
+}
+.body{
+  padding-top:20px;
+  height: calc(100% - 110px);
+  overflow: auto;
+  ul{
+    text-align: left;
+    list-style:none;
+    padding:0;
+    margin:0;
+    li{
+      padding: 10px 20px;
+      cursor: pointer;
+      &.selected{
+        background-color: #224488;
+        color:#fff;
+      }
+    }
+  }
+}
+.no-drones{
+  text-align: center;
+}
+.foot{
+  height: 60px;
+  display: flex;
+  align-items:center;
+  justify-content: flex-end;
+  background-color: #E1E2E5;
+  padding: 0 20px;
+  .btn-confirm{
+    color:#fff;
+    background-color: #224488;
+    height: 36px;
+    line-height: 36px;
+    padding:0 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    &.disabled{
+      cursor: not-allowed;
+    }
+  }
+}

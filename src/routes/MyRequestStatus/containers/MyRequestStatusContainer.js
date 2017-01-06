@@ -9,4 +9,5 @@ const resolve = [{
 
 const mapState = (state) => state.myRequestStatus;
 
+
 export default asyncConnect(resolve, mapState, actions)(MyRequestStatusView);

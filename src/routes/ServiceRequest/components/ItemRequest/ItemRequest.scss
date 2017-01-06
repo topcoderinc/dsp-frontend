@@ -9,3 +9,15 @@
   display: flex;
   align-items: center;
 }
+
+.unit-group{
+  display: flex;
+  align-items:flex-start;
+  .input{
+    flex:5;
+  }
+  .unit{
+    flex: 1;
+    padding: 62px 0 0 10px;
+  }
+}

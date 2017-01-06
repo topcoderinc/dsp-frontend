@@ -1,38 +1,42 @@
 import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import MissionPlanner from 'components/MissionPlanner';
+import _ from 'lodash';
 import MapLegends from 'components/MapLegends';
 import DroneLocationsETA from '../DroneLocationsETA';
+import GoogleMapRoute from './GoogleMapRoute';
 import styles from './StatusDetailMapRoute.scss';
 
-export const StatusDetailMapRoute = ({distance, eta, showMapLegends, providerCoords, droneCoords, mission, isSmall}) => (
-  <div styleName="status-detail-map-route">
-    <MissionPlanner
-      {...{
-        providerCoords,
-        droneCoords,
-        mission,
-        isSmall,
-      }}
-    />
-    {showMapLegends && <div styleName="map-legends"><MapLegends distance={distance} /></div>}
-    {eta && <div styleName="drone-eta"><DroneLocationsETA eta={eta} /></div>}
-  </div>
-);
+export const StatusDetailMapRoute = ({distance, eta, showMapLegends,
+      endLocation, startLocation, zones, status}) => (
+        <div styleName="status-detail-map-route">
+          <GoogleMapRoute
+            containerElement={
+              <div style={{height: '100%'}} />
+          }
+            mapElement={
+              <div style={{height: '100%'}} />
+          }
+            startLocation={startLocation}
+            endLocation={endLocation}
+            zones={zones}
+          />
+          {showMapLegends && !zones && <div styleName="map-legends"><MapLegends distance={_.isNil(distance) ? '' : `${distance} km`} /></div>}
+          {status !== 'completed' && eta && <div styleName="drone-eta"><DroneLocationsETA eta={eta} /></div>}
+        </div>
+    );
 
 StatusDetailMapRoute.propTypes = {
-  distance: PropTypes.string,
-  eta: PropTypes.string,
+  distance: PropTypes.number,
+  eta: PropTypes.number,
   showMapLegends: PropTypes.bool,
-  providerCoords: PropTypes.object,
-  droneCoords: PropTypes.object,
-  mission: PropTypes.object,
-  isSmall: PropTypes.bool,
+  startLocation: PropTypes.object,
+  endLocation: PropTypes.object,
+  zones: PropTypes.array,
+  status: PropTypes.string,
 };
 
 StatusDetailMapRoute.defaultProps = {
   showMapLegends: false,
-  isSmall: false,
 };
 
 export default CSSModules(StatusDetailMapRoute, styles);

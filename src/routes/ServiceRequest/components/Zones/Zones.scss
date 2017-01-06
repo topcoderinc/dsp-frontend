@@ -1,6 +1,10 @@
 .zones {
   background-color: transparent;
-
+  &.error{
+    .no-zone{
+      color:red;
+    }
+  }
   :global {
 
   }

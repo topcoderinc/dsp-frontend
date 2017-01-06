@@ -49,3 +49,29 @@
     color: #B90002;
   }
 }
+
+.modal-body{
+  text-align: center;
+  height: 60px;
+  padding: 10px 0;
+}
+.modal-btns{
+  display: flex;
+  height: 60px;
+  justify-content: space-around;
+  align-items:center;
+  .btn{
+    width: 160px;
+    text-align: center;
+    cursor: pointer;
+    height: 48px;
+    line-height: 48px;
+    &.cancel{
+      background-color: #E1E2E5;
+    }
+    &.confirm{
+      background-color: #224488;
+      color:#fff;
+    }
+  }
+}

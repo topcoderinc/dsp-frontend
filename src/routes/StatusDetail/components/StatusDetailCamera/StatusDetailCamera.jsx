@@ -7,7 +7,7 @@ export const StatusDetailCamera = ({title, streamSrc}) => (
     {streamSrc ? (
       <img src={streamSrc} styleName="embeded" alt={title} />
     ) : (
-      <div styleName="not-availabel"><span>Not Available</span></div>
+      <div styleName="not-availabel"><span>Camera currently not available</span></div>
     )}
     <span styleName="info">
       <span styleName="title">{title}</span>
@@ -18,7 +18,7 @@ export const StatusDetailCamera = ({title, streamSrc}) => (
 
 StatusDetailCamera.propTypes = {
   title: PropTypes.string.isRequired,
-  streamSrc: PropTypes.string.isRequired,
+  streamSrc: PropTypes.string,
 };
 
 export default CSSModules(StatusDetailCamera, styles);

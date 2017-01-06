@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
+import cn from 'classnames';
 import {Row, Col} from 'react-flexbox-grid/lib/index';
 import TextField from 'components/TextField';
 import Select from 'components/Select';
@@ -14,10 +15,10 @@ const colors = [
 ];
 
 
-export const Zones = ({zones, updateZone, deleteZone}) => (
-  <div styleName="zones">
+export const Zones = ({zones, updateZone, deleteZone, error}) => (
+  <div styleName={cn({zones: true, error})}>
     <Accordion title="Zones" defaultIsExpanded>
-      {zones.length === 0 && <div> No zones selected. Please draw zones on the map. </div>}
+      {zones.length === 0 && <div styleName="no-zone"> No zones selected. Please draw zones on the map. </div>}
       {zones.map((zone) =>
         <div key={zone.id} styleName="item">
           <Row>
@@ -79,6 +80,7 @@ Zones.propTypes = {
   zones: PropTypes.array.isRequired,
   updateZone: PropTypes.func.isRequired,
   deleteZone: PropTypes.func.isRequired,
+  error: PropTypes.bool,
 };
 
-export default CSSModules(Zones, styles);
+export default CSSModules(Zones, styles, {allowMultiple: true});

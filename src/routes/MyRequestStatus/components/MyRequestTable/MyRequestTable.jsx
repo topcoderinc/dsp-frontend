@@ -30,9 +30,8 @@ export const MyRequestTable = ({requests}) => (
 
 const MyRequestPropType = {
   id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
   provider: PropTypes.string.isRequired,
-  timeOflaunch: PropTypes.string.isRequired,
+  timeOflaunch: PropTypes.string,
   status: StatusLabel.propTypes.value,
 };
 

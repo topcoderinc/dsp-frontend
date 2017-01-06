@@ -8,8 +8,9 @@ const statusLabels = {
   inProgress: 'In Progress', // old style should be removed when all code is binded to backend
   cancelled: 'Cancelled',
   completed: 'Completed',
-  waiting: 'Waiting',
+  pending: 'Pending',
   scheduled: 'Scheduled',
+  rejected: 'Rejected',
 };
 
 export const StatusLabel = ({value}) => (

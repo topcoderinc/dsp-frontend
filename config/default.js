@@ -7,5 +7,5 @@ module.exports = {
   PORT: process.env.PORT || 3000,
 
   // below env variables are visible in frontend
-  GOOGLE_API_KEY: process.env.GOOGLE_API_KEY || 'AIzaSyCrL-O319wNJK8kk8J_JAYsWgu6yo5YsDI',
+  GOOGLE_API_KEY: process.env.GOOGLE_API_KEY || 'AIzaSyC9tPymo7xUlvPlK_yNulgXTZalxJM2Wv8',
 };

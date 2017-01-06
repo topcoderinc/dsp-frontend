@@ -13,7 +13,7 @@ const mapState = (state) => ({...state.global});
   (i.e. if the toggleNotification and loginAction actions are part of
   the acetions object, injected into the asyncConnect call below).
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({ // eslint-disable-line no-unused-vars
   handleNotification: (value) => {
     dispatch(toggleNotification(value));
   },

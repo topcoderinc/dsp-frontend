@@ -10,9 +10,22 @@ export const LOADED = 'MyRequestStatus/LOADED';
 // Actions
 // ------------------------------------
 export const load = (filterByStatus = 'all') => async(dispatch) => {
-  const requests = await APIService.fetchMyRequestStatus(filterByStatus);
+  const res = await APIService.fetchMyRequestStatus(filterByStatus === 'all' ? undefined : filterByStatus); // eslint-disable-line no-undefined
+  const requests = res.map((r) => ({
+    id: r.id,
+    status: r.status === 'in-progress' ? 'inProgress' : r.status,
+    timeOflaunch: r.launchDate,
+    provider: r.provider.name,
+    title: r.title,
+  }));
 
-  dispatch({type: LOADED, payload: {requests, filterByStatus}});
+  dispatch({
+    type: LOADED,
+    payload: {
+      requests,
+      filterByStatus,
+    },
+  });
 };
 
 export const actions = {
@@ -26,4 +39,5 @@ export default handleActions({
   [LOADED]: (state, {payload: {requests, filterByStatus}}) => ({...state, requests, filterByStatus}),
 }, {
   filterByStatus: 'all',
+  requests: [],
 });

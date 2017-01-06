@@ -40,9 +40,9 @@ export const StatusDetailInfo = ({launchedAt, completedAt, speed, distance, driv
               '-'
             )}
           </td>
-          <td styleName="td">{speed}</td>
-          <td styleName="td">{distance}</td>
-          <td styleName="td">{driver}</td>
+          <td styleName="td">{speed ? `${speed} mph` : 'N/A'}</td>
+          <td styleName="td">{distance ? `${distance} km` : 'N/A'}</td>
+          <td styleName="td">{driver || 'N/A'}</td>
         </tr>
       </tbody>
     </table>
@@ -52,9 +52,9 @@ export const StatusDetailInfo = ({launchedAt, completedAt, speed, distance, driv
 StatusDetailInfo.propTypes = {
   launchedAt: PropTypes.string,
   completedAt: PropTypes.string,
-  speed: PropTypes.string.isRequired,
-  distance: PropTypes.string.isRequired,
-  driver: PropTypes.string.isRequired,
+  speed: PropTypes.number,
+  distance: PropTypes.number,
+  driver: PropTypes.string,
 };
 
 export default CSSModules(StatusDetailInfo, styles);

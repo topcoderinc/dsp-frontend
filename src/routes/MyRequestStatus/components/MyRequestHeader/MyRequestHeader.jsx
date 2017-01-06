@@ -9,9 +9,12 @@ export const MyRequestHeader = ({onStatusChange, statusValue}) => (
     <SelectDropdown
       options={[
         {value: 'all', label: 'Show all requests'},
-        {value: 'inProgress', label: 'Show In Progress'},
+        {value: 'in-progress', label: 'Show In Progress'},
         {value: 'cancelled', label: 'Show Cancelled'},
         {value: 'completed', label: 'Show Completed'},
+        {value: 'rejected', label: 'Show Rejected'},
+        {value: 'pending', label: 'Show Pending'},
+        {value: 'scheduled', label: 'Show Scheduled'},
       ]}
       value={statusValue}
       onChange={onStatusChange}

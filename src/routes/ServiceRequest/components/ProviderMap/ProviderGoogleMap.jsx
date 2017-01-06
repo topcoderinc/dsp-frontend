@@ -1,40 +1,81 @@
 import React, {PropTypes} from 'react';
-import {withGoogleMap, GoogleMap, Polygon, Polyline, Marker} from 'react-google-maps';
+import _ from 'lodash';
+import {withGoogleMap, GoogleMap, Polygon, Marker} from 'react-google-maps';
 import DrawingManager from 'react-google-maps/lib/drawing/DrawingManager';
 
 const getImage = (name) => `${window.location.origin}/img/${name}`;
 
+const defaultCenter = {
+  lat: 38.9050206,
+  lng: -77.03699279999999,
+};
+
 class ProviderGoogleMap extends React.Component {
+  constructor() {
+    super();
+
+    this.geocoder = new google.maps.Geocoder();
+  }
+
+  clickMap(e) {
+    const {selectingAddress, setAddress} = this.props;
+    if (selectingAddress) {
+      const payload = {
+        type: selectingAddress,
+        coor: e.latLng,
+      };
+      setAddress(payload);
+      this.geocoder.geocode({
+        location: e.latLng,
+      }, (res) => {
+        if (res && res.length > 0) {
+          _.forEach(res[0].address_components, (c) => {
+            if (_.includes(c.types, 'locality')) {
+              payload.city = c.long_name;
+            } else if (_.includes(c.types, 'route')) {
+              payload.line1 = c.long_name;
+            } else if (_.includes(c.types, 'postal_code')) {
+              payload.postalCode = c.long_name;
+            } else if (_.includes(c.types, 'administrative_area_level_1')) {
+              payload.state = c.long_name;
+            } else if (_.includes(c.types, 'country')) {
+              // fallback
+              payload.state = payload.state || c.long_name;
+            }
+          });
+          setAddress(payload);
+        }
+      });
+    }
+  }
+
   render() {
-    const {doneCoords, wayPoints, addZone, zones} = this.props;
+    const {addZone, zones, startLocation, endLocation, selectingAddress} = this.props;
 
     return (
       <GoogleMap
         ref={(map) => (this.map = map)}
         zoom={16}
-        center={doneCoords}
+        center={defaultCenter}
+        onClick={this.clickMap.bind(this)}
+        options={{
+          draggableCursor: selectingAddress ? 'crosshair' : 'hand',
+          minZoom: 2,
+        }}
       >
-        <Polyline
-          path={wayPoints}
-          options={{
-            geodesic: true,
-            strokeColor: '#1db0e6',
-            strokeOpacity: 1.0,
-            strokeWeight: 5,
-          }}
-        />
-        <Marker
-          icon={getImage('icon-location-green-lg.png')}
-          position={wayPoints[0]}
-        />
-        <Marker
-          icon={getImage('icon-location-red-lg.png')}
-          position={wayPoints[wayPoints.length - 1]}
-        />
-        <Marker
-          icon={getImage('icon-drone-location-lg.png')}
-          position={doneCoords}
-        />
+        {
+          endLocation ?
+          (<Marker
+            icon={getImage('icon-location-green-lg.png')}
+            position={endLocation.coor}
+          />) : null
+        }
+        { startLocation ?
+          (<Marker
+            icon={getImage('icon-location-red-lg.png')}
+            position={startLocation.coor}
+          />) : null
+        }
 
         <DrawingManager
           onPolygonComplete={(polygon) => {
@@ -78,10 +119,12 @@ class ProviderGoogleMap extends React.Component {
 }
 
 ProviderGoogleMap.propTypes = {
-  doneCoords: PropTypes.object.isRequired,
-  wayPoints: PropTypes.array.isRequired,
   addZone: PropTypes.func.isRequired,
   zones: PropTypes.array.isRequired,
+  selectingAddress: PropTypes.string,
+  setAddress: PropTypes.func,
+  startLocation: PropTypes.object,
+  endLocation: PropTypes.object,
 };
 
 

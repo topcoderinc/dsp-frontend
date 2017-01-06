@@ -15,12 +15,16 @@ const ProviderMap = (props) => (
       }
       {...props}
     />
-    <MapLegends distance={props.distance} />
+    {
+      props.serviceType === 'Delivery' ?
+        (<MapLegends distance={props.distance} />) : null
+    }
   </div>
 );
 
 ProviderMap.propTypes = {
-  distance: PropTypes.string.isRequired,
+  distance: PropTypes.string,
+  serviceType: PropTypes.string,
 };
 
 export default CSSModules(ProviderMap, styles);
