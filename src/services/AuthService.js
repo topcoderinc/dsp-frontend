@@ -61,24 +61,27 @@ class AuthService {
     const authResult = _self.auth0.parseHash(hash);
     if (authResult && authResult.idToken) {
       _self.setToken(authResult.idToken);
-      // get social profile
-      _self.getProfile((error, profile) => {
-        if (error) {
-          // remove the id token
-          _self.removeToken();
-          throw error;
-        } else {
-          userApi.registerSocialUser(profile.name, profile.email, _self.getToken()).then(
-            (authRes) => {
-              localStorage.setItem('userInfo', JSON.stringify(authRes));
-            }).catch((reason) => {
+      return new Promise((resolve) => {
+        _self.getProfile((error, profile) => {
+          if (error) {
             // remove the id token
-              _self.removeToken();
-              throw reason;
-            });
-        }
+            _self.removeToken();
+            throw error;
+          } else {
+            return userApi.registerSocialUser(profile.name, profile.email, _self.getToken()).then(
+              (authResult2) => {
+                localStorage.setItem('userInfo', JSON.stringify(authResult2));
+                resolve(authResult2);
+              }).catch((reason) => {
+              // remove the id token
+                _self.removeToken();
+                throw reason;
+              });
+          }
+        });
       });
     }
+    return Promise.reject(new Error('Social login failure'));
   }
 
   /**
