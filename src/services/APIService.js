@@ -649,4 +649,18 @@ export default class APIService {
       .send(entity)
       .end();
   }
+
+  /**
+   * Get federation token
+   * @param {Object} data the request data
+   * @returns {Object} the result
+   */
+  static getFederationToken(data) {
+    return request
+      .post(`${config.api.basePath}/api/v1/aws/federation-token`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .send(data)
+      .end()
+      .then((res) => res.body);
+  }
 }

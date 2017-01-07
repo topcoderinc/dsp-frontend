@@ -4,7 +4,7 @@ import {actions} from '../modules/EditData';
 import EditDataView from '../components/EditDataView';
 
 const resolve = [{
-  promise: () => Promise.resolve(),
+  promise: ({store: {dispatch}}) => dispatch(actions.load()),
 }];
 
 const mapState = (state) => state.editData;

@@ -9,13 +9,13 @@ import UploadPicture from '../UploadPicture';
 * UploadedPictures
 */
 
-export const UploadedPictures = ({uploadedPictures, removePicture}) => (
+export const UploadedPictures = ({pictures, removePicture}) => (
   <div>
     <div styleName="uploaded-pictures">
       <h5>Uploaded Pictures</h5>
       <ul>
-        {uploadedPictures.map((uploadedPicture, index) =>
-          <UploadPicture key={index} imageSrc={uploadedPicture.imageSrc} removePicture={removePicture} index={index} />)}
+        {pictures.map((item) =>
+          <UploadPicture picture={item} key={item.key} removePicture={removePicture} />)}
       </ul>
     </div>
 
@@ -30,7 +30,7 @@ export const UploadedPictures = ({uploadedPictures, removePicture}) => (
 );
 
 UploadedPictures.propTypes = {
-  uploadedPictures: PropTypes.array.isRequired,
+  pictures: PropTypes.array.isRequired,
   removePicture: PropTypes.func.isRequired,
 };
 
