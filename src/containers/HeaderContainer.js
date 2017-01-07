@@ -1,6 +1,6 @@
 import Header from 'components/Header';
 import {asyncConnect} from 'redux-connect';
-import {actions, toggleNotification, logoutAction} from '../store/modules/global';
+import {actions, logoutAction} from '../store/modules/global';
 
 const resolve = [{
   promise: () => Promise.resolve(),

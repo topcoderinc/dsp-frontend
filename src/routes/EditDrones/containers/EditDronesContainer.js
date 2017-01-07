@@ -4,7 +4,7 @@ import {actions} from '../modules/EditDrones';
 import EditDronesView from '../components/EditDronesView';
 
 const resolve = [{
-  promise: () => Promise.resolve(),
+  promise: ({store, params}) => store.dispatch(actions.load(params.id)),
 }];
 
 const mapState = (state) => state.editDrones;

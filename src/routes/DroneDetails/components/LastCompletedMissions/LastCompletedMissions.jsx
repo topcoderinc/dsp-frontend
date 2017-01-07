@@ -7,18 +7,23 @@ import styles from './LastCompletedMissions.scss';
 * LastCompletedMissions
 */
 
-export const LastCompletedMissions = ({LastCompletedMissionsData}) => (
+export const LastCompletedMissions = ({lastMissions}) => (
   <div styleName="last-completed-missions">
     <h4 styleName="title">Last Completed Missions</h4>
     <div styleName="completed-mission-conatiner">
-      {LastCompletedMissionsData.map((LastCompletedMissionItemData, index) =>
-        <LastCompletedMissionsItem key={index} LastCompletedMissionItemData={LastCompletedMissionItemData} />)}
+      {lastMissions.length ?
+        (
+          lastMissions.map((lastMission) => <LastCompletedMissionsItem key={lastMission.id} lastMission={lastMission} />)
+        ) : (
+          <span styleName="no-completed-missions">No completed missions yet</span>
+        )
+      }
     </div>
   </div>
 );
 
 LastCompletedMissions.propTypes = {
-  LastCompletedMissionsData: PropTypes.array.isRequired,
+  lastMissions: PropTypes.array.isRequired,
 };
 
 export default CSSModules(LastCompletedMissions, styles);

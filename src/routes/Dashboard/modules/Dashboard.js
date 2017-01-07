@@ -21,6 +21,8 @@ export const actions = {
 // ------------------------------------
 export default handleActions({
 }, {
+  limit: 10,
+  offset: 0,
   dashboardRequests: [{
     id: '03450',
     deliveryDate: '2016-12-01T12:59:16.714Z',

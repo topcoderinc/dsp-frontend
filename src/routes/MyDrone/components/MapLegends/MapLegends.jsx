@@ -11,20 +11,17 @@ export const MapLegends = () => (
   <div styleName="map-legends">
     <div styleName="location">
       <i styleName="icon-standby-drone-sm" />
-      Stand by <br />
-      Drone
+      Ready
     </div>
     {/* location end */}
     <div styleName="location">
       <i styleName="icon-booked-drone-sm" />
-      Booked <br />
-      Drone
+      In Motion
     </div>
     {/* location end */}
     <div styleName="location">
       <i styleName="icon-error-drone-sm" />
-      Error <br />
-      Drone
+      Busy
     </div>
     {/* location end */}
   </div>

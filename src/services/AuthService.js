@@ -12,8 +12,6 @@
 import Auth0 from 'auth0-js';
 import config from '../config';
 import UserApi from '../api/User';
-import _ from 'lodash';
-
 
 const userApi = new UserApi(config.api.basePath);
 const idTokenKey = 'id_token';
@@ -71,8 +69,8 @@ class AuthService {
           throw error;
         } else {
           userApi.registerSocialUser(profile.name, profile.email, _self.getToken()).then(
-            (authResult) => {
-              localStorage.setItem('userInfo', JSON.stringify(authResult));
+            (authRes) => {
+              localStorage.setItem('userInfo', JSON.stringify(authRes));
             }).catch((reason) => {
             // remove the id token
               _self.removeToken();

@@ -1,191 +1,127 @@
-import {handleActions, createAction} from 'redux-actions';
-import Reactable from 'reactable';
+import {handleActions} from 'redux-actions';
+import _ from 'lodash';
+import APIService from 'services/APIService';
+import {toastr} from 'react-redux-toastr';
 
-const unsafe = Reactable.unsafe;
-
-const rowActions =
-  '<ul>' +
-    '<li>' +
-      '<a href="drone-details">' +
-        '<div class="icon-view-detail icon-row"></div>' +
-        '<div class="view-detail">View-Detail</div>' +
-      '</a>' +
-    '</li>' +
-    '<li>' +
-    '<a href="edit-drones">' +
-      '<div class="icon-edit-row icon-row"></div>' +
-      '<div class="view-detail">Edit</div>' +
-    '</a>' +
-    '</li>' +
-    '<li>' +
-      '<div class="icon-delete-row icon-row"></div>' +
-      '<div class="view-detail">Delete</div>' +
-    '</li>' +
-  '</ul>';
-const getImage = () => `${window.location.origin}/img/`;
+// ------------------------------------
+// Constants
+// ------------------------------------
+export const LOADED = 'MyDrone/LOADED';
+export const UPDATE_DRONE_TABLE = 'MyDrone/UPDATE_DRONE_TABLE';
+export const SET_LIMIT = 'MyDrone/SET_LIMIT';
+export const SET_OFFSET = 'MyDrone/SET_OFFSET';
+export const SET_SORT_BY = 'MyDrone/SET_SORT_BY';
+export const SET_CURRENT_TAB = 'MyDrone/SET_CURRENT_TAB';
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const itemPerPageAction = createAction('CHANGE_ITEM_SIZE');
-export const displayedRowsAction = createAction('DISPLAYED_ROWS');
+export const load = () => async(dispatch, getState) => {
+  const query = _.pick(getState().myDrone, ['limit', 'offset', 'sortBy']);
 
-export const sendRequest = (values) => new Promise((resolve) => {
-  alert(JSON.stringify(values, null, 2));
-  resolve();
-});
+  const dronesCurrentLocations = await APIService.fetchDronesCurrentLocations();
+  const availableDrones = await APIService.searchProviderDrones({...query, statuses: 'idle-ready'});
+  const onMissionDrones = await APIService.searchProviderDrones({...query, statuses: 'idle-busy,in-motion'});
 
+  dispatch({
+    type: LOADED,
+    payload: {
+      dronesCurrentLocations,
+      availableDrones,
+      onMissionDrones,
+    },
+  });
+};
+
+export const updateDroneTable = (filter) => async(dispatch, getState) => {
+  const prevState = getState().myDrone;
+  const newState = {...prevState, ...filter};
+  const {currentTab, limit, sortBy} = newState;
+  let {offset} = newState;
+
+  if (_.has(filter, 'currentTab')) {
+    // reset page to 0 when change tab
+    offset = 0;
+    dispatch({type: SET_OFFSET, payload: offset});
+
+    dispatch({type: SET_CURRENT_TAB, payload: currentTab});
+  }
+  if (_.has(filter, 'limit')) {
+    // adjust page number (offset) when change per page quantity (limit)
+    offset = Math.floor(prevState.offset / limit);
+    dispatch({type: SET_OFFSET, payload: offset});
+
+    dispatch({type: SET_LIMIT, payload: limit});
+  }
+  if (_.has(filter, 'offset')) {
+    dispatch({type: SET_OFFSET, payload: offset});
+  }
+  if (_.has(filter, 'sortBy')) {
+    dispatch({type: SET_SORT_BY, payload: sortBy});
+  }
+
+  const query = {limit, offset, sortBy};
+  const payload = {};
+
+  if (currentTab === 'available') {
+    payload.availableDrones = await APIService.searchProviderDrones({...query, statuses: 'idle-ready'});
+  } else if (currentTab === 'onMission') {
+    payload.onMissionDrones = await APIService.searchProviderDrones({...query, statuses: 'idle-busy,in-motion'});
+  }
+
+  dispatch({type: UPDATE_DRONE_TABLE, payload});
+};
+
+export const deleteDrone = (id) => async(dispatch, getState) => {
+  const currentState = getState().myDrone;
+  const query = _.pick(currentState, ['limit', 'offset', 'sortBy']);
+  const currentTab = currentState.currentTab;
+  const payload = {};
+  const totalDronsOnCurrentTab = currentTab === 'available' ? currentState.availableDrones.total : currentState.onMissionDrones.total;
+
+  await APIService.deleteProviderDrone(id);
+
+  toastr.success('Drone deleted');
+
+  // if we delete the last drone on the page on the current tab, switch page to previous one
+  if (totalDronsOnCurrentTab === query.offset + 1) {
+    query.offset = Math.max(query.offset - query.limit, 0);
+    dispatch({type: SET_OFFSET, payload: query.offset});
+  }
+
+  if (currentTab === 'available') {
+    payload.availableDrones = await APIService.searchProviderDrones({...query, statuses: 'idle-ready'});
+  } else if (currentTab === 'onMission') {
+    payload.onMissionDrones = await APIService.searchProviderDrones({...query, statuses: 'idle-busy,in-motion'});
+  }
+
+  dispatch({type: UPDATE_DRONE_TABLE, payload});
+};
 
 export const actions = {
-  itemPerPageAction,
-  displayedRowsAction,
+  load,
+  updateDroneTable,
+  deleteDrone,
 };
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 export default handleActions({
-  [itemPerPageAction]: (state, action) => ({
-    ...state, items: action.payload,
+  [LOADED]: (state, action) => ({
+    ...state, ...action.payload,
   }),
-  [displayedRowsAction]: (state, action) => ({
-    ...state, displaying: action.payload,
-  }),
+  [SET_LIMIT]: (state, action) => ({...state, limit: action.payload}),
+  [SET_OFFSET]: (state, action) => ({...state, offset: action.payload}),
+  [SET_SORT_BY]: (state, action) => ({...state, sortBy: action.payload}),
+  [SET_CURRENT_TAB]: (state, action) => ({...state, currentTab: action.payload}),
+  [UPDATE_DRONE_TABLE]: (state, action) => ({...state, ...action.payload}),
 }, {
-  // initial data
-  items: {value: 10, label: '10'},
-  displaying: {start: 1, end: 10, currentPage: 0},
-  myDrons: [
-    {
-      lat: -6.195168,
-      lng: 106.446533,
-      status: 'Stand By',
-    },
-    {
-      lat: -5.145657,
-      lng: 104.47998,
-      status: 'Booked',
-    },
-    {
-      lat: -7.079088,
-      lng: 107.215576,
-      status: 'Error',
-    },
-    {
-      lat: -6.500899,
-      lng: 107.797852,
-      status: 'Stand By',
-    },
-    {
-      lat: -6.937333,
-      lng: 108.643799,
-      status: 'Booked',
-    },
-    {
-      lat: -7.591218,
-      lng: 108.028564,
-      status: 'Error',
-    },
-    {
-      lat: -5.462896,
-      lng: 107.775879,
-      status: 'Error',
-    },
-  ],
-  availableDrones: [
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type gorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type corem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type xorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type sorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type worem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type iorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type korem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type rorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type morem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type gorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type corem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type xorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type sorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type worem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type iorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type korem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type rorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type morem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type gorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type corem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type xorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type sorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type worem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type iorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type korem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type rorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type morem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type gorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type corem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type xorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type sorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type worem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type lorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-2.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type iorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type korem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type rorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type morem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-
-  ],
-  onMissionDrones: [
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-1.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type korem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-3.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type rorem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-    {Image: unsafe(`<img src="${getImage()}myDrones/my-drone-4.png"/>`), 'Drone Serial Number': '123456789ABC', 'Drone Name': 'Drone name lorem ipsum', 'Drone Type': 'Drone type morem', Mileage: '999.99 miles', '': unsafe(rowActions)},
-  ],
+  currentTab: 'available',
+  limit: 10,
+  offset: 0,
+  sortBy: 'serialNumber',
+  dronesCurrentLocations: [],
+  availableDrones: {total: 0, items: []},
+  onMissionDrones: {total: 0, items: []},
 });

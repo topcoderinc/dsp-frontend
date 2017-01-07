@@ -1,7 +1,7 @@
 import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
-  path: 'edit-drones',
+  path: 'edit-drones(/:id)',
   name: 'Edit Drones', /* Breadcrumb name */
   staticName: true,
   getComponent(nextState, cb) {

@@ -31,7 +31,7 @@ class DronesMapView extends React.Component {
   constructor(props) {
     super(props);
 
-	// google maps objects for no fly zones
+  // google maps objects for no fly zones
     this.nfzElements = [];
     this.showHistory = this.showHistory.bind(this);
     this.hideHistory = this.hideHistory.bind(this);
