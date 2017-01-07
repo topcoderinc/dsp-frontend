@@ -1,0 +1,48 @@
+.file-field {
+  display: flex;
+  width: 100%;
+
+  input[type="text"] {
+    width: 100%;
+    padding: 0 10px;
+    background: white;
+    color: black;
+    border: none;
+    height: 36px;
+    line-height: 36px;
+  }
+
+  .text {
+    border: 1px solid #ebebeb;
+    flex: 1;
+  }
+
+  label.button {
+    background: #315b95;
+    color: #fff;
+    display: block;
+    border: none;
+    height: 36px;
+    flex: 0 0 115px;
+    font-weight: bold;
+    line-height: 36px;
+    margin-left: 12px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+
+    input[type="file"] {
+      opacity: 0;
+      position: absolute;
+    }
+  }
+}
+
+.file-field_narrow {
+  @extend .file-field;
+
+  input[type="text"] {
+    height: 34px;
+    line-height: 32px;
+  }
+}

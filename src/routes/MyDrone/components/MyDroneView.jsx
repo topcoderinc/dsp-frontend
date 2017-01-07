@@ -4,12 +4,11 @@ import styles from './MyDroneView.scss';
 import MyDroneHeader from './MyDroneHeader';
 import ProviderMapContainer from '../containers/ProviderMapContainer';
 import MyDronesTabsContainer from '../containers/MyDronesTabsContainer';
-
+import MyDronesTableContainer from '../containers/MyDronesTableContainer';
 
 /*
 * MyDroneView
 */
-
 export const MyDroneView = () => (
   <div>
     <MyDroneHeader />
@@ -18,9 +17,10 @@ export const MyDroneView = () => (
     </div>
 
     <div styleName="my-drone-view">
-      <div className="tabs-container">
+      <div styleName="tabs-container">
         <MyDronesTabsContainer />
       </div>
+      <MyDronesTableContainer />
     </div>
   </div>
 );

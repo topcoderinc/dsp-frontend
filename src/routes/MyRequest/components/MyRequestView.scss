@@ -48,3 +48,20 @@
 
 }
 
+.navigation {
+  margin: 25px 20px;
+}
+
+.navigation:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.pagination {
+  float: right;
+}
+
+.perpage {
+  float: left;
+}

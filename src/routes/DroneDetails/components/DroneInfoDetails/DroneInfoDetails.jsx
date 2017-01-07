@@ -2,27 +2,24 @@ import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './DroneInfoDetails.scss';
 
-const getImage = (name) => `${window.location.origin}/img/myDrones/${name}`;
-
 /*
 * DroneInfoDetails
 */
 
-export const DroneInfoDetails = ({droneInfoDetails}) => (
+export const DroneInfoDetails = ({drone}) => (
   <div styleName="drone-info-details">
-    <img src={getImage('drone-lg.png')} alt="drone thumb" />
+    {drone.imageUrl && <img src={drone.imageUrl} alt="drone image" />}
     <div styleName="drone-info">
-      <h4>{droneInfoDetails.droneName}</h4>
-      <h6>Serial number {droneInfoDetails.droneSerialNum}</h6>
-      <p>{droneInfoDetails.description1}</p>
-      <p>{droneInfoDetails.description2}</p>
+      <h4>{drone.name}</h4>
+      <h6>Serial number {drone.serialNumber}</h6>
+      {drone.description && <p>{drone.description}</p>}
     </div>
     {/* drone-info end */}
   </div>
 );
 
 DroneInfoDetails.propTypes = {
-  droneInfoDetails: PropTypes.object.isRequired,
+  drone: PropTypes.object.isRequired,
 };
 
 export default CSSModules(DroneInfoDetails, styles);

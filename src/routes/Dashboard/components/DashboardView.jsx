@@ -5,7 +5,7 @@ import DashboardStatus from '../components/DashboardStatus';
 import DashboardRequest from '../components/DashboardRequest';
 import NotificationBox from '../components/NotificationBox';
 
-export const DashboardView = ({latestNotifications, recentExecutedRequests, dashboardStatus, dashboardRequests}) => (
+export const DashboardView = ({latestNotifications, recentExecutedRequests, dashboardStatus, dashboardRequests, limit, offset}) => (
   <div styleName="dashboard-view">
     <h2>Dashboard</h2>
     <div>
@@ -13,7 +13,7 @@ export const DashboardView = ({latestNotifications, recentExecutedRequests, dash
     </div>
     <div styleName="content">
       <div styleName="left-col">
-        <DashboardRequest dashboardRequests={dashboardRequests} />
+        <DashboardRequest dashboardRequests={dashboardRequests} limit={limit} offset={offset} />
       </div>
       <div styleName="right-col">
         <NotificationBox notificationType="Latest Notifications" messages={latestNotifications} />
@@ -28,6 +28,8 @@ DashboardView.propTypes = {
   recentExecutedRequests: PropTypes.array.isRequired,
   dashboardRequests: PropTypes.array.isRequired,
   dashboardStatus: PropTypes.object.isRequired,
+  limit: PropTypes.number.isRequired,
+  offset: PropTypes.number.isRequired,
 };
 
 export default CSSModules(DashboardView, styles);

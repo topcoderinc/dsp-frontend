@@ -1,15 +1,76 @@
 .my-drones-table {
-  padding: 20px;
   position: relative;
+}
+
+.react-table {
+  margin: 25px 18px 0;
+}
+
+.table {
+  width: 100%;
+
+  td,
+  th {
+    padding: 0;
+  }
+}
+
+.thead {
+  background-color: #1e526c;
+}
+
+.th-inner {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 14px 27px 16px;
+  text-align: left;
+}
+
+.th-inner--sort-asc,
+.th-inner--sort-desc {
+  @extend .th-inner;
+  cursor: pointer;
+
+  &:after {
+    background: url('icon-sort-desc.png') no-repeat;
+    content: '';
+    display: inline-block;
+    height: 7px;
+    margin-left: 8px;
+    width: 11px;
+  }
+}
+
+.th-inner--sort-asc {
+  &:after {
+    transform: rotate(180deg);
+  }
+}
+
+.tr {
+  border-bottom: 1px solid #e7e8ea;
+}
+
+.td-inner {
+  font-size: 14px;
+  padding: 16px 27px;
+
+  > a {
+    color: #3b73b9;
+  }
+}
+
+.td-inner_date {
+  white-space: nowrap;
 }
 
 .table-head {
 	display: flex;
-	padding-bottom: 20px;
-	padding-top: 5px;
 	.display {
 		font-size: 14px;
 		color: #131313;
+    margin: 30px 20px 0;
 	}
 	.filter-btn {
 		margin-left: auto;
@@ -33,106 +94,103 @@
 	}
 }
 
-.show-per-page {
-	position: absolute;
-	display: flex;
-	align-items: center;
-	bottom: 27px;
-	left: 20px;
+.navigation {
+  margin: 25px 20px;
 }
 
-.perPage-select {
-	width: 52px;
-	margin: 0 10px;
+.navigation:after {
+  clear: both;
+  content: '';
+  display: table;
 }
-:global {
-	.Dropdown-root {
-	  position: relative;
-	}
 
-	.Dropdown-control {
-	  position: relative;
-	  overflow: hidden;
-	  background-color: white;
-	  border: 1px solid #e3e3e3;
-	  border-radius: 5px;
-	  box-sizing: border-box;
-	  color: #282828;
-	  cursor: default;
-	  outline: none;
-	  padding: 2px 12px 2px 10px;
-	  transition: all 200ms ease;
-	}
+.pagination {
+  float: right;
+}
 
-	.Dropdown-control:hover {
-	  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
-	}
+.perpage {
+  float: left;
+}
 
-	.Dropdown-arrow {
-	  background: url("../../../../styles/img/icon-dropdown-caret-sm.png") no-repeat;
-      width: 15px;
-      height: 9px;
-      border: none;
-	  position: absolute;
-	  top: 10px;
-	  right: 3px;
-	}
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
 
-	.is-open .Dropdown-arrow {
-	  border-color: transparent transparent #999;
-	  border-width: 0 5px 5px;
-	}
+  > li {
+    list-style: none;
+    color: #babfca;
+    font-size: 11px;
+    font-weight: bold;
+    height: 50px;
+    cursor: pointer;
+    margin-left: 40px;
 
-	.Dropdown-menu {
-	  background-color: white;
-	  border: 1px solid #ccc;
-	  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
-	  box-sizing: border-box;
-	  margin-top: -1px;
-	  max-height: 200px;
-	  overflow-y: auto;
-	  position: absolute;
-	  top: 100%;
-	  width: 100%;
-	  z-index: 1000;
-	  -webkit-overflow-scrolling: touch;
-	}
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
 
-	.Dropdown-menu .Dropdown-group > .Dropdown-title{
-	  padding: 8px 10px;
-	  color: rgba(51, 51, 51, 1);
-	  font-weight: bold;
-	  text-transform: capitalize;
-	}
+%action_link {
+  color: #babfca;
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
 
-	.Dropdown-option {
-	  box-sizing: border-box;
-	  color: rgba(51, 51, 51, 0.8);
-	  cursor: pointer;
-	  display: block;
-	  padding: 8px 10px;
-	}
+  &:hover {
+    color: #babfca;
+  }
+}
 
-	.Dropdown-option:last-child {
-	  border-bottom-right-radius: 2px;
-	   border-bottom-left-radius: 2px;
-	}
+.view-detail,
+.edit,
+.delete {
+  @extend %action_link;
+}
 
-	.Dropdown-option:hover {
-	  background-color: #f2f9fc;
-	  color: #333;
-	}
 
-	.Dropdown-option.is-selected {
-	  background-color: #f2f9fc;
-	  color: #333;
-	}
+%action_icon {
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  content: '';
+  display: block;
+  margin: 0 auto;
+}
 
-	.Dropdown-noresults {
-	  box-sizing: border-box;
-	  color: #ccc;
-	  cursor: default;
-	  display: block;
-	  padding: 8px 10px;
-	}
+.view-detail:before {
+  @extend %action_icon;
+
+  width: 27px;
+  height: 17px;
+  background: url('icon-view-detail.png');
+}
+
+.edit:before {
+  @extend %action_icon;
+
+  width: 20px;
+  height: 20px;
+  background: url('icon-edit-row.png');
+}
+
+.delete:before {
+  @extend %action_icon;
+
+  width: 15px;
+  height: 22px;
+  background: url('icon-delete-row.png');
+}
+
+.no-drones {
+  padding: 30px 20px;
+}
+
+.no-image {
+  background: url('icon-drone-black.png') no-repeat center;
+  opacity: 0.5;
+  border: 1px solid rgb(77, 77, 77);
+  height: 95px;
+  width: 148px;
 }

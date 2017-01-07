@@ -1,22 +1,14 @@
 .last-completed-mission-item {
   margin: 0 10px;
-  img {
-  	max-width: 280px;
-  }
+  width: 25%;
+
   h4 {
   	font-size: 18px;
   	color: #315b95;
   	font-weight: bold;
   	margin: 15px 0 10px;
   }
-  .icon-rating {
-  	width: 102px;
-  	height: 17px;
-  	background: url('icon-rating.png');
-  	background-repeat: no-repeat;
-  	background-position: 0 0;
-  	margin-bottom: 14px;
-  }
+
   .row {
   	display: flex;
   	padding-top: 2px;
@@ -29,6 +21,9 @@
   		width: 58%;
   		font-size: 14px;
   		color: #343434;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
   	}
   	.id {
       a {
@@ -36,4 +31,12 @@
       }
   	}
   }
+}
+
+.mission-map {
+  height: 220px;
+}
+
+.rating {
+  background-color: #fff;
 }

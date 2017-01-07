@@ -2,9 +2,11 @@ import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import Tabs from 'components/Tabs';
 import Pagination from 'components/Pagination';
+import SelectPerPage from 'components/SelectPerPage';
 import styles from './MyRequestView.scss';
 import MyRequestFilter from './MyRequestFilter';
 import MyRequestItemsContainer from '../containers/MyRequestItemsContainer';
+import _ from 'lodash';
 
 const tabList = [{
   name: 'New/Pending (5)',
@@ -16,7 +18,7 @@ const tabList = [{
   name: 'Completed (3)',
 }];
 
-export const MyRequestView = ({activeTab}) => (
+export const MyRequestView = ({activeTab, requestItems, limit, offset}) => (
   <div styleName="my-request-view">
     <h2>Requests</h2>
     <div styleName="content">
@@ -35,15 +37,32 @@ export const MyRequestView = ({activeTab}) => (
         }}
       />
       <MyRequestItemsContainer />
-      <div styleName="pagination-container">
-        <Pagination pages={4} activePageIndex={0} />
+
+      <div styleName="navigation">
+        <div styleName="perpage">
+          <SelectPerPage
+            value={limit}
+            onChange={_.noop}
+          />
+        </div>
+        <div styleName="pagination">
+          <Pagination
+            forcePage={Math.ceil(offset / limit)}
+            pageCount={Math.ceil(requestItems.length / limit)}
+            onPageChange={_.noop}
+          />
+        </div>
       </div>
+
     </div>
   </div>
 );
 
 MyRequestView.propTypes = {
   activeTab: PropTypes.number,
+  requestItems: PropTypes.array.isRequired,
+  limit: PropTypes.number.isRequired,
+  offset: PropTypes.number.isRequired,
 };
 
 export default CSSModules(MyRequestView, styles);

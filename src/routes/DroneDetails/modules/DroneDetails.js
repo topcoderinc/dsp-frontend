@@ -1,123 +1,91 @@
-import {handleActions, createAction} from 'redux-actions';
-import Reactable from 'reactable';
+import {handleActions} from 'redux-actions';
+import {push} from 'react-router-redux';
 import moment from 'moment';
+import APIService from 'services/APIService';
+import {toastr} from 'react-redux-toastr';
 
-const unsafe = Reactable.unsafe;
-const now = moment();
-const format = 'dddd, MMMM DD, YYYY';
-const today = now.format(format);
+// ------------------------------------
+// Constants
+// ------------------------------------
+export const LOADED = 'DroneDetails/LOADED';
+export const CHANGE_SCHEDULE_MONTH = 'DroneDetails/CHANGE_SCHEDULE_MONTH';
+export const LOAD_SCHEDULE_MONTH = 'DroneDetails/LOAD_SCHEDULE_MONTH';
+export const SELECT_SCHEDULE_DAY = 'DroneDetails/SELECT_SCHEDULE_DAY';
+export const LOAD_SCHEDULE_DAY = 'DroneDetails/LOAD_SCHEDULE_DAY';
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const selectedDate = createAction('SELECTED_DATE');
+export const load = (id) => async(dispatch, getState) => {
+  const currentState = getState().droneDetails;
 
+  const drone = await APIService.fetchProviderDrone(id);
+  const lastMissions = await APIService.fetchProviderDroneMissions(id, {limit: 4, status: 'completed'});
+  const scheduleMonthMissions = await APIService.fetchProviderDroneMonthMissions(id, currentState.scheduleMonth.format('YYYY-MM-DD'));
 
-export const sendRequest = (values) => new Promise((resolve) => {
-  alert(JSON.stringify(values, null, 2));
-  resolve();
-});
+  dispatch({type: LOADED, payload: {drone, lastMissions, scheduleMonthMissions}});
+};
+
+export const changeMonth = (scheduleMonth) => async(dispatch, getState) => {
+  dispatch({type: CHANGE_SCHEDULE_MONTH, payload: {scheduleMonth}});
+
+  const scheduleMonthMissions = await APIService.fetchProviderDroneMonthMissions(
+    getState().droneDetails.drone.id,
+    scheduleMonth.format('YYYY-MM-DD')
+  );
+
+  dispatch({type: LOAD_SCHEDULE_MONTH, payload: {scheduleMonthMissions}});
+};
+
+export const selectScheduleDay = (scheduleDay) => async(dispatch, getState) => {
+  dispatch({type: SELECT_SCHEDULE_DAY, payload: {scheduleDay}});
+
+  const scheduleDayMissions = await APIService.fetchProviderDroneMissions(
+    getState().droneDetails.drone.id,
+    {date: scheduleDay.format('YYYY-MM-DD')}
+  );
+
+  dispatch({type: LOAD_SCHEDULE_DAY, payload: {scheduleDayMissions}});
+};
+
+export const deleteDrone = () => async(dispatch, getState) => {
+  await APIService.deleteProviderDrone(getState().droneDetails.drone.id);
+
+  toastr.success('Drone deleted');
+  dispatch(push('/my-drone'));
+};
 
 export const actions = {
-  selectedDate,
+  load,
+  changeMonth,
+  selectScheduleDay,
+  deleteDrone,
 };
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 export default handleActions({
-  [selectedDate]: (state, action) => ({
-    ...state, selectedCalenderDate: action.payload,
+  [LOADED]: (state, action) => ({
+    ...state, ...action.payload,
+  }),
+  [CHANGE_SCHEDULE_MONTH]: (state, action) => ({
+    ...state, scheduleMonth: action.payload.scheduleMonth,
+  }),
+  [LOAD_SCHEDULE_MONTH]: (state, action) => ({
+    ...state, scheduleMonthMissions: action.payload.scheduleMonthMissions,
+  }),
+  [SELECT_SCHEDULE_DAY]: (state, action) => ({
+    ...state, scheduleDay: action.payload.scheduleDay,
+  }),
+  [LOAD_SCHEDULE_DAY]: (state, action) => ({
+    ...state, scheduleDayMissions: action.payload.scheduleDayMissions,
   }),
 }, {
-  // initial data
-  selectedCalenderDate: today,
-  droneInfoDetails: {
-    droneName: 'Drone name lorem ipsum',
-    droneSerialNum: '#123456789ABC',
-    description1: 'assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.',
-    description2: 'Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.',
-  },
-  LastCompletedMissionsData: [
-    {routeImg: 'route-1.png', missionTitle: 'Lorem Ipsum Mission Title', id: '123456789ABC', type: 'Simple Delivery', date: '10/24/2016  09:30 AM', location: 'Street address lorem...'},
-    {routeImg: 'route-1.png', missionTitle: 'Lorem Ipsum Mission Title', id: '123456789ABC', type: 'Simple Delivery', date: '10/24/2016  09:30 AM', location: 'Street address lorem...'},
-    {routeImg: 'route-1.png', missionTitle: 'Lorem Ipsum Mission Title', id: '123456789ABC', type: 'Simple Delivery', date: '10/24/2016  09:30 AM', location: 'Street address lorem...'},
-    {routeImg: 'route-1.png', missionTitle: 'Lorem Ipsum Mission Title', id: '123456789ABC', type: 'Simple Delivery', date: '10/24/2016  09:30 AM', location: 'Street address lorem...'},
-  ],
-
-  scheduleTableData: [
-    {
-      'Scheduled Launch Time': '08:00 AM',
-      'Drone Serial Number': '123456789ABC',
-      'Service Type': 'Simple delivery',
-      'Pick-up Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'Drop-off Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'What to deliver / Weight': 'Object lorem ipsum / 9.99 lbs',
-    },
-    {
-      'Scheduled Launch Time': '08:00 AM',
-      'Drone Serial Number': '123456789ABC',
-      'Service Type': 'Simple delivery',
-      'Pick-up Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'Drop-off Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'What to deliver / Weight': 'Object lorem ipsum / 9.99 lbs',
-    },
-    {
-      'Scheduled Launch Time': '08:00 AM',
-      'Drone Serial Number': '123456789ABC',
-      'Service Type': 'Simple delivery',
-      'Pick-up Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'Drop-off Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'What to deliver / Weight': 'Object lorem ipsum / 9.99 lbs',
-    },
-    {
-      'Scheduled Launch Time': '08:00 AM',
-      'Drone Serial Number': '123456789ABC',
-      'Service Type': 'Simple delivery',
-      'Pick-up Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'Drop-off Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'What to deliver / Weight': 'Object lorem ipsum / 9.99 lbs',
-    },
-    {
-      'Scheduled Launch Time': '08:00 AM',
-      'Drone Serial Number': '123456789ABC',
-      'Service Type': 'Simple delivery',
-      'Pick-up Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'Drop-off Location': unsafe('Street address lorem ipsum <br>City, State 12345'),
-      'What to deliver / Weight': 'Object lorem ipsum / 9.99 lbs',
-    },
-
-  ],
-
-  droneSpecifications: {
-    RateOfClimb: '7.0 m/s',
-    OperatingSpeed: '8.0 m/s',
-    MaximumThrust: '15.5 N',
-    Weight: 'ca. 800 g (depending on configuration)',
-    RecommendedLoad: '150 g',
-    MaximumLoad: '250 g',
-    MaximumLakeOffWeight: '1,100 g',
-    Dimensions: '540 mm',
-    Battery: '14.8 V, 4S LiPo, 2300 mAh',
-    FlatCoreMotors: 'yes',
-    CFDOptimisedPropeller: 'yes',
-    ClosedCarbonHousing: 'yes',
-    IP43Protection: 'yes',
-  },
-
-  droneBenefits: [
-    'Up to 30 minutes flying time',
-    'Rain-resistant, dust-resistant',
-    'Extremely resistant to cold',
-    'Extremely resistant to heat',
-    'Flat core motors',
-    'CFD-optimised propeller',
-    'Less time needed to train crews',
-    'Low maintenance costs',
-    'Low service costs',
-    'Lower costs compared to helicopters',
-    'Low noise electric motor',
-    'Lower air turbulence',
-  ],
-
+  drone: null,
+  lastMissions: [],
+  scheduleMonth: moment(),
+  scheduleDay: null,
+  scheduleMonthMissions: [],
+  scheduleDayMissions: [],
 });

@@ -1,0 +1,47 @@
+.modal-header {
+  display: flex;
+  height: 23px;
+  background: #f0f0f1;
+  height: 63px;
+  align-items: center;
+  padding: 5px 20px;
+}
+
+.title {
+  font-size: 24px;
+  color: #0d0d0d;
+  align-self: center;
+  font-weight: bold;
+}
+
+.icon-close-modal {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: url('icon-close-modal.png') no-repeat;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.modal-msg {
+  font-size: 14px;
+  color: #131313;
+  text-align: center;
+  padding: 28px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+
+  .btnCancel {
+    padding: 14px 8px;
+    margin-right: 6px;
+  }
+
+  .btnConfirm {
+    padding: 5px 8px;
+    margin-left: 6px;
+  }
+}

@@ -3,7 +3,6 @@ import CSSModules from 'react-css-modules';
 import {Link} from 'react-router';
 import styles from './AdminHeader.scss';
 import Dropdown from '../Dropdown';
-import Notification from '../Notification';
 
 export const AdminHeader = () => (
   <nav styleName="admin-header">

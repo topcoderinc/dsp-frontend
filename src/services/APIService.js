@@ -453,39 +453,7 @@ const statusDetail = {
   },
 };
 
-/*
-  As there is no Authorization implemented in the project.
-  Here I've hardcoded automatic registering and authorization of a dumb user to make requests to the server.
-  This should be removed when real authorizatin is implemented.
- */
-const testUser = {
-  firstName: 'test',
-  lastName: 'test',
-  email: 'kj2h34jh23424h2l34h324ljh1@khj4k234hl234hjl.com',
-  phone: '42',
-  password: 'qwerty',
-};
-
-const register = () => request
-  .post(`${config.api.basePath}/api/v1/register`)
-  .send(testUser)
-  .set('Content-Type', 'application/json')
-  .end();
-
-const authorize = () => request
-  .post(`${config.api.basePath}/api/v1/login`)
-  .set('Content-Type', 'application/json')
-  .send(_.pick(testUser, 'email', 'password'))
-  .end();
-
-const regAndAuth = () => authorize().then(
-  authorize,
-  () => register().then(authorize),
-);
-
 export default class APIService {
-
-
   static fetchMyRequestStatus(filterByStatus) {
     return (new Promise((resolve) => {
       resolve();
@@ -648,5 +616,113 @@ export default class APIService {
       .set('Content-Type', 'application/json')
       .send(entity)
       .end();
+  }
+
+  /**
+   * Get all drones current locations of the current provider
+   * @return {Array} list of drones current locations
+   */
+  static fetchDronesCurrentLocations() {
+    return request
+      .get(`${config.api.basePath}/api/v1/provider/drones/current-locations`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Search for the current provider drones
+   * @param {Object} params
+   * @param {Number} params.limit the limit
+   * @param {Number} params.offset the offset
+   * @returns {{total: Number, items: Array}} the result
+   */
+  static searchProviderDrones(params) {
+    return request
+      .get(`${config.api.basePath}/api/v1/provider/drones`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .query(params)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Delete a drone of the current provider
+   * @param  {String} id drone id
+   */
+  static deleteProviderDrone(id) {
+    return request
+      .del(`${config.api.basePath}/api/v1/provider/drones/${id}`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .end();
+  }
+
+  /**
+   * Get provider drone data
+   * @param  {String} id drone id
+   * @return {Object} drone object
+   */
+  static fetchProviderDrone(id) {
+    return request
+      .get(`${config.api.basePath}/api/v1/provider/drones/${id}`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Create provider drone
+   * @param  {Object} drone drone object
+   * @return {Object} drone object
+   */
+  static createProviderDrone(drone) {
+    return request
+      .post(`${config.api.basePath}/api/v1/provider/drones`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .send(drone)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Update provider drone
+   * @param  {Object} drone drone object
+   * @return {Object} drone object
+   */
+  static updateProviderDrone(id, drone) {
+    return request
+      .put(`${config.api.basePath}/api/v1/provider/drones/${id}`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .send(drone)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Get provider drone's missions
+   * (they are sorted by startedAt, newer first)
+   * @param  {String} id drone id
+   * @return {Array} mission list
+   */
+  static fetchProviderDroneMissions(id, params) {
+    return request
+      .get(`${config.api.basePath}/api/v1/provider/drones/${id}/missions`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .query(params)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Get provider drone mission quantities for a month
+   * @param  {String} id drone id
+   * @return {Array} mission quantities
+   */
+  static fetchProviderDroneMonthMissions(id, month) {
+    return request
+      .get(`${config.api.basePath}/api/v1/provider/drones/${id}/missions/monthly-count?month=${month}`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
   }
 }

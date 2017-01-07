@@ -1,80 +1,75 @@
 .pagination {
   display: flex;
-  flex-direction: row;
+  margin: 0;
+  padding: 0;
+}
 
-  .show-per-page {
-    width: 100%;
-    flex-direction: row;
-    display: flex;
-    align-items: center;
-    width: 157px;
+.page {
+  background-color: #e3e3e3;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  height: 27px;
+  line-height: 27px;
+  list-style: none;
+  margin-left: 9px;
+  text-align: center;
+  width: 27px;
 
-    .pagination-select {
-      flex: 1;
-
-      :global {
-        .Select-control {
-          border-radius: 5px;
-          height: 20px;
-        }
-        .Select-arrow {
-          background: url("../../styles/img/icon-dropdown-caret-small.png") no-repeat;
-          margin-left: 8px;
-          padding-right: 3px;
-        }
-      }
-    }
-
-    > span {
-      padding: 0 5px;
-      width: 100px;
-      display: block;
-      white-space: nowrap;
-    }
-
+  &:first-child {
+    margin-left: 0;
   }
-  
-  .pageControl{
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: row;
-      margin-left: auto;
-      font-size: 12px;
-      font-weight: bold;
-      cursor: pointer;
 
-      > li {
-       background-color: #DCDCDC;
-       height: 28px;
-       width: 28px;
-       border-radius: 5px;
-       vertical-align: middle;
-       justify-content: center;
-       padding-top: 4px;
-       display: flex;
-       margin: 0px 8px 0px 0px;
-       user-select: none;
-      }
-
-      > .active {
-       background-color: #264782;
-       color: #fff;
-      }
-
-      > .previousPage {
-        flex: 1;
-        font-weight: normal;
-        background-color: #3B3B3B;
-        color: #fff;
-      }
-
-      > .nextPage {
-        font-weight: normal;
-        background-color: #3B3B3B;
-        color: #fff;
-        flex: 1
-      }
+  > a {
+    color: #000;
+    display: block;
+    font-size: 12px;
+    height: 27px;
+    width: 27px;
   }
+}
+
+.page_active {
+  background-color: #315b95;
+  color: #fff;
+  cursor: default;
+
+  > a {
+    color: #fff;
+  }
+}
+
+.break,
+.next,
+.prev {
+  @extend .page;
+}
+
+.break,
+.disabled {
+  cursor: default;
+}
+
+.next,
+.prev {
+  background-color: #4c4c4c;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.next.disabled,
+.prev.disabled {
+  background-color: rgba(#efefef, 0.5);
+
+  > a {
+    outline: none;
+  }
+}
+
+.prev {
+  background-image: url('icon-pagination-prev.png');
+}
+
+.next {
+  background-image: url('icon-pagination-next.png');
 }

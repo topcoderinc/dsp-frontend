@@ -12,8 +12,6 @@
 import Auth0 from 'auth0-js';
 import config from '../config';
 import UserApi from '../api/User';
-import _ from 'lodash';
-
 
 const userApi = new UserApi(config.api.basePath);
 const idTokenKey = 'id_token';
@@ -63,7 +61,6 @@ class AuthService {
     const authResult = _self.auth0.parseHash(hash);
     if (authResult && authResult.idToken) {
       _self.setToken(authResult.idToken);
-      // get social profile
       return new Promise((resolve) => {
         _self.getProfile((error, profile) => {
           if (error) {
