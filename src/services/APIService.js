@@ -466,21 +466,30 @@ const testUser = {
   password: 'qwerty',
 };
 
-const register = () => request
+const providerUser = {
+  name: 'provider1',
+  firstName: 'fisrt',
+  lastName: 'last',
+  email: 'provider1@qq.com',
+  password: '123456',
+  role: 'provider',
+};
+
+const register = (user) => request
   .post(`${config.api.basePath}/api/v1/register`)
-  .send(testUser)
+  .send(user)
   .set('Content-Type', 'application/json')
   .end();
 
-const authorize = () => request
+const authorize = (user) => request
   .post(`${config.api.basePath}/api/v1/login`)
   .set('Content-Type', 'application/json')
-  .send(_.pick(testUser, 'email', 'password'))
+  .send(_.pick(user, 'email', 'password'))
   .end();
 
-const regAndAuth = () => authorize().then(
-  authorize,
-  () => register().then(authorize),
+const regAndAuth = (user = testUser) => authorize(user).then(
+  authorize.bind(null, user),
+  () => register(user).then(authorize.bind(null, user)),
 );
 
 export default class APIService {
@@ -577,5 +586,145 @@ export default class APIService {
       .get(`${config.api.basePath}/api/v1/drones`)
       .query(params)
       .end();
+  }
+
+  /**
+   * Get all drones current locations of the current provider
+   * @return {Array} list of drones current locations
+   */
+  static fetchDronesCurrentLocations() {
+    return regAndAuth(providerUser).then((authRes) => {
+      const accessToken = authRes.body.accessToken;
+
+      return request
+        .get(`${config.api.basePath}/api/v1/provider/drones/current-locations`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .end()
+        .then((res) => res.body);
+    });
+  }
+
+  /**
+   * Search for the current provider drones
+   * @param {Object} params
+   * @param {Number} params.limit the limit
+   * @param {Number} params.offset the offset
+   * @returns {{total: Number, items: Array}} the result
+   */
+  static searchProviderDrones(params) {
+    return regAndAuth(providerUser).then((authRes) => {
+      const accessToken = authRes.body.accessToken;
+
+      return request
+        .get(`${config.api.basePath}/api/v1/provider/drones`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .query(params)
+        .end()
+        .then((res) => res.body);
+    });
+  }
+
+  /**
+   * Delete a drone of the current provider
+   * @param  {String} id drone id
+   */
+  static deleteProviderDrone(id) {
+    return regAndAuth(providerUser).then((authRes) => {
+      const accessToken = authRes.body.accessToken;
+
+      return request
+        .del(`${config.api.basePath}/api/v1/provider/drones/${id}`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .end();
+    });
+  }
+
+  /**
+   * Get provider drone data
+   * @param  {String} id drone id
+   * @return {Object} drone object
+   */
+  static fetchProviderDrone(id) {
+    return regAndAuth(providerUser).then((authRes) => {
+      const accessToken = authRes.body.accessToken;
+
+      return request
+        .get(`${config.api.basePath}/api/v1/provider/drones/${id}`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .end()
+        .then((res) => res.body);
+    });
+  }
+
+  /**
+   * Create provider drone
+   * @param  {Object} drone drone object
+   * @return {Object} drone object
+   */
+  static createProviderDrone(drone) {
+    return regAndAuth(providerUser).then((authRes) => {
+      const accessToken = authRes.body.accessToken;
+
+      return request
+        .post(`${config.api.basePath}/api/v1/provider/drones`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send(drone)
+        .end()
+        .then((res) => res.body);
+    });
+  }
+
+  /**
+   * Update provider drone
+   * @param  {Object} drone drone object
+   * @return {Object} drone object
+   */
+  static updateProviderDrone(id, drone) {
+    return regAndAuth(providerUser).then((authRes) => {
+      const accessToken = authRes.body.accessToken;
+
+      return request
+        .put(`${config.api.basePath}/api/v1/provider/drones/${id}`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .send(drone)
+        .end()
+        .then((res) => res.body);
+    });
+  }
+
+  /**
+   * Get provider drone's missions
+   * (they are sorted by startedAt, newer first)
+   * @param  {String} id drone id
+   * @return {Array} mission list
+   */
+  static fetchProviderDroneMissions(id, params) {
+    return regAndAuth(providerUser).then((authRes) => {
+      const accessToken = authRes.body.accessToken;
+
+      return request
+        .get(`${config.api.basePath}/api/v1/provider/drones/${id}/missions`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .query(params)
+        .end()
+        .then((res) => res.body);
+    });
+  }
+
+  /**
+   * Get provider drone mission quantities for a month
+   * @param  {String} id drone id
+   * @return {Array} mission quantities
+   */
+  static fetchProviderDroneMonthMissions(id, month) {
+    return regAndAuth(providerUser).then((authRes) => {
+      const accessToken = authRes.body.accessToken;
+
+      return request
+        .get(`${config.api.basePath}/api/v1/provider/drones/${id}/missions/monthly-count?month=${month}`)
+        .set('Authorization', `Bearer ${accessToken}`)
+        .end()
+        .then((res) => res.body);
+    });
   }
 }

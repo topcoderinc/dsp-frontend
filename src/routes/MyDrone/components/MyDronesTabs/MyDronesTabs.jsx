@@ -1,54 +1,35 @@
 import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
-import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import styles from './MyDronesTabs.scss';
-import MyDronesTable from '../MyDronesTable';
-
-Tabs.setUseDefaultStyles(false);
 
 /*
 * MyDronesTabs
 */
-
-export const MyDronesTabs = ({availableDrones, onMissionDrones, itemPerPage, items, displayingHandle, displaying}) => (
-  <Tabs selectedIndex={0}>
-
-    <TabList>
-      <Tab>Available(<span>{availableDrones.length}</span>)</Tab>
-      <Tab>On Mission(<span>{onMissionDrones.length}</span>)</Tab>
-    </TabList>
-
-    <TabPanel>
-      <MyDronesTable
-        tableData={availableDrones}
-        itemPerPage={itemPerPage}
-        items={items}
-        displayingHandle={displayingHandle}
-        displaying={displaying}
-      />
-    </TabPanel>
-
-    <TabPanel>
-      <MyDronesTable
-        tableData={onMissionDrones}
-        itemPerPage={itemPerPage}
-        items={items}
-        displayingHandle={displayingHandle}
-        displaying={displaying}
-      />
-    </TabPanel>
-
-  </Tabs>
+export const MyDronesTabs = ({currentTab, updateDroneTable, availableDrones, onMissionDrones}) => (
+  <div styleName="my-drones-tabs">
+    <div
+      styleName={currentTab === 'available' ? 'tab_active' : 'tab'}
+      onClick={() => {
+        currentTab !== 'available' && updateDroneTable({currentTab: 'available'});
+      }}
+    >Available ({availableDrones.total})
+    </div>
+    <div
+      styleName={currentTab === 'onMission' ? 'tab_active' : 'tab'}
+      onClick={() => {
+        currentTab !== 'onMission' && updateDroneTable({currentTab: 'onMission'});
+      }}
+    >On Mission ({onMissionDrones.total})
+    </div>
+  </div>
 );
 
 
 MyDronesTabs.propTypes = {
-  availableDrones: PropTypes.array.isRequired,
-  onMissionDrones: PropTypes.array.isRequired,
-  items: PropTypes.object.isRequired,
-  itemPerPage: PropTypes.func.isRequired,
-  displayingHandle: PropTypes.func.isRequired,
-  displaying: PropTypes.object.isRequired,
+  currentTab: PropTypes.string.isRequired,
+  updateDroneTable: PropTypes.func.isRequired,
+  availableDrones: PropTypes.object.isRequired,
+  onMissionDrones: PropTypes.object.isRequired,
 };
 
 

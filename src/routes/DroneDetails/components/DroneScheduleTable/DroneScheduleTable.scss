@@ -1,50 +1,78 @@
 .schedule-table {
-	padding: 20px 20px 40px;
-  :global {
-	#DroneScheduleTable {
-		.reactable-column-header {
-			th {
-				&:first-child {
-					width: 18%;
-					text-align: left;
-					padding-left: 20px;
-				}
-				&:nth-child(2) {
-					width: 15%;
-				}
-				&:nth-child(3) {
-					width: 12%;
-				}
-				&:nth-child(4) {
-					width: 18%;
-				}
-				&:nth-child(5) {
-					width: 18%;
-				}
+  background-color: transparent;
+}
 
-			}
-		}
-		.reactable-data {
-			tr {
-				&:last-child {
-					td {
-						border-bottom: 0;
-					}
-				}
-			}
-			td {
-				padding: 20px 0 30px;
-				vertical-align: top;
-				&:first-child {
-					padding-left: 20px;
-				}
-			}
-		}
-	}
+.today {
+	font-size: 18px;
+	color: #131313;
+	margin: 5px 0 22px;
+}
+
+.content {
+  border-top: 1px solid #e7e8ea;
+  padding: 20px 20px 40px;
+}
+
+.react-table {
+  margin: 25px 18px 0;
+}
+
+.table {
+  width: 100%;
+
+  td,
+  th {
+    padding: 0;
   }
-  .today {
-  	font-size: 18px;
-  	color: #131313;
-  	margin: 5px 0 22px;
+}
+
+.thead {
+  background-color: #1e526c;
+}
+
+.th-inner {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 14px 27px 16px;
+  text-align: left;
+}
+
+.th-inner--sort-asc,
+.th-inner--sort-desc {
+  @extend .th-inner;
+
+  cursor: pointer;
+
+  &:after {
+    background: url('icon-sort-desc.png') no-repeat;
+    content: '';
+    display: inline-block;
+    height: 7px;
+    margin-left: 8px;
+    width: 11px;
   }
+}
+
+.th-inner--sort-asc {
+  &:after {
+    transform: rotate(180deg);
+  }
+}
+
+.tr {
+  border-bottom: 1px solid #e7e8ea;
+}
+
+.td-inner {
+  font-size: 14px;
+  padding: 16px 27px;
+
+  > a {
+    color: #3b73b9;
+  }
+}
+
+.td-inner_date {
+  white-space: nowrap;
 }

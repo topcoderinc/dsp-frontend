@@ -3,8 +3,25 @@ import CSSModules from 'react-css-modules';
 import MapLegends from '../MapLegends';
 import styles from './ProviderMap.scss';
 
-const getImage = (name) => `${window.location.origin}/img/${name}`;
+const statusToImage = {
+  'idle-busy': 'icon-error-drone.png',
+  'in-motion': 'icon-booked-drone.png',
+  'idle-ready': 'icon-standby-drone.png',
+};
 
+const getMarkerIcon = (status) => `${window.location.origin}/img/${statusToImage[status]}`;
+
+const mapConfig = {
+  zoom: 13,
+  center: {
+    lat: -6.202180076671433,
+    lng: 106.83877944946289,
+  },
+  mapTypeControl: false,
+  zoomControl: false,
+  streetViewControl: false,
+  clickableIcons: false,
+};
 
 /*
 * ProviderMap
@@ -13,51 +30,31 @@ const getImage = (name) => `${window.location.origin}/img/${name}`;
 class ProviderMap extends React.Component {
 
   componentDidMount() {
-    const {myDrons} = this.props;
+    this.map = new google.maps.Map(this.node, mapConfig);
+    this.droneMarkers = [];
 
-    this.map = new google.maps.Map(this.node, {
-      zoom: 7,
-      center: myDrons[0],
-      mapTypeControl: false,
-      zoomControl: false,
-      streetViewControl: false,
-    });
+    // add all markers to the map
+    for (const droneCurrentLocation of this.props.dronesCurrentLocations) {
+      if (droneCurrentLocation.currentLocation.length >= 2) {
+        const droneMarker = new google.maps.Marker({
+          icon: getMarkerIcon(droneCurrentLocation.status),
+          position: {
+            lng: droneCurrentLocation.currentLocation[0],
+            lat: droneCurrentLocation.currentLocation[1],
+          },
+          map: this.map,
+        });
+        this.droneMarkers.push(droneMarker);
+      }
+    }
 
-    this.start = new google.maps.Marker({
-      icon: getImage('icon-standby-drone.png'),
-      position: myDrons[0],
-      map: this.map,
-    });
-
-    this.end = new google.maps.Marker({
-      icon: getImage('icon-booked-drone.png'),
-      position: myDrons[1],
-      map: this.map,
-    });
-
-    this.drone = new google.maps.Marker({
-      icon: getImage('icon-error-drone.png'),
-      position: myDrons[2],
-      map: this.map,
-    });
-
-    this.start = new google.maps.Marker({
-      icon: getImage('icon-standby-drone.png'),
-      position: myDrons[3],
-      map: this.map,
-    });
-
-    this.end = new google.maps.Marker({
-      icon: getImage('icon-booked-drone.png'),
-      position: myDrons[4],
-      map: this.map,
-    });
-
-    this.drone = new google.maps.Marker({
-      icon: getImage('icon-error-drone.png'),
-      position: myDrons[5],
-      map: this.map,
-    });
+    // zoom map to fit all markers
+    const markersBounds = new google.maps.LatLngBounds();
+    for (const droneMarker of this.droneMarkers) {
+      markersBounds.extend(droneMarker.getPosition());
+    }
+    this.map.setCenter(markersBounds.getCenter());
+    this.map.fitBounds(markersBounds);
   }
 
   shouldComponentUpdate() { // eslint-disable-line lodash/prefer-constant
@@ -76,7 +73,7 @@ class ProviderMap extends React.Component {
 }
 
 ProviderMap.propTypes = {
-  myDrons: PropTypes.array.isRequired,
+  dronesCurrentLocations: PropTypes.array.isRequired,
 };
 
 

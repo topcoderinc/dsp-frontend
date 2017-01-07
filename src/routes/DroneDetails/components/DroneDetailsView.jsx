@@ -1,8 +1,8 @@
 import React from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './DroneDetailsView.scss';
-import DroneDetailsHeader from './DroneDetailsHeader';
-import DroneDetailsTabsContainer from '../containers/DroneDetailsTabsContainer';
+import DroneDetailsHeader from '../containers/DroneDetailsHeaderContainer';
+import DroneDetailsTabs from '../containers/DroneDetailsTabsContainer';
 
 /*
 * DroneDetailsView
@@ -14,7 +14,7 @@ export const DroneDetailsView = () => (
 
     <div styleName="my-drone-view">
       <div className="tabs-container">
-        <DroneDetailsTabsContainer />
+        <DroneDetailsTabs />
       </div>
     </div>
   </div>
