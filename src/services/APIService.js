@@ -454,9 +454,9 @@ const statusDetail = {
 };
 
 /*
-  As there is no Authorization implemented in the project.
-  Here I've hardcoded automatic registering and authorization of a dumb user to make requests to the server.
-  This should be removed when real authorizatin is implemented.
+ As there is no Authorization implemented in the project.
+ Here I've hardcoded automatic registering and authorization of a dumb user to make requests to the server.
+ This should be removed when real authorizatin is implemented.
  */
 const testUser = {
   firstName: 'test',
@@ -648,5 +648,19 @@ export default class APIService {
       .set('Content-Type', 'application/json')
       .send(entity)
       .end();
+  }
+
+  /**
+   * Get federation token
+   * @param {Object} data the request data
+   * @returns {Object} the result
+   */
+  static getFederationToken(data) {
+    return request
+      .post(`${config.api.basePath}/api/v1/aws/federation-token`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .send(data)
+      .end()
+      .then((res) => res.body);
   }
 }

@@ -25,6 +25,8 @@
   "dependencies": {
     "auth0-js": "^7.6.0",
     "autoprefixer": "^6.5.0",
+    "aws-sdk": "^2.7.21",
+    "aws-sdk-promise": "0.0.2",
     "axios": "^0.15.3",
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
@@ -78,7 +80,9 @@
     "react-google-maps": "^6.0.1",
     "react-highcharts": "^11.0.0",
     "react-icheck": "^0.3.6",
+    "react-image-lightbox": "^3.4.1",
     "react-input-range": "^0.9.3",
+    "react-measure": "^1.4.5",
     "react-modal": "^1.5.2",
     "react-portal": "^3.0.0",
     "react-redux": "^4.0.0",
