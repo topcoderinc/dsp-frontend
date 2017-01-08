@@ -75,10 +75,11 @@ export const save = (values) => async (dispatch, getState) => {
     drone = _.pick(drone, [..._.keys(defaultDrone), 'id']);
     dispatch({type: UPDATED, payload: {drone}});
     toastr.success('Drone saved');
+    dispatch(push('/my-drone'));
   } else {
     drone = await APIService.createProviderDrone(drone);
-    dispatch(push(`/edit-drones/${drone.id}`));
     toastr.success('Drone created');
+    dispatch(push('/my-drone'));
   }
 };
 
