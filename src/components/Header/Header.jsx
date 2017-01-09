@@ -120,7 +120,7 @@ export function Header({
                           hideUserDropdown = dropdown.hide;
                         }
                       }}
-                      title={<span>Welcome,<br />{user.name}</span>}
+                      title={<span>Welcome,<br />{user.firstName} {user.lastName}<br />{user.provider.name}</span>}
                     >
                       <ul>
                         <li>
