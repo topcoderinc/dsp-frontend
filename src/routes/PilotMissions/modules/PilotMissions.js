@@ -1,34 +1,28 @@
 import {handleActions} from 'redux-actions';
-import _ from 'lodash';
 import APIService from 'services/APIService';
-import {toastr} from 'react-redux-toastr';
+import _ from 'lodash';
 
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const LOADED = 'MissionList/LOADED';
+export const LOADED = 'PilotMissions/LOADED';
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 export const load = (params) => async(dispatch, getState) => {
-  const allParams = {..._.pick(getState().missionList, ['offset', 'limit']), ...params};
+  const allParams = {..._.pick(getState().pilotMissions, ['offset', 'limit', 'sortBy']), ...params};
+  if (!allParams.sortBy) {
+    delete allParams.sortBy;
+  }
 
-  const respond = await APIService.fetchMissionList(allParams);
+  const respond = await APIService.fetchPilotMissions(allParams);
 
   dispatch({type: LOADED, payload: {missions: respond.items, total: respond.total, ...params}});
 };
 
-export const deleteMission = (id) => async(dispatch) => {
-  await APIService.deleteMission(id);
-  toastr.success('Mission deleted');
-
-  dispatch(load());
-};
-
 export const actions = {
   load,
-  deleteMission,
 };
 
 // ------------------------------------
@@ -40,5 +34,6 @@ export default handleActions({
   offset: 0,
   limit: 10,
   total: 0,
+  sortBy: 'missionName',
   missions: [],
 });

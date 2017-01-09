@@ -16,7 +16,7 @@ const LOGIN_ACTION_SUCCESS = 'LOGIN_ACTION_SUCCESS';
 const LOGIN_REDIRECT = {
   admin: '/admin',
   consumer: '/browse-provider',
-  pilot: '/pilot',
+  pilot: '/pilot-missions',
   provider: '/dashboard',
 };
 

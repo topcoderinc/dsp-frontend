@@ -470,17 +470,20 @@ export default class APIService {
     })).then(() => statusDetail[id]);
   }
 
-  static fetchMissionList() {
+  static fetchMissionList(params) {
     const token = this.accessToken;
     return request
       .get(`${config.api.basePath}/api/v1/missions`)
       .set('Authorization', `Bearer ${this.accessToken}`)
-      .send()
+      .query(params)
       .end()
-      .then((res) => res.body.items.map((item) => ({
-        ...item,
-        downloadLink: `${config.api.basePath}/api/v1/missions/${item.id}/download?token=${token}`,
-      })));
+      .then((res) => ({
+        total: res.body.total,
+        items: res.body.items.map((item) => ({
+          ...item,
+          downloadLink: `${config.api.basePath}/api/v1/missions/${item.id}/download?token=${token}`,
+        })),
+      }));
   }
 
   static getMission(id) {
@@ -722,6 +725,48 @@ export default class APIService {
     return request
       .get(`${config.api.basePath}/api/v1/provider/drones/${id}/missions/monthly-count?month=${month}`)
       .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Get pilot checklist by mission id
+   * @param  {String}   id    mission id
+   */
+  static getPilotChecklist(id) {
+    return request
+      .get(`${config.api.basePath}/api/v1/pilot/checklist/${id}/`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Update pilot checklist by mission id
+   * @param  {String}   id          mission id
+   * @param  {Object}   checklist   checklist object
+   */
+  static updatePilotChecklist(id, checklist) {
+    return request
+      .put(`${config.api.basePath}/api/v1/pilot/checklist/${id}/`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .send(checklist)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Fetch pilot missions
+   * @param  {Object}   params          params
+   * @param  {Number}   params.limit    the limit
+   * @param  {Number}   params.offset   the offset
+   * @param  {String}   params.sortBy   sort by property name
+   */
+  static fetchPilotMissions(params) {
+    return request
+      .get(`${config.api.basePath}/api/v1/pilot/missions`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .query(params)
       .end()
       .then((res) => res.body);
   }

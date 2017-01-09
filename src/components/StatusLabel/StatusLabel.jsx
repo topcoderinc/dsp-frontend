@@ -1,21 +1,25 @@
 import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import styles from './StatusLabel.scss';
+import _ from 'lodash';
 
 const statusLabels = {
-  inProgress: 'In Progress',
+  'in-progress': 'In Progress', // new style
+  inProgress: 'In Progress', // old style should be removed when all code is binded to backend
   cancelled: 'Cancelled',
   completed: 'Completed',
+  waiting: 'Waiting',
+  scheduled: 'Scheduled',
 };
 
 export const StatusLabel = ({value}) => (
-  <span styleName={`status-label_${value.toLowerCase()}`}>
+  <span styleName={`status-label_${value.toLowerCase().replace('-', '')}`}>
     <span>{statusLabels[value]}</span>
   </span>
 );
 
 StatusLabel.propTypes = {
-  value: PropTypes.oneOf(['inProgress', 'cancelled', 'completed']).isRequired,
+  value: PropTypes.oneOf(_.keys(statusLabels)).isRequired,
 };
 
 export default CSSModules(StatusLabel, styles);

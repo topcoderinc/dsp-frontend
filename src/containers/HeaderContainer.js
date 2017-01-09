@@ -22,3 +22,4 @@ const mapDispatchToProps = (dispatch) => ({
 */
 
 export default asyncConnect(resolve, mapState, {...actions, logoutAction})(Header);
+
