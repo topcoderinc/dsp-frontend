@@ -16,7 +16,7 @@ export const load = (missionId) => async(dispatch) => {
   const response = await APIService.getPilotChecklist(missionId);
   const answers = response.pilotChecklist ? response.pilotChecklist.answers : [];
 
-  dispatch({type: LOADED, payload: {..._.pick(response, ['missionStatus', 'questions']), answers, missionId}});
+  dispatch({type: LOADED, payload: {..._.pick(response, ['missionStatus', 'missionName', 'questions']), answers, missionId}});
 };
 
 export const save = (values) => async (dispatch, getState) => {
@@ -69,6 +69,7 @@ export default handleActions({
 }, {
   missionId: '',
   missionStatus: '',
+  missionName: '',
   questions: [],
   answers: [],
 });

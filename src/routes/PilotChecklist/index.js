@@ -1,7 +1,9 @@
 import {injectReducer} from '../../store/reducers';
+import React from 'react';
+import BreadcrumbItem from './containers/BreadcrumbItemContainer';
 
 export default (store) => ({
-  name: 'Pilot Checklist',
+  name: 'Flight Checklist',
   path: 'pilot-checklist/:id',
   getComponent(nextState, cb) {
     require.ensure([], (require) => {
@@ -12,4 +14,5 @@ export default (store) => ({
       cb(null, PilotChecklist);
     }, 'PilotChecklist');
   },
+  prettifyParam: () => React.createElement(BreadcrumbItem), // eslint-disable-line react/display-name
 });
