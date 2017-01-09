@@ -1,5 +1,9 @@
-.mission-list-view {
+.pilot-missions-view {
   background-color: transparent;
+
+  :global {
+
+  }
 }
 
 .wrap {
@@ -45,8 +49,4 @@
   &:hover {
     color: #fff;
   }
-}
-
-.table-hidden {
-  display: none;
 }

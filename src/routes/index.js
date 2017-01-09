@@ -23,6 +23,8 @@ import AdminDashboard from './Admin/AdminDashboard';
 import NoFlyZones from './Admin/NoFlyZones';
 import ProviderDetailsRoute from './ProviderDetails';
 import ResetPasswordRoute from './ResetPassword';
+import PilotMissionsRoute from './PilotMissions';
+import PilotChecklistRoute from './PilotChecklist';
 import {defaultAuth0Service} from '../services/AuthService';
 
 import {onSocialLoginSuccessAction} from 'store/modules/global';
@@ -72,6 +74,8 @@ export const createRoutes = (store) => ({
         DroneDetailsRoute(store),
         AvailablePackagesRoute(store),
         ProviderDetailsRoute(store),
+        PilotMissionsRoute(store),
+        PilotChecklistRoute(store),
       ],
     },
     ResetPasswordRoute(store),

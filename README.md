@@ -4,6 +4,7 @@
 * node v6 (https://nodejs.org)
 
 ## Quick Start
+* copy `.env.example` to `.env`
 * `npm install`
 * `npm run dev`
 * Navigate browser to `http://localhost:3000`

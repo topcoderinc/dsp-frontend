@@ -1,14 +1,34 @@
-.text-field {
-  width: 100%;
+.textarea-field {
   border: 1px solid #ebebeb;
-  
+  width: 100%;
+
   textarea {
+    display: block;
     width: 100%;
     padding: 10px;
     resize: none;
-    background: white;
+    background: transparent;
     color: black;
     border: none;
-    min-height: 265px;
+
+    &.size-big {
+      min-height: 265px;
+    }
+
+    &.size-small {
+      min-height: 50px;
+    }
+  }
+}
+
+.readonly-false {
+  background-color: #fff;
+}
+
+.readonly-true {
+  background-color: #efefef;
+
+  textarea {
+    outline: none;
   }
 }
