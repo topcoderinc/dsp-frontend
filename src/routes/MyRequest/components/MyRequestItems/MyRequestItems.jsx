@@ -16,18 +16,29 @@ class MyRequestItems extends React.Component {
 
   _toggleDetail(i) {
     if (_.includes(this.state.openedItems, i)) {
-      this.state.openedItems.push(i);
-    } else {
       this.state.openedItems.splice(this.state.openedItems.indexOf(i), 1);
+    } else {
+      this.state.openedItems.push(i);
     }
     this.setState({openedItems: this.state.openedItems});
   }
 
   render() {
+    const {requestItems, currentStatus, assignDrone, rejectRequest, getDrones} = this.props;
     return (
       <ul>
-        {this.props.requestItems.map((requestItem, i) => (
-          <RequestItem isOpen={_.includes(this.state.openedItems, i)} _toggleDetail={this._toggleDetail.bind(this)} key={i} index={i} requestItem={requestItem} />
+        {requestItems.map((requestItem, i) => (
+          <RequestItem
+            isOpen={_.includes(this.state.openedItems, i)}
+            _toggleDetail={this._toggleDetail.bind(this)}
+            key={i}
+            index={i}
+            requestItem={requestItem}
+            currentStatus={currentStatus}
+            assignDrone={assignDrone}
+            rejectRequest={rejectRequest}
+            getDrones={getDrones}
+          />
         ))}
       </ul>
     );
@@ -36,6 +47,10 @@ class MyRequestItems extends React.Component {
 
 MyRequestItems.propTypes = {
   requestItems: PropTypes.array.isRequired,
+  currentStatus: PropTypes.string.isRequired,
+  assignDrone: PropTypes.func.isRequired,
+  rejectRequest: PropTypes.func.isRequired,
+  getDrones: PropTypes.func.isRequired,
 };
 
 export default CSSModules(MyRequestItems, styles);

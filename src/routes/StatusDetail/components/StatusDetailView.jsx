@@ -13,7 +13,9 @@ import StatusDetailHeader from './StatusDetailHeader';
 import StatusDetailCamera from './StatusDetailCamera';
 import styles from './StatusDetailView.scss';
 
-export const StatusDetailView = ({title, status, fcStreamSrc, bcStreamSrc}) => (
+const shouldHaveDetails = (status) => (status === 'in-progress' || status === 'completed');
+
+export const StatusDetailView = ({title, status, fcStreamSrc, bcStreamSrc, showPerformance}) => (
   <div styleName="status-detail-view">
     <Breadcrumb
       items={[
@@ -37,17 +39,22 @@ export const StatusDetailView = ({title, status, fcStreamSrc, bcStreamSrc}) => (
                 <StatusDetailMapRoute isSmall />
               </div>
             </div>
-            <section styleName="section">
-              <h2 styleName="section-title">Deploy Mission Parameters</h2>
-              <div styleName="columns">
-                <div styleName="column-overall-performance">
-                  <OverallDronePerformance />
-                </div>
-                <div styleName="column-graph-performance">
-                  <DroneGraphPerformance />
-                </div>
-              </div>
-            </section>
+            {
+              showPerformance ?
+              (
+                <section styleName="section">
+                  <h2 styleName="section-title">Deploy Mission Parameters</h2>
+                  <div styleName="columns">
+                    <div styleName="column-overall-performance">
+                      <OverallDronePerformance />
+                    </div>
+                    <div styleName="column-graph-performance">
+                      <DroneGraphPerformance />
+                    </div>
+                  </div>
+                </section>
+              ) : null
+            }
           </div>
           <section styleName="section">
             <MissionGallery title="Mission results" />
@@ -66,21 +73,24 @@ export const StatusDetailView = ({title, status, fcStreamSrc, bcStreamSrc}) => (
               <section styleName="section">
                 <h2 styleName="section-title">Route</h2>
                 <div styleName="route-big-wrap">
-                  <StatusDetailMapRoute distance={''} showMapLegends />
+                  <StatusDetailMapRoute showMapLegends />
                 </div>
               </section>
             </div>
             <div styleName="column-cameras">
               <section styleName="section">
                 <h2 styleName="section-title">Real Time Camera</h2>
-                <StatusDetailCamera title="Front Camera" streamSrc={fcStreamSrc} />
-                <StatusDetailCamera title="Back Camera" streamSrc={bcStreamSrc} />
+                <StatusDetailCamera title="Front Camera" streamSrc={shouldHaveDetails(status) ? fcStreamSrc : null} />
+                <StatusDetailCamera title="Back Camera" streamSrc={shouldHaveDetails(status) ? bcStreamSrc : null} />
               </section>
             </div>
           </div>
-          <section styleName="section">
-            <MissionGallery title="Mission Gallery" />
-          </section>
+          {
+            shouldHaveDetails(status) ?
+              (<section styleName="section">
+                <MissionGallery title="Mission Gallery" />
+              </section>) : null
+          }
         </div>
       </div>
     )}
@@ -90,8 +100,9 @@ export const StatusDetailView = ({title, status, fcStreamSrc, bcStreamSrc}) => (
 StatusDetailView.propTypes = {
   title: PropTypes.string.isRequired,
   status: StatusLabel.propTypes.value,
-  fcStreamSrc: PropTypes.string.isRequired,
-  bcStreamSrc: PropTypes.string.isRequired,
+  fcStreamSrc: PropTypes.string,
+  bcStreamSrc: PropTypes.string,
+  showPerformance: PropTypes.bool.isRequired,
 };
 
 export default CSSModules(StatusDetailView, styles);

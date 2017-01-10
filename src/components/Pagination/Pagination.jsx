@@ -31,4 +31,4 @@ Pagination.propTypes = {
   onPageChange: PropTypes.func.isRequired,
 };
 
-export default CSSModules(Pagination, styles);
+export default CSSModules(Pagination, styles, {allowMultiple: true});

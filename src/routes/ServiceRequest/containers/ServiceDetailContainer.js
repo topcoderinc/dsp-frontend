@@ -3,6 +3,13 @@ import {actions, sendRequest} from '../modules/ServiceRequest';
 
 import ServiceDetail from '../components/ServiceDetail';
 
-const mapState = (state) => ({...state.serviceRequest, onSubmit: sendRequest});
+const mapState = (state) => ({...state.serviceRequest, sendRequest});
 
-export default connect(mapState, actions)(ServiceDetail);
+const mapDispatch = {
+  ...actions,
+  cancelForm: () => (dispatch) => {
+    dispatch(actions.cancelRequest());
+  },
+};
+
+export default connect(mapState, mapDispatch)(ServiceDetail);

@@ -1,7 +1,7 @@
 import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
-  path: 'service-request',
+  path: 'service-request/:id',
   name: 'ServiceRequest', /* Breadcrumb name */
   staticName: true,
   getComponent(nextState, cb) {

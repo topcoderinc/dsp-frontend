@@ -1,4 +1,6 @@
-import {handleActions} from 'redux-actions';
+import {handleActions, createAction} from 'redux-actions';
+import _ from 'lodash';
+import APIService from 'services/APIService';
 
 // ------------------------------------
 // Actions
@@ -12,188 +14,89 @@ export const sendRequest = (values) => new Promise((resolve) => {
   resolve();
 });
 
+const REQUESTS_LOADED = 'MY-REQUEST/REQUESTS_LOADED';
+const TOTALS_LOADED = 'MY-REQUEST/TOTALS_LOADED';
+
+const statusArr = ['pending', 'in-progress', 'scheduled', 'completed'];
 
 export const actions = {
+  requestLoaded: createAction(REQUESTS_LOADED),
+  totalsLoaded: createAction(TOTALS_LOADED),
 };
+
+const getLatLng = (location) => {
+  if (_.get(location, 'coordinates', []).length === 2) {
+    return {
+      lng: location.coordinates[0],
+      lat: location.coordinates[0],
+    };
+  }
+  return null;
+};
+
+export const loadRequests = (dispatch, statuses, limit, offset) =>
+    APIService.getRequestsByProvider({
+      statuses,
+      limit,
+      offset,
+    })
+    .then((res) => dispatch(actions.requestLoaded(
+      {
+        total: res.total,
+        items: res.items.map((item) => ({
+          ...(_.pick(item, 'status', 'distance', 'payout', 'customer', 'weight', 'whatToBeDelivered', 'serviceType', 'zones', 'title')),
+          requestId: item.id,
+          deliveryLocation: item.destinationPoint ? `${item.destinationPoint.line1}, ${item.destinationPoint.city}, ${item.destinationPoint.state} ${item.destinationPoint.postalCode}` : null,
+          deliveryDate: item.launchDate,
+          requestedDeliveryTime: item.launchDate,
+          pickUpLocation: item.startingPoint ? `${item.startingPoint.line1}, ${item.startingPoint.city}, ${item.startingPoint.state} ${item.startingPoint.postalCode}` : null,
+          dropOffLocation: item.destinationPoint ? `${item.destinationPoint.line1}, ${item.destinationPoint.city}, ${item.destinationPoint.state} ${item.destinationPoint.postalCode}` : null,
+          packageType: item.serviceType,
+          startLocation: getLatLng(item.startingPoint),
+          endLocation: getLatLng(item.destinationPoint),
+        })),
+        status: statuses,
+      }
+        )
+      )
+    );
+
+export const loadTotals = (dispatch) => Promise.all(
+    _.map(
+      statusArr,
+      (statuses) => APIService.getRequestsByProvider({
+        limit: 1,
+        statuses,
+      }).then((res) => res.total)
+    )
+  ).then((res) => dispatch(actions.totalsLoaded(_.zipObject(statusArr, res))));
+
+export const assignDrone = (id, droneId) => APIService.acceptRequest(id).then(() => APIService.assignDrone(id, droneId));
+export const rejectRequest = (id) => APIService.rejectRequest(id);
+export const getDrones = () => APIService.getProviderDrones();
+
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 export default handleActions({
+  [REQUESTS_LOADED]: (state, {payload}) => ({
+    ...state,
+    requestItems: {
+      ...state.requestItems,
+      [payload.status]: payload.items,
+    },
+    totals: {
+      ...state.totals,
+      [payload.state]: payload.total,
+    },
+  }),
+  [TOTALS_LOADED]: (state, {payload}) => ({
+    ...state,
+    totals: payload,
+  }),
 }, {
-  limit: 10,
-  offset: 0,
-  requestItems: [{
-    status: 'new',
-    requestId: '123ASDD',
-    deliveryDate: '18 Oct 2016, 10:00 AM',
-    distance: '99.99 miles',
-    serviceType: 'Simple Delivery',
-    deliveryLocation: 'Street address lorem, City, State 12355',
-    payout: 999.99,
-    deliveryObject: 'Delivery Object lorem ipsum',
-    packageType: 'Package Lorem Ipsum',
-    pickUpLocation: 'Street address lorem, City, State 12355',
-    dropOffLocation: 'Street address lorem, City, State 12355',
-    weight: '50 lbs',
-    requestedDeliveryTime: '18 Oct 2016, 10:00 AM',
-    customer: {
-      name: 'James Smith',
-      address: 'Street address lorem, City, State 12355',
-      phone: '123 - 564 - 1231',
-      email: 'email@email.com',
-    },
-  }, {
-    status: 'new',
-    requestId: '123ASDD',
-    deliveryDate: '18 Oct 2016, 10:00 AM',
-    distance: '99.99 miles',
-    serviceType: 'Simple Delivery',
-    deliveryLocation: 'Street address lorem, City, State 12355',
-    payout: 999.99,
-    packageType: 'Package Lorem Ipsum',
-    pickUpLocation: 'Street address lorem, City, State 12355',
-    dropOffLocation: 'Street address lorem, City, State 12355',
-    weight: '50 lbs',
-    requestedDeliveryTime: '18 Oct 2016, 10:00 AM',
-    customer: {
-      name: 'James Smith',
-      address: 'Street address lorem, City, State 12355',
-      phone: '123 - 564 - 1231',
-      email: 'email@email.com',
-    },
-  }, {
-    status: 'new',
-    requestId: '123ASDD',
-    deliveryDate: '18 Oct 2016, 10:00 AM',
-    distance: '99.99 miles',
-    serviceType: 'Simple Delivery',
-    deliveryLocation: 'Street address lorem, City, State 12355',
-    payout: 999.99,
-    packageType: 'Package Lorem Ipsum',
-    pickUpLocation: 'Street address lorem, City, State 12355',
-    dropOffLocation: 'Street address lorem, City, State 12355',
-    weight: '50 lbs',
-    requestedDeliveryTime: '18 Oct 2016, 10:00 AM',
-    customer: {
-      name: 'James Smith',
-      address: 'Street address lorem, City, State 12355',
-      phone: '123 - 564 - 1231',
-      email: 'email@email.com',
-    },
-  }, {
-    status: 'new',
-    requestId: '123ASDD',
-    deliveryDate: '18 Oct 2016, 10:00 AM',
-    distance: '99.99 miles',
-    serviceType: 'Simple Delivery',
-    deliveryLocation: 'Street address lorem, City, State 12355',
-    payout: 999.99,
-    packageType: 'Package Lorem Ipsum',
-    pickUpLocation: 'Street address lorem, City, State 12355',
-    dropOffLocation: 'Street address lorem, City, State 12355',
-    weight: '50 lbs',
-    requestedDeliveryTime: '18 Oct 2016, 10:00 AM',
-    customer: {
-      name: 'James Smith',
-      address: 'Street address lorem, City, State 12355',
-      phone: '123 - 564 - 1231',
-      email: 'email@email.com',
-    },
-  }, {
-    status: 'scheduled',
-    requestId: '123ASDD',
-    deliveryDate: '18 Oct 2016, 10:00 AM',
-    distance: '99.99 miles',
-    serviceType: 'Simple Delivery',
-    deliveryLocation: 'Street address lorem, City, State 12355',
-    payout: 999.99,
-    packageType: 'Package Lorem Ipsum',
-    pickUpLocation: 'Street address lorem, City, State 12355',
-    dropOffLocation: 'Street address lorem, City, State 12355',
-    weight: '50 lbs',
-    requestedDeliveryTime: '18 Oct 2016, 10:00 AM',
-    customer: {
-      name: 'James Smith',
-      address: 'Street address lorem, City, State 12355',
-      phone: '123 - 564 - 1231',
-      email: 'email@email.com',
-    },
-  }, {
-    status: 'scheduled',
-    requestId: '123ASDD',
-    deliveryDate: '18 Oct 2016, 10:00 AM',
-    distance: '99.99 miles',
-    serviceType: 'Simple Delivery',
-    deliveryLocation: 'Street address lorem, City, State 12355',
-    payout: 999.99,
-    packageType: 'Package Lorem Ipsum',
-    pickUpLocation: 'Street address lorem, City, State 12355',
-    dropOffLocation: 'Street address lorem, City, State 12355',
-    weight: '50 lbs',
-    requestedDeliveryTime: '18 Oct 2016, 10:00 AM',
-    customer: {
-      name: 'James Smith',
-      address: 'Street address lorem, City, State 12355',
-      phone: '123 - 564 - 1231',
-      email: 'email@email.com',
-    },
-  }, {
-    status: 'in_progress',
-    requestId: '123ASDD',
-    deliveryDate: '18 Oct 2016, 10:00 AM',
-    distance: '99.99 miles',
-    serviceType: 'Simple Delivery',
-    deliveryLocation: 'Street address lorem, City, State 12355',
-    payout: 999.99,
-    packageType: 'Package Lorem Ipsum',
-    pickUpLocation: 'Street address lorem, City, State 12355',
-    dropOffLocation: 'Street address lorem, City, State 12355',
-    weight: '50 lbs',
-    requestedDeliveryTime: '18 Oct 2016, 10:00 AM',
-    customer: {
-      name: 'James Smith',
-      address: 'Street address lorem, City, State 12355',
-      phone: '123 - 564 - 1231',
-      email: 'email@email.com',
-    },
-  }, {
-    status: 'in_progress',
-    requestId: '123ASDD',
-    deliveryDate: '18 Oct 2016, 10:00 AM',
-    distance: '99.99 miles',
-    serviceType: 'Simple Delivery',
-    deliveryLocation: 'Street address lorem, City, State 12355',
-    payout: 999.99,
-    packageType: 'Package Lorem Ipsum',
-    pickUpLocation: 'Street address lorem, City, State 12355',
-    dropOffLocation: 'Street address lorem, City, State 12355',
-    weight: '50 lbs',
-    requestedDeliveryTime: '18 Oct 2016, 10:00 AM',
-    customer: {
-      name: 'James Smith',
-      address: 'Street address lorem, City, State 12355',
-      phone: '123 - 564 - 1231',
-      email: 'email@email.com',
-    },
-  }, {
-    status: 'completed',
-    requestId: '123ASDD',
-    deliveryDate: '18 Oct 2016, 10:00 AM',
-    distance: '99.99 miles',
-    serviceType: 'Simple Delivery',
-    deliveryLocation: 'Street address lorem, City, State 12355',
-    payout: 999.99,
-    packageType: 'Package Lorem Ipsum',
-    pickUpLocation: 'Street address lorem, City, State 12355',
-    dropOffLocation: 'Street address lorem, City, State 12355',
-    weight: '50 lbs',
-    requestedDeliveryTime: '18 Oct 2016, 10:00 AM',
-    customer: {
-      name: 'James Smith',
-      address: 'Street address lorem, City, State 12355',
-      phone: '123 - 564 - 1231',
-      email: 'email@email.com',
-    },
-  }],
+  statusArr,
+  totals: _.zipObject(statusArr, _.times(statusArr.length, _.constant(0))),
+  requestItems: _.zipObject(statusArr, _.times(statusArr.length, () => ([]))),
 });

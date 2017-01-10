@@ -24,13 +24,15 @@ export const MapLegends = ({distance}) => (
       Location
     </div>
     <strong styleName="distance">
-      Distance: {distance}
+      {
+        distance ? `Distance: ${distance}` : null
+      }
     </strong>
   </div>
 );
 
 MapLegends.propTypes = {
-  distance: PropTypes.string.isRequired,
+  distance: PropTypes.string,
 };
 
 export default CSSModules(MapLegends, styles);

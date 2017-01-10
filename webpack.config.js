@@ -97,7 +97,6 @@ module.exports = {
   },
   plugins: [
     new Dotenv({
-      path: '.env', // if not simply .env
       safe: true, // lets load the .env.example file as well
     }),
     new webpack.DefinePlugin({

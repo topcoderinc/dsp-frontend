@@ -3,6 +3,7 @@ import CSSModules from 'react-css-modules';
 import Accordion from 'components/Accordion';
 import FormField from 'components/FormField';
 import TextField from 'components/TextField';
+import Row from 'components/Row';
 import styles from './ContactDetails.scss';
 
 
@@ -13,9 +14,14 @@ import styles from './ContactDetails.scss';
 export const ContactDetails = ({fields}) => (
   <div>
     <Accordion title="Contact Details">
-      <FormField label="Sample field" {...fields.sampleField1}>
-        <TextField {...fields.sampleField1} />
-      </FormField>
+      <Row>
+        <FormField label="Name" {...fields.contactName}>
+          <TextField {...fields.contactName} />
+        </FormField>
+        <FormField label="Phone" {...fields.contactPhone}>
+          <TextField {...fields.contactPhone} />
+        </FormField>
+      </Row>
     </Accordion>
   </div>
 );
