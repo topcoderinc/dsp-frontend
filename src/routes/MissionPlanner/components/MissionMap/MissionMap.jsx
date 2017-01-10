@@ -6,11 +6,12 @@ import NoFlyZone from 'components/NoFlyZone';
 import {GOOGLE_MAPS_BOUNDS_TIMEOUT} from 'Const';
 import styles from './MissionMap.scss';
 
+// default center location for mission Planner
 const mapConfig = {
   defaultZoom: 13,
   defaultCenter: {
-    lat: -6.202180076671433,
-    lng: 106.83877944946289,
+    lat: 40.01,
+    lng: -105.27,
   },
   options: {
     clickableIcons: false,
@@ -85,8 +86,10 @@ export class MissionMap extends Component {
 
   handleMapLoad(map) {
     this.map = map;
-    if (map) {
-      // this.fitMapToBounds(map, this.props.markers);
+    if (map ) {
+      if ( this.props.markers.length > 0 ) {
+       this.fitMapToBounds(map, this.props.markers);
+    } else {
       navigator.geolocation.getCurrentPosition((pos) => {
         map.panTo({
           lat: pos.coords.latitude,
@@ -97,6 +100,7 @@ export class MissionMap extends Component {
         {timeout: 60000}
       );
     }
+  }
   }
 
   render() {
