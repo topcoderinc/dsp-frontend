@@ -33,3 +33,17 @@
 
   @extend .status-label;
 }
+
+.status-label_waiting {
+  background-color: #e3e3e3;
+  background-image: url('icon-status-inprogress.png');
+
+  @extend .status-label;
+}
+
+.status-label_scheduled {
+  background-color: #4c4c4c;
+  background-image: url('icon-status-inprogress.png');
+
+  @extend .status-label;
+}

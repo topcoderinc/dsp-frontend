@@ -71,6 +71,14 @@ export function Header({
                   </ul>
                 </li>
               );
+            } else if (user.role === 'pilot') {
+              res = (
+                <li styleName="pages">
+                  <ul>
+                    <li><Link to="/pilot-missions" activeClassName="active">Pilot Missions</Link></li>
+                  </ul>
+                </li>
+              );
             }
             return res;
           })()

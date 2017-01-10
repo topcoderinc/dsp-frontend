@@ -1,5 +1,9 @@
-.mission-list-view {
+.pilot-checklist-view {
   background-color: transparent;
+
+  :global {
+
+  }
 }
 
 .wrap {
@@ -30,23 +34,4 @@
   border: 1px solid #e0e0e0;
   border-radius: 3px;
   padding: 19px 24px;
-}
-
-.create-btn {
-  background: #315b95;
-  border: none;
-  color: white;
-  display: inline-block;
-  font-weight: bold;
-  min-width: 115px;
-  margin-left: 10px;
-  padding: 13px 10px;
-
-  &:hover {
-    color: #fff;
-  }
-}
-
-.table-hidden {
-  display: none;
 }
