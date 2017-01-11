@@ -770,4 +770,28 @@ export default class APIService {
       .end()
       .then((res) => res.body);
   }
+
+  /**
+   * Get the drone status for the specified mission
+   * @param  {object}   missionId          the mission status
+   */
+  static checkDroneStatusForMission(missionId) {
+    return request
+      .get(`${config.api.basePath}/api/v1/missions/${missionId}/drone-status`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Load mission to the drone
+   * @param  {String}   id          mission id
+   */
+  static loadMission(id) {
+    return request
+      .post(`${config.api.basePath}/api/v1/missions/${id}/load`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
+  }
 }

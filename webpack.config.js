@@ -58,7 +58,7 @@ const getEnvPlugins = () => {
 module.exports = {
   name: 'client',
   target: 'web',
-  devtool: __PROD__ ? null : 'inline-eval-cheap-source-map',
+  devtool: __PROD__ ? null : 'source-map',
   resolve: {
     root: path.join(__dirname, './src'),
     extensions: ['', '.jsx', '.js', '.json'],
