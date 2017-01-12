@@ -462,4 +462,16 @@ export default class APIService {
       .end()
       .then((res) => res.body);
   }
+
+  /**
+   * search packages
+   * @param {Object}  params   the search critiria
+   */
+  static searchPackages(params) {
+    return request
+      .get(`${config.api.basePath}/api/v1/packages`)
+      .query(params)
+      .end()
+      .then((res) => res.body);
+  }
 }

@@ -86,21 +86,21 @@ export class MissionMap extends Component {
 
   handleMapLoad(map) {
     this.map = map;
-    if (map ) {
-      if ( this.props.markers.length > 0 ) {
-       this.fitMapToBounds(map, this.props.markers);
-    } else {
-      navigator.geolocation.getCurrentPosition((pos) => {
-        map.panTo({
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude,
-        });
-      },
+    if (map) {
+      if (this.props.markers.length > 0) {
+        this.fitMapToBounds(map, this.props.markers);
+      } else {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          map.panTo({
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+          });
+        },
         null,
         {timeout: 60000}
       );
+      }
     }
-  }
   }
 
   render() {
