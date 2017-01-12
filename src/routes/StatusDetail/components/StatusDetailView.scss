@@ -24,6 +24,18 @@
 
 .column-route {
   width: calc(100% - 313px);
+  &.imagery{
+    width: calc(100% - 626px);
+  }
+}
+
+.column-zones{
+  width:313px;
+}
+.zones-wrap{
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .column-cameras {
@@ -34,10 +46,22 @@
   width: 58%;
 }
 
+.column-zones-completed{
+  width: 20%;
+}
+.zones-wrap-completed{
+  max-height: 236px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .column-route-small {
   background-color: #ccc;
   height: 266px;
   width: 36%;
+  &.imagery{
+    width:20%;
+  }
 }
 
 .column-overall-performance {

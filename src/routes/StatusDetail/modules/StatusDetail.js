@@ -22,6 +22,8 @@ export const load = (id) => async(dispatch) => {
     title: res.title,
     mission: res.mission,
     zones: res.zones,
+    startLocation: null,
+    endLocation: null,
   };
 
   const {mission, startingPoint, destinationPoint} = res;
@@ -76,6 +78,8 @@ export const load = (id) => async(dispatch) => {
       statusDetail.driver = pilot.name;
     }
   }
+
+  window.statusDetail = statusDetail;
 
   dispatch({type: LOADED, payload: statusDetail});
 };
