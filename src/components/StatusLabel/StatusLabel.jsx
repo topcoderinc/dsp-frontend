@@ -11,6 +11,7 @@ const statusLabels = {
   pending: 'Pending',
   scheduled: 'Scheduled',
   rejected: 'Rejected',
+  waiting: 'Waiting',
 };
 
 export const StatusLabel = ({value}) => (

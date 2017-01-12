@@ -68,6 +68,7 @@ export function Header({
                     <li><Link to="javascript:;" activeClassName="active">Analytics</Link></li>
                     <li><Link to="/drones-map" activeClassName="active">Drone Traffic</Link></li>
                     <li><Link to="/mission-planner" activeClassName="active">MissionPlanner</Link></li>
+                    <li><Link to="/pilot-missions" activeClassName="active">Pilot Missions</Link></li>
                   </ul>
                 </li>
               );
