@@ -1,0 +1,72 @@
+.modal-header {
+  background: #fff;
+  height: 63px;
+  padding: 13px 12px;
+}
+.title {
+  font-size: 24px;
+  color: #0d0d0d;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Proxima Nova Rg';
+  padding-top: 10px;
+}
+.icon-close-modal {
+  display: block;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  width: 26px;
+  height: 26px;
+  background: url('icon-close-modal.png') no-repeat 0 0;
+  margin-left: auto;
+  cursor: pointer;
+}
+.modal-body {
+  padding: 20px;
+  .content-wrapper {
+    clear: both;
+    .content {
+      border: 1px solid #ccc;
+      box-shadow: 0px 0px 3px 1px rgba(204,204,204,0.7);
+      margin: 0 5px;
+      padding: 5px;
+      .point {
+        border-bottom: 1px solid #ccc;
+        margin: 5px 0;
+        height: 180px;
+      }
+      .content-heading {
+        font-weight: 600;
+        margin: 0 0 10px 0;
+        font-size: 16px;
+      }
+      .row {
+        clear: both;
+      }
+      .left {
+        float: left;
+        width: 30%;
+      }
+      .right {
+        float: right;
+        width: 70%;
+      }
+    }
+    .left-col {
+      float: left;
+      width: 50%;
+      .content {
+        height: 230px;
+      }
+    }
+    .right-col {
+      float: right;
+      width: 50%;
+    }
+  }
+}
+:global {
+  .ReactModal__Body--open {
+    overflow: hidden;
+  }
+}
