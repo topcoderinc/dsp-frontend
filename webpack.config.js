@@ -2,6 +2,7 @@
 
 const path = require('path');
 const _ = require('lodash');
+const ip = require('ip');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 
@@ -93,7 +94,7 @@ module.exports = {
   output: {
     filename: '[name].[hash].js',
     path: path.join(__dirname, './dist'),
-    publicPath: '/',
+    publicPath: __DEV__ ? `http://${ip.address()}:${config.PORT}/` : '/',
   },
   plugins: [
     new Dotenv({
