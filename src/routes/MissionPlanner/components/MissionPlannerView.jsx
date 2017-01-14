@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
 import MissionMap from './MissionMap';
 import MissionSidebar from './MissionSidebar';
+import RTFZSidebar from './RTFZSidebar';
 import MissionPlannerHeader from '../containers/MissionPlannerHeaderContainer';
 import styles from './MissionPlannerView.scss';
 
@@ -12,9 +13,12 @@ const waypointIcon = getImage('icon-waypoint-blue.png');
 
 export const getMissionItemsExt = (mission) => {
   let missionItemsExt = [];
-
   mission.plannedHomePosition && missionItemsExt.push(mission.plannedHomePosition);
-  missionItemsExt = [...missionItemsExt, ...mission.missionItems];
+
+
+  if (mission.missionItems) {
+    missionItemsExt = [...missionItemsExt, ...mission.missionItems];
+  }
 
   return missionItemsExt;
 };
@@ -64,7 +68,7 @@ export const getMarkerProps = (item, updateMissionItem) => {
   return markerProps;
 };
 
-export const MissionPlannerView = ({mission, updateMissionItem, addMissionItem, deleteMissionItem, loadNfz, noFlyZones}) => {
+export const MissionPlannerView = ({mission, toggleRtfzHandler, updateMissionItem, addMissionItem, deleteMissionItem, loadNfz, noFlyZones}) => {
   const missionItemsExt = getMissionItemsExt(mission);
   const markersExt = missionItemsExt.map((item) => getMarkerProps(item, updateMissionItem));
 
@@ -78,9 +82,11 @@ export const MissionPlannerView = ({mission, updateMissionItem, addMissionItem, 
           loadNfz={loadNfz}
           noFlyZones={noFlyZones}
           markers={markersExt}
+          rtfzs={mission.zones}
           onMapClick={(event) => addMissionItem({lat: event.latLng.lat(), lng: event.latLng.lng()})}
         />
         <MissionSidebar missionItems={missionItemsExt} onUpdate={updateMissionItem} onDelete={deleteMissionItem} />
+        <RTFZSidebar rtfzs={mission.zones} toggleRtfzHandler={toggleRtfzHandler} />
       </div>
     </div>
   );
@@ -93,6 +99,7 @@ MissionPlannerView.propTypes = {
   deleteMissionItem: PropTypes.func.isRequired,
   loadNfz: PropTypes.func.isRequired,
   noFlyZones: PropTypes.array.isRequired,
+  toggleRtfzHandler: PropTypes.func.isRequired,
 };
 
 export default CSSModules(MissionPlannerView, styles);

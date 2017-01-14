@@ -3,6 +3,7 @@ import CSSModules from 'react-css-modules';
 import {withGoogleMap, GoogleMap, Marker, Polyline} from 'react-google-maps';
 import _ from 'lodash';
 import NoFlyZone from 'components/NoFlyZone';
+import Rtfz from '../Rtfz';
 import {GOOGLE_MAPS_BOUNDS_TIMEOUT} from 'Const';
 import styles from './MissionMap.scss';
 
@@ -32,19 +33,27 @@ export const MissionGoogleMap = withGoogleMap((props) => (
     {... mapConfig}
     onBoundsChanged={props.onBoundsChanged}
     ref={props.onMapLoad}
+    options={{
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.TOP_CENTER,
+      },
+    }}
     onClick={props.onMapClick}
   >
     {props.markers.map((marker, index) => (
       <Marker key={index} {...marker} onDrag={(event) => props.onMarkerDrag(event, index)} />
     ))}
-    <Polyline {...polylineConfig} path={props.lineMarkerPosistions} />
+    <Polyline {...polylineConfig} path={props.lineMarkerPositions} />
     {props.noFlyZones.map((zone) => <NoFlyZone key={zone.id} zone={zone} />)}
+    {props.rtfzs.filter((single) => single.show === true).map((rtfz) => <Rtfz key={rtfz._id} zone={rtfz} />)}
   </GoogleMap>
 ));
 
 MissionGoogleMap.propTypes = {
   markers: PropTypes.array,
-  lineMarkerPosistions: PropTypes.array,
+  lineMarkerPositions: PropTypes.array,
   onMapLoad: PropTypes.func,
   onMapClick: PropTypes.func,
   onMarkerDrag: PropTypes.func,
@@ -62,13 +71,13 @@ export class MissionMap extends Component {
     this.handleMapLoad = this.handleMapLoad.bind(this);
 
     this.state = {
-      lineMarkerPosistions: getLineMarkerPositions(props.markers),
+      lineMarkerPositions: getLineMarkerPositions(props.markers),
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      lineMarkerPosistions: getLineMarkerPositions(nextProps.markers),
+      lineMarkerPositions: getLineMarkerPositions(nextProps.markers),
     });
   }
 
@@ -86,21 +95,21 @@ export class MissionMap extends Component {
 
   handleMapLoad(map) {
     this.map = map;
-    if (map ) {
-      if ( this.props.markers.length > 0 ) {
-       this.fitMapToBounds(map, this.props.markers);
-    } else {
-      navigator.geolocation.getCurrentPosition((pos) => {
-        map.panTo({
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude,
-        });
-      },
-        null,
-        {timeout: 60000}
-      );
+    if (map) {
+      if (this.props.markers.length > 0) {
+        this.fitMapToBounds(map, this.props.markers);
+      } else {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          map.panTo({
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+          });
+        },
+          null,
+          {timeout: 60000}
+        );
+      }
     }
-  }
   }
 
   render() {
@@ -125,14 +134,15 @@ export class MissionMap extends Component {
               this.setState((prevState) => {
                 const newState = _.cloneDeep(prevState);
 
-                newState.lineMarkerPosistions[index - 1] = event.latLng;
+                newState.lineMarkerPositions[index - 1] = event.latLng;
 
                 return newState;
               });
             }
           }}
-          lineMarkerPosistions={this.state.lineMarkerPosistions}
+          lineMarkerPositions={this.state.lineMarkerPositions}
           noFlyZones={this.props.noFlyZones}
+          rtfzs={this.props.rtfzs}
         />
       </div>
     );
@@ -144,6 +154,7 @@ MissionMap.propTypes = {
   onMapClick: PropTypes.func,
   loadNfz: PropTypes.func.isRequired,
   noFlyZones: PropTypes.array.isRequired,
+  rtfzs: PropTypes.array.isRequired,
 };
 
 export default CSSModules(MissionMap, styles);

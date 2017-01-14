@@ -13,8 +13,11 @@ export const poluteMissionWithUID = (mission) => {
     polutedMission.plannedHomePosition.uid = getUID();
   }
 
-  for (const missionItem of polutedMission.missionItems) {
-    missionItem.uid = getUID();
+  if (polutedMission.missionItems) {
+    polutedMission.missionItems = polutedMission.missionItems.map((single) => {
+      single.uid = getUID();
+      return single;
+    });
   }
 
   return polutedMission;

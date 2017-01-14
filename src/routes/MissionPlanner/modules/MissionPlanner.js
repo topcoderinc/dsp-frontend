@@ -1,4 +1,4 @@
-import {handleActions} from 'redux-actions';
+import {handleActions, createAction} from 'redux-actions';
 import {push} from 'react-router-redux';
 import _ from 'lodash';
 import APIService from 'services/APIService';
@@ -15,6 +15,7 @@ export const ADD_MISSION_ITEM = 'MissionPlanner/ADD_MISSION_ITEM';
 export const DELETE_MISSION_ITEM = 'MissionPlanner/DELETE_MISSION_ITEM';
 export const CLEAR_MISSION = 'MissionPlanner/CLEAR_MISSION';
 export const UPDATE_MISSION_NAME = 'MissionPlanner/UPDATE_MISSION_NAME';
+export const TOGGLE_RTFZ = 'MissionPlanner/TOGGLE_RTFZ';
 
 // ------------------------------------
 // Actions
@@ -95,6 +96,8 @@ export const updateMissionName = (missionName) => async (dispatch) => {
   dispatch({type: UPDATE_MISSION_NAME, payload: {missionName}});
 };
 
+const toggleRtfzHandler = createAction(TOGGLE_RTFZ);
+
 export const actions = {
   load,
   save,
@@ -103,6 +106,7 @@ export const actions = {
   deleteMissionItem,
   clearMission,
   updateMissionName,
+  toggleRtfzHandler,
 };
 
 // ------------------------------------
@@ -113,7 +117,15 @@ export default handleActions({
     const newState = _.cloneDeep(state);
 
     newState.mission = mission;
-
+    // if missionItems are not defined define them to empty array
+    newState.mission.missionItems = newState.mission.missionItems || [];
+    // add additional show property on each zone to individually show/hide zone
+    if (mission.zones) {
+      newState.mission.zones = mission.zones.map((single) => {
+        single.show = true;
+        return single;
+      });
+    }
     return newState;
   },
   [UPDATED]: (state, {payload: {mission}}) => {
@@ -212,6 +224,12 @@ export default handleActions({
 
     newState.mission.missionName = missionName;
 
+    return newState;
+  },
+  [TOGGLE_RTFZ]: (state, {payload: {value, rtfz}}) => {
+    const newState = _.cloneDeep(state);
+    const zone = _.filter(newState.mission.zones, {_id: rtfz._id})[0];
+    zone.show = !value;
     return newState;
   },
 }, {
