@@ -41,6 +41,13 @@
   @extend .status-label;
 }
 
+.status-label_waiting {
+  background-color: lightblue;
+  background-image: url('icon-status-inprogress.png');
+
+  @extend .status-label;
+}
+
 .status-label_rejected{
   background-color: red;
   background-image: url('icon-status-cancelled.png');
