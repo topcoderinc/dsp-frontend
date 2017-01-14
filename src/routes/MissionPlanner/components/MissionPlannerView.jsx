@@ -37,7 +37,6 @@ export const getMarkerProps = (item, updateMissionItem) => {
           item.coordinate[2],
         ],
       };
-
       updateMissionItem(item.id, newMissionItem);
     },
   };
@@ -68,7 +67,7 @@ export const getMarkerProps = (item, updateMissionItem) => {
   return markerProps;
 };
 
-export const MissionPlannerView = ({mission, toggleRtfzHandler, updateMissionItem, addMissionItem, deleteMissionItem, loadNfz, noFlyZones}) => {
+export const MissionPlannerView = ({mission, toggleRtfzHandler, userLocation, updateMissionItem, addMissionItem, deleteMissionItem, loadNfz, noFlyZones}) => {
   const missionItemsExt = getMissionItemsExt(mission);
   const markersExt = missionItemsExt.map((item) => getMarkerProps(item, updateMissionItem));
 
@@ -83,6 +82,7 @@ export const MissionPlannerView = ({mission, toggleRtfzHandler, updateMissionIte
           noFlyZones={noFlyZones}
           markers={markersExt}
           rtfzs={mission.zones}
+          userLocation={userLocation}
           onMapClick={(event) => addMissionItem({lat: event.latLng.lat(), lng: event.latLng.lng()})}
         />
         <MissionSidebar missionItems={missionItemsExt} onUpdate={updateMissionItem} onDelete={deleteMissionItem} />
@@ -100,6 +100,8 @@ MissionPlannerView.propTypes = {
   loadNfz: PropTypes.func.isRequired,
   noFlyZones: PropTypes.array.isRequired,
   toggleRtfzHandler: PropTypes.func.isRequired,
+  // the current cached user location
+  userLocation: PropTypes.object,
 };
 
 export default CSSModules(MissionPlannerView, styles);

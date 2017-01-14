@@ -132,6 +132,15 @@ export default handleActions({
     const newState = _.cloneDeep(state);
 
     newState.mission = mission;
+    // if missionItems are not defined define them to empty array
+    newState.mission.missionItems = newState.mission.missionItems || [];
+    // add additional show property on each zone to individually show/hide zone
+    if (mission.zones) {
+      newState.mission.zones = mission.zones.map((single) => {
+        single.show = true;
+        return single;
+      });
+    }
 
     return newState;
   },

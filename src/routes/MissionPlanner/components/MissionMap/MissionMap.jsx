@@ -28,6 +28,11 @@ const polylineConfig = {
   },
 };
 
+const types = {
+  point: 'Point',
+  polygon: 'Polygon',
+};
+
 export const MissionGoogleMap = withGoogleMap((props) => (
   <GoogleMap
     {... mapConfig}
@@ -79,35 +84,70 @@ export class MissionMap extends Component {
     this.setState({
       lineMarkerPositions: getLineMarkerPositions(nextProps.markers),
     });
-  }
-
-  fitMapToBounds(map, markers) {
-    if (markers.length) {
-      const markersBounds = new google.maps.LatLngBounds();
-
-      for (const marker of this.props.markers) {
-        markersBounds.extend(marker.position);
-      }
-
-      map.fitBounds(markersBounds);
+    // only required if the user location is updated
+    // because bounds for markers and rtfzs are already set in handleMapLoad
+    const shouldUpdateBound = !_.isEqual(this.props.userLocation, nextProps.userLocation);
+    if (shouldUpdateBound) {
+      const {markers, rtfzs, userLocation} = nextProps;
+      const bounds = this.getMapBounds(markers, rtfzs, userLocation);
+      this.map.fitBounds(bounds);
     }
   }
 
+  /**
+   * Intelligently determine the map bounds to fit the map
+   * The order of precedence
+   * 1. If markers are defined return the bounds for markers
+   * 2. If markers are undefined and rtfzs are defined than return the bounds for rtfzs
+   * 3. If mission items and rtfzs are undefined than return the bounds for current user location
+   *    if user denied location than return the default bounds
+   * 4. If markers and rtfzs are defined return bounds for markers
+   *
+   * @param  {Array}    markers         the list of markers to get the bounds
+   * @param  {Array}    rtfzs           the list of rtfzs to get the bounds
+   * @param  {Object}   userLocation    the user location to get the bounds
+   */
+  getMapBounds(markers, rtfzs, userLocation) {
+    const isMarkers = markers && markers.length > 0;
+    const isRtfzs = rtfzs && rtfzs.length > 0;
+    const isUserLocation = userLocation && _.has(userLocation, 'lat') && _.has(userLocation, 'lng');
+    let bounds;
+    if (isMarkers) {
+      bounds = new google.maps.LatLngBounds();
+      // bounds for markers
+      markers.forEach((marker) => {
+        bounds.extend(marker.position);
+      });
+    } else if (!isMarkers && isRtfzs) {
+      bounds = new google.maps.LatLngBounds();
+      // bounds for rtfzs
+      rtfzs.forEach((rtfz) => {
+        if (rtfz.location.type === types.point) {
+          bounds.extend({lat: rtfz.location.coordinates[1], lng: rtfz.location.coordinates[0]});
+        } else if (rtfz.location.type === types.polygon) {
+          rtfz.location.coordinates.forEach((coor) => {
+            coor.forEach((point) => {
+              bounds.extend({lat: point[1], lng: point[0]});
+            });
+          });
+        }
+      });
+    } else if (!isMarkers && !isRtfzs && isUserLocation) {
+      bounds = new google.maps.LatLngBounds();
+      // bounds for user location
+      bounds.extend(userLocation);
+    }
+    return bounds;
+  }
+
   handleMapLoad(map) {
+    const {markers, rtfzs, userLocation} = this.props;
     this.map = map;
     if (map) {
-      if (this.props.markers.length > 0) {
-        this.fitMapToBounds(map, this.props.markers);
-      } else {
-        navigator.geolocation.getCurrentPosition((pos) => {
-          map.panTo({
-            lat: pos.coords.latitude,
-            lng: pos.coords.longitude,
-          });
-        },
-          null,
-          {timeout: 60000}
-        );
+      const bounds = this.getMapBounds(markers, rtfzs, userLocation);
+      // if bounds are defined than only fit map to bounds, otherwise keep default bounds
+      if (bounds) {
+        map.fitBounds(bounds);
       }
     }
   }
@@ -155,6 +195,8 @@ MissionMap.propTypes = {
   loadNfz: PropTypes.func.isRequired,
   noFlyZones: PropTypes.array.isRequired,
   rtfzs: PropTypes.array,
+  // the current cached user location
+  userLocation: PropTypes.object,
 };
 
 export default CSSModules(MissionMap, styles);

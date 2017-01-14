@@ -5,7 +5,6 @@ import config from '../../config';
 
 import APIService from 'services/APIService';
 
-
 const userApi = new UserApi(config.api.basePath);
 
 //------------------------------------------------------------------------------
@@ -13,6 +12,7 @@ const userApi = new UserApi(config.api.basePath);
 
 const LOGIN_ACTION_FAILURE = 'LOGIN_ACTION_FAILURE';
 const LOGIN_ACTION_SUCCESS = 'LOGIN_ACTION_SUCCESS';
+const USER_LOCATION_UPDATE = 'USER_LOCATION_UPDATE';
 
 const LOGIN_REDIRECT = {
   admin: '/admin',
@@ -23,6 +23,7 @@ const LOGIN_REDIRECT = {
 
 const LOGOUT_ACTION = 'LOGOUT_ACTION';
 const USER_INFO_KEY = 'userInfo';
+const USER_LOCATION_KEY = 'ul';
 
 // ------------------------------------
 // Actions
@@ -85,6 +86,12 @@ export const logoutAction = () => (dispatch) => {
   });
 };
 
+export const userLocationUpdateAction = (location) => (dispatch) => {
+  // cache the user location in localstorage
+  localStorage.setItem(USER_LOCATION_KEY, JSON.stringify(location));
+  dispatch({type: USER_LOCATION_UPDATE, payload: {location}});
+};
+
 export const signupAction = createAction('SIGNUP_ACTION');
 
 export const actions = {
@@ -127,6 +134,7 @@ export default handleActions({
   [signupAction]: (state) => ({
     ...state, loggedUser: isLogged, hasError, errorText, user: (loadUserInfo() ? loadUserInfo().user : {}),
   }),
+  [USER_LOCATION_UPDATE]: (state, {payload: {location}}) => ({...state, userLocation: location}),
 }, {
   toggleNotif: false,
   loggedUser: Boolean(loadUserInfo()),

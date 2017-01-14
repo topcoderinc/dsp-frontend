@@ -8,6 +8,6 @@ const resolve = [{
   promise: ({params, store}) => store.dispatch(actions.load(params.id)),
 }];
 
-const mapState = (state) => ({...state.missionPlanner, ...state.searchNFZ});
+const mapState = (state) => ({...state.missionPlanner, ...state.searchNFZ, userLocation: state.global.userLocation});
 
 export default asyncConnect(resolve, mapState, {...actions, loadNfz})(MissionPlannerView);
