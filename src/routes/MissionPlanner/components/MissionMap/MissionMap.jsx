@@ -47,7 +47,7 @@ export const MissionGoogleMap = withGoogleMap((props) => (
     ))}
     <Polyline {...polylineConfig} path={props.lineMarkerPositions} />
     {props.noFlyZones.map((zone) => <NoFlyZone key={zone.id} zone={zone} />)}
-    {props.rtfzs.filter((single) => single.show === true).map((rtfz) => <Rtfz key={rtfz._id} zone={rtfz} />)}
+    {props.rtfzs && props.rtfzs.filter((single) => single.show === true).map((rtfz) => <Rtfz key={rtfz._id} zone={rtfz} />)}
   </GoogleMap>
 ));
 
@@ -154,7 +154,7 @@ MissionMap.propTypes = {
   onMapClick: PropTypes.func,
   loadNfz: PropTypes.func.isRequired,
   noFlyZones: PropTypes.array.isRequired,
-  rtfzs: PropTypes.array.isRequired,
+  rtfzs: PropTypes.array,
 };
 
 export default CSSModules(MissionMap, styles);
