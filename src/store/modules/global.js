@@ -23,7 +23,6 @@ const LOGIN_REDIRECT = {
 
 const LOGOUT_ACTION = 'LOGOUT_ACTION';
 const USER_INFO_KEY = 'userInfo';
-const USER_LOCATION_KEY = 'ul';
 
 // ------------------------------------
 // Actions
@@ -88,7 +87,7 @@ export const logoutAction = () => (dispatch) => {
 
 export const userLocationUpdateAction = (location) => (dispatch) => {
   // cache the user location in localstorage
-  localStorage.setItem(USER_LOCATION_KEY, JSON.stringify(location));
+  localStorage.setItem(config.USER_LOCATION_KEY, JSON.stringify(location));
   dispatch({type: USER_LOCATION_UPDATE, payload: {location}});
 };
 

@@ -6,6 +6,7 @@ import NoFlyZone from 'components/NoFlyZone';
 import Rtfz from '../Rtfz';
 import {GOOGLE_MAPS_BOUNDS_TIMEOUT} from 'Const';
 import styles from './MissionMap.scss';
+import config from '../../../../config';
 
 // default center location for mission Planner
 const mapConfig = {
@@ -26,11 +27,6 @@ const polylineConfig = {
     strokeOpacity: 1.0,
     strokeWeight: 4,
   },
-};
-
-const types = {
-  point: 'Point',
-  polygon: 'Polygon',
 };
 
 export const MissionGoogleMap = withGoogleMap((props) => (
@@ -122,9 +118,9 @@ export class MissionMap extends Component {
       bounds = new google.maps.LatLngBounds();
       // bounds for rtfzs
       rtfzs.forEach((rtfz) => {
-        if (rtfz.location.type === types.point) {
+        if (rtfz.location.type === config.REGION_TYPES.POINT) {
           bounds.extend({lat: rtfz.location.coordinates[1], lng: rtfz.location.coordinates[0]});
-        } else if (rtfz.location.type === types.polygon) {
+        } else if (rtfz.location.type === config.REGION_TYPES.POLYGON) {
           rtfz.location.coordinates.forEach((coor) => {
             coor.forEach((point) => {
               bounds.extend({lat: point[1], lng: point[0]});

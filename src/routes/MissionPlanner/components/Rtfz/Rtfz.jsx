@@ -1,14 +1,9 @@
 import React, {PropTypes} from 'react';
 import {Marker, Polygon} from 'react-google-maps';
-
-// define the type of region to fly zones
-const types = {
-  point: 'Point',
-  polygon: 'Polygon',
-};
+import config from '../../../../config';
 
 export const Rtfz = ({zone}) => {
-  if (zone.location.type === types.point) {
+  if (zone.location.type === config.REGION_TYPES.POINT) {
     return (
       <Marker
         options={{

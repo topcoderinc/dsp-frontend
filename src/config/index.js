@@ -12,4 +12,9 @@ module.exports = {
   AUTH0_CLIENT_ID: process.env.REACT_APP_AUTH0_CLIENT_ID || 'h7p6V93Shau3SSvqGrl6V4xrATlkrVGm',
   AUTH0_CLIENT_DOMAIN: process.env.REACT_APP_AUTH0_CLIENT_DOMAIN || 'spanhawk.auth0.com',
   AUTH0_CALLBACK: 'http://localhost:3000',
+  REGION_TYPES: {
+    POINT: 'Point',
+    POLYGON: 'Polygon',
+  },
+  USER_LOCATION_KEY: 'ul',
 };

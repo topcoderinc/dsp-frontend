@@ -7,8 +7,7 @@ import Footer from 'components/Footer';
 import styles from './CoreLayout.scss';
 import {userLocationUpdateAction} from '../../store/modules/global';
 import _ from 'lodash';
-
-const USER_LOCATION_KEY = 'ul';
+import config from '../../config';
 
 class CoreLayout extends React.Component {
 
@@ -32,7 +31,7 @@ class CoreLayout extends React.Component {
   requestUserLocation() {
     const {onUserLocationUpdate} = this.props;
     // don't request the permission everytime and use caching
-    const cachedLocation = localStorage.getItem(USER_LOCATION_KEY);
+    const cachedLocation = localStorage.getItem(config.USER_LOCATION_KEY);
     // just to be extra safe here as a user can manipulate the content of local storage
     if (cachedLocation && _.has(cachedLocation, 'lat') && _.has(cachedLocation, 'lng')) {
       onUserLocationUpdate(cachedLocation);
