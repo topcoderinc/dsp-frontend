@@ -87,6 +87,7 @@ module.exports = {
       'redux',
       'redux-actions',
       'redux-connect',
+      'react-css-modules',
       'lodash',
     ],
   },

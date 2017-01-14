@@ -183,7 +183,6 @@ export default class APIService {
   }
 
   /**
-<<<<<<< HEAD
    * Get all drones current locations of the current provider
    * @return {Array} list of drones current locations
    */
@@ -495,6 +494,20 @@ export default class APIService {
     return request
       .post(`${config.api.basePath}/api/v1/missions/${id}/load`)
       .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Get federation token
+   * @param {Object} data the request data
+   * @returns {Object} the result
+   */
+  static getFederationToken(data) {
+    return request
+      .post(`${config.api.basePath}/api/v1/aws/federation-token`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .send(data)
       .end()
       .then((res) => res.body);
   }
