@@ -1,3 +1,8 @@
+:global{
+  .ReactModal__Body--open{
+    overflow: hidden;
+  }
+}
 .my-request-header {
   align-items: center;
   border-bottom: 1px solid #d5d5d5;
@@ -37,4 +42,49 @@
     top: -1px;
     width: 12px;
   }
+}
+.right-group{
+  display: flex;
+  align-items: center;
+}
+.create-btn{
+  margin-right:20px;
+}
+.modal-wrap{
+  padding: 0;
+  ul{
+    list-style: none;
+    padding:0;
+    margin:0;
+  }
+  li{
+    padding: 6px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  .selected{
+    background-color: #315b95;
+    color: #fff;
+  }
+}
+.modal-title{
+  background-color: #1e526c;
+  padding: 12px;
+  color: #fff;
+  font-size: 16px;
+}
+.modal-body{
+  padding: 20px;
+  max-height: 300px;
+  overflow:auto;
+}
+
+.modal-foot{
+  padding: 8px 20px;
+  text-align: right;
+  border-top: 1px solid #ddd;
+}
+.error{
+  color:red;
 }

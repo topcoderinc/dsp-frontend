@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import CSSModules from 'react-css-modules';
+import cn from 'classnames';
 import Breadcrumb from 'components/Breadcrumb';
 import StatusLabel from 'components/StatusLabel';
 import StatusProjectInfo from '../containers/StatusProjectInfoContainer';
@@ -12,10 +13,11 @@ import ModalRatePilot from '../containers/ModalRatePilotContainer';
 import StatusDetailHeader from './StatusDetailHeader';
 import StatusDetailCamera from './StatusDetailCamera';
 import styles from './StatusDetailView.scss';
+import Zones from './Zones';
 
 const shouldHaveDetails = (status) => (status === 'in-progress' || status === 'completed');
 
-export const StatusDetailView = ({title, status, fcStreamSrc, bcStreamSrc, showPerformance}) => (
+export const StatusDetailView = ({title, status, fcStreamSrc, bcStreamSrc, showPerformance, zones}) => (
   <div styleName="status-detail-view">
     <Breadcrumb
       items={[
@@ -35,9 +37,18 @@ export const StatusDetailView = ({title, status, fcStreamSrc, bcStreamSrc, showP
               <div styleName="column-project-info">
                 <StatusProjectInfo />
               </div>
-              <div styleName="column-route-small">
+              <div styleName={cn({'column-route-small': true, imagery: zones && zones.length > 0})}>
                 <StatusDetailMapRoute isSmall />
               </div>
+              {
+                zones && zones.length > 0 ?
+                (<div styleName="column-zones-completed">
+                  <h2 styleName="section-title">Zones</h2>
+                  <div styleName="zones-wrap-completed">
+                    <Zones zones={zones} />
+                  </div>
+                </div>) : null
+              }
             </div>
             {
               showPerformance ?
@@ -69,7 +80,7 @@ export const StatusDetailView = ({title, status, fcStreamSrc, bcStreamSrc, showP
         </div>
         <div styleName="panel">
           <div styleName="columns">
-            <div styleName="column-route">
+            <div styleName={cn({'column-route': true, imagery: zones && zones.length > 0})}>
               <section styleName="section">
                 <h2 styleName="section-title">Route</h2>
                 <div styleName="route-big-wrap">
@@ -77,6 +88,17 @@ export const StatusDetailView = ({title, status, fcStreamSrc, bcStreamSrc, showP
                 </div>
               </section>
             </div>
+            {
+              zones && zones.length > 0 ?
+              (<div styleName="column-zones">
+                <section styleName="section">
+                  <h2 styleName="section-title">Zones</h2>
+                  <div styleName="zones-wrap">
+                    <Zones zones={zones} />
+                  </div>
+                </section>
+              </div>) : null
+            }
             <div styleName="column-cameras">
               <section styleName="section">
                 <h2 styleName="section-title">Real Time Camera</h2>
@@ -103,6 +125,7 @@ StatusDetailView.propTypes = {
   fcStreamSrc: PropTypes.string,
   bcStreamSrc: PropTypes.string,
   showPerformance: PropTypes.bool.isRequired,
+  zones: PropTypes.array,
 };
 
-export default CSSModules(StatusDetailView, styles);
+export default CSSModules(StatusDetailView, styles, {allowMultiple: true});

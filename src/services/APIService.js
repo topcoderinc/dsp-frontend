@@ -183,7 +183,6 @@ export default class APIService {
   }
 
   /**
-<<<<<<< HEAD
    * Get all drones current locations of the current provider
    * @return {Array} list of drones current locations
    */
@@ -459,6 +458,56 @@ export default class APIService {
         droneId,
         scheduledLaunchDate: new Date(),
       })
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * search packages
+   * @param {Object}  params   the search critiria
+   */
+  static searchPackages(params) {
+    return request
+      .get(`${config.api.basePath}/api/v1/packages`)
+      .query(params)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Get the drone status for the specified mission
+   * @param  {object}   missionId          the mission status
+   */
+  static checkDroneStatusForMission(missionId) {
+    return request
+      .get(`${config.api.basePath}/api/v1/missions/${missionId}/drone-status`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Load mission to the drone
+   * @param  {String}   id          mission id
+   */
+  static loadMission(id) {
+    return request
+      .post(`${config.api.basePath}/api/v1/missions/${id}/load`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .end()
+      .then((res) => res.body);
+  }
+
+  /**
+   * Get federation token
+   * @param {Object} data the request data
+   * @returns {Object} the result
+   */
+  static getFederationToken(data) {
+    return request
+      .post(`${config.api.basePath}/api/v1/aws/federation-token`)
+      .set('Authorization', `Bearer ${this.accessToken}`)
+      .send(data)
       .end()
       .then((res) => res.body);
   }

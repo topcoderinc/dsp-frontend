@@ -5,6 +5,7 @@ import APIService from 'services/APIService';
 // Constants
 // ------------------------------------
 export const LOADED = 'MyRequestStatus/LOADED';
+export const PACKAGES_LOADED = 'MyRequestStatus/PACKAGES_LOADED';
 
 // ------------------------------------
 // Actions
@@ -28,8 +29,18 @@ export const load = (filterByStatus = 'all') => async(dispatch) => {
   });
 };
 
+export const searchPackages = () => (dispatch) => APIService.searchPackages({limit: -1}).then(({items}) => {
+  dispatch({
+    type: PACKAGES_LOADED,
+    payload: {
+      availablePackages: items,
+    },
+  });
+});
+
 export const actions = {
   load,
+  searchPackages,
 };
 
 // ------------------------------------
@@ -37,7 +48,9 @@ export const actions = {
 // ------------------------------------
 export default handleActions({
   [LOADED]: (state, {payload: {requests, filterByStatus}}) => ({...state, requests, filterByStatus}),
+  [PACKAGES_LOADED]: (state, {payload}) => ({...state, ...payload}),
 }, {
   filterByStatus: 'all',
   requests: [],
+  availablePackages: [],
 });
