@@ -20,13 +20,13 @@ export const sendRequest = (values) => new Promise((resolve) => {
 });
 
 // load initial data and get federation token
-export const load = (missionId = '594d77ec37275a4d97dddb0c') => async(dispatch) => {
-  // TODO: missionId should be from query string
+export const load = (requestId = '587981a6878d044ca0c76c40') => async(dispatch) => {
+  // TODO: requestId should be from query string
   // mock implementation for demo
 
   const result = await APIService.getFederationToken({
-    type: 'MISSION',
-    missionId,
+    type: 'REQUEST',
+    requestId,
   });
 
   const s3 = new AWS.S3({

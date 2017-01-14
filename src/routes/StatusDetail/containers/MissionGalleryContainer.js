@@ -7,6 +7,6 @@ const resolve = [{
   promise: ({params, store}) => store.dispatch(actions.load(params.id)),
 }];
 
-const mapState = (state) => ({items: state.statusDetail.missionGallery, note: state.statusDetail.missionGalleryNote});
+const mapState = (state) => ({items: state.statusDetail.galleryUrls, note: state.statusDetail.missionGalleryNote});
 
 export default asyncConnect(resolve, mapState, actions)(MissionGallery);

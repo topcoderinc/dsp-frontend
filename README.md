@@ -19,10 +19,11 @@ See Guild https://github.com/lorenwest/node-config/wiki/Configuration-Files
 |`PORT`| The port to listen|
 |`GOOGLE_API_KEY`| The google api key see (https://developers.google.com/maps/documentation/javascript/get-api-key#key)|
 |`API_BASE_URL`| The base URL for Drone API |
-|`REACT_APP_API_BASE_PATH`| The React app  api base path`|
-|`REACT_APP_SOCKET_URL`| The React app app socket url`|
-|`REACT_APP_AUTH0_CLIEND_ID`| The React app auth0 client id`|
-|`REACT_APP_AUTH0_DOMAIN`| The React app auth0 domain`|
+|`REACT_APP_API_BASE_PATH`| The React app  api base path|
+|`REACT_APP_SOCKET_URL`| The React app app socket url|
+|`REACT_APP_AUTH0_CLIEND_ID`| The React app auth0 client id|
+|`REACT_APP_AUTH0_DOMAIN`| The React app auth0 domain|
+|`CLOUDINARY_ACCOUNT_NAME`| Your `Cloud name` from https://cloudinary.com/console|
 
 Environment variables will be loaded from the .env file during build. Create the .env file based on the provided env.example
 ### Auth0 setup

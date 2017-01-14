@@ -1,5 +1,7 @@
 import {handleActions} from 'redux-actions';
 import APIService from 'services/APIService';
+import AWS from 'aws-sdk-promise';
+import _ from 'lodash';
 
 // ------------------------------------
 // Constants
@@ -8,13 +10,18 @@ export const LOADED = 'StatusDetail/LOADED';
 export const SET_CURRENT_GRAPH_TYPE = 'StatusDetail/SET_CURRENT_GRAPH_TYPE';
 export const OPEN_RATE_MODAL = 'StatusDetail/OPEN_RATE_MODAL';
 export const CLOSE_RATE_MODAL = 'StatusDetail/CLOSE_RATE_MODAL';
-export const SEND_RATE = 'StatusDetail/SEND_RATE';
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 export const load = (id) => async(dispatch) => {
-  const res = await APIService.getStatusDetail(id);
+  const [res, awsData] = await Promise.all([
+    APIService.getStatusDetail(id),
+    APIService.getFederationToken({
+      type: 'REQUEST',
+      requestId: id,
+    }),
+  ]);
   const statusDetail = {
     id: res.id,
     status: res.status === 'in-progress' ? 'inProgress' : res.status,
@@ -25,6 +32,28 @@ export const load = (id) => async(dispatch) => {
     startLocation: null,
     endLocation: null,
   };
+
+  const s3 = new AWS.S3({
+    region: awsData.region,
+    credentials: awsData.credentials,
+  });
+
+  const {data: {Contents: images}} = await s3.listObjects({
+    Bucket: awsData.data.s3Bucket,
+    Prefix: awsData.data.s3KeyPrefix,
+  }).promise();
+
+  const galleryUrls = _(images)
+    .reject((item) => _.endsWith(item.Key, '/')) // ignore folders
+    .map((item) => ({
+      type: 'image',
+      src: s3.getSignedUrl('getObject', {
+        Bucket: awsData.data.s3Bucket,
+        Key: item.Key,
+      }).split('?')[0], // strip signing params
+    }))
+    .value();
+  
 
   const {mission, startingPoint, destinationPoint} = res;
 
@@ -81,7 +110,7 @@ export const load = (id) => async(dispatch) => {
 
   window.statusDetail = statusDetail;
 
-  dispatch({type: LOADED, payload: statusDetail});
+  dispatch({type: LOADED, payload: {...statusDetail, galleryUrls}});
 };
 
 export const setCurrentGraphType = (currentGraphType) => async(dispatch) => {
@@ -130,4 +159,5 @@ export default handleActions({
   currentGraphType: 'speed',
   isRateModalOpen: false,
   showPerformance: false,
+  galleryUrls: [],
 });
