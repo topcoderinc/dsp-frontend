@@ -38,6 +38,10 @@ const commands = [
     value: 112,
     label: 'MAV_CMD_CONDITION_DELAY',
   },
+  {
+    value: 203,
+    label: 'Take a Picture',
+  },
 ];
 
 export default commands;

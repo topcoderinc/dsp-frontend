@@ -32,6 +32,8 @@ class InfoWindow extends Component {
       commandText = `Waypoint (${this.props.command} / ${this.getType()} ) `;
     } else if (this.props.command === 21) {
       commandText = `Land (${this.props.command} / ${this.getType()} ) `;
+    } else if (this.props.command === 203) {
+      commandText = `Take a Picture (${this.props.command} / ${this.getType()} ) `;
     }
 
     return commandText;
