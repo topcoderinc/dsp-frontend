@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import AssignDrone from '../AssignDrone';
 import Spinner from 'components/Spinner';
 import styles from './RequestItemControls.scss';
+import {browserHistory} from 'react-router';
 
 const customStyles = {
   overlay: {
@@ -50,13 +51,16 @@ class RequestItemControls extends Component {
     };
 
     this.clickAccept = this.clickAccept.bind(this);
+    this.clickComplete = this.clickComplete.bind(this);
     this.clickReject = this.clickReject.bind(this);
     this.clickAssign = this.clickAssign.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.confirmAssign = this.confirmAssign.bind(this);
+    this.confirmComplete = this.confirmComplete.bind(this);
     this.afterSelect = this.afterSelect.bind(this);
     this.handleError = this.handleError.bind(this);
     this.reject = this.reject.bind(this);
+    this.gotoEditData = this.gotoEditData.bind(this);
   }
 
   clickAccept() {
@@ -81,6 +85,36 @@ class RequestItemControls extends Component {
           },
           drones: items,
         });
+      })
+      .catch(this.handleError);
+    });
+  }
+
+  clickComplete() {
+    const {completeRequest} = this.props;
+    this.setState({
+      modal: {
+        open: null,
+      }
+    });
+    this.setState({
+      spinner: {
+        isOpen: true,
+        content: 'Please Wait...',
+        error: false,
+      },
+    }, () => {
+      completeRequest(this.state.selectedDroneId)
+      .then(() => {
+        this.setState({
+          spinner: {
+            isOpen: false,
+          },
+          modal: {
+            open: null,
+          },
+        });
+        this.gotoEditData();
       })
       .catch(this.handleError);
     });
@@ -119,6 +153,14 @@ class RequestItemControls extends Component {
     this.setState({
       modal: {
         open: 'assignConfirm',
+      },
+    });
+  }
+
+  confirmComplete() {
+    this.setState({
+      modal: {
+        open: 'completeConfirm',
       },
     });
   }
@@ -186,8 +228,12 @@ class RequestItemControls extends Component {
     });
   }
 
+  gotoEditData() {
+    browserHistory.push('/edit-data/'+this.props.requestId);
+  }
+
   render() {
-    const {_toggleDetail, isOpen, index, currentStatus} = this.props;
+    const {_toggleDetail, isOpen, index, currentStatus, requestId} = this.props;
 
     return (
       <div styleName="item-controls">
@@ -196,6 +242,33 @@ class RequestItemControls extends Component {
           currentStatus === 'pending' ?
           (
             <div styleName="accept" onClick={this.clickAccept}>Accept</div>
+          ) : null
+        }
+        {
+          currentStatus === 'scheduled' || currentStatus === 'in-progress' ?
+          (
+            <div styleName="accept complete" onClick={this.confirmComplete}>
+              <div>Complete Request</div>
+              <Modal
+                isOpen={this.state.modal.open === 'completeConfirm'}
+                style={customStyles}
+                contentLabel="confirm-action"
+              >
+                <div styleName="modal-body">
+                  Are you sure you want to mark the request as complete
+                </div>
+                <div styleName="modal-btns">
+                  <div styleName="btn cancel" onClick={this.closeModal}>Cancel</div>
+                  <div styleName="btn confirm" onClick={this.clickComplete}>Confirm</div>
+                </div>
+              </Modal>
+            </div>
+          ) : null
+        }
+        {
+          currentStatus === 'completed' ?
+          (
+            <div styleName="completed" onClick={this.gotoEditData}>Edit</div>
           ) : null
         }
         {
@@ -252,6 +325,8 @@ RequestItemControls.propTypes = {
   getDrones: PropTypes.func.isRequired,
   assignDrone: PropTypes.func.isRequired,
   rejectRequest: PropTypes.func.isRequired,
+  completeRequest: PropTypes.func.isRequired,
+  requestId: PropTypes.string.isRequired,
 };
 
 export default CSSModules(RequestItemControls, styles, {allowMultiple: true});

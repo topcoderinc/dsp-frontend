@@ -28,7 +28,14 @@
   }
   .accept {
     background-image: url('styles/img/icon-accept.png');
-
+  }
+  .complete {
+    background-image: url('styles/img/icon-accept.png');
+    background-repeat: no-repeat;
+  }
+  .completed {
+    background-image: url('styles/img/icon-edit-row.png');
+    background-repeat: no-repeat;
   }
   .reject {
     background-image: url('styles/img/icon-trash.png');

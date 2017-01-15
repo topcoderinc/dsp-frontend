@@ -18,22 +18,8 @@ export const TelemetryTabs = ({fields, handleSubmit, resetForm, uploadPicture}) 
   <Tabs>
 
     <TabList>
-      <Tab>Telemetry Data</Tab>
       <Tab>Picture from Mission</Tab>
     </TabList>
-
-    <TabPanel>
-      <div className="telemetry-form-container">
-        <form onSubmit={handleSubmit}>
-          <TelemetryDataForm fields={fields} />
-
-          <div styleName="actions">
-            <Button color="gray" onClick={resetForm} className={styles.btnMargin}>Cancel</Button>
-            <Button type="submit" color="blue">Save</Button>
-          </div>
-        </form>
-      </div>
-    </TabPanel>
 
     <TabPanel>
       <PictureFromMission uploadPicture={uploadPicture} />
@@ -79,4 +65,3 @@ const validate = (values) => {
 };
 
 export default reduxForm({form: 'editDataForm', fields, validate})(CSSModules(TelemetryTabs, styles));
-

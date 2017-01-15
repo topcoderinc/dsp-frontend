@@ -462,6 +462,18 @@ export default class APIService {
       .then((res) => res.body);
   }
 
+  static completeRequest(requestId) {
+    const accessToken = getToken();
+    return request
+      .post(`${config.api.basePath}/api/v1/provider/requests/${requestId}/complete`)
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .send()
+      .end()
+      .then((res) => res.body);
+  }
+
+
   /**
    * search packages
    * @param {Object}  params   the search critiria

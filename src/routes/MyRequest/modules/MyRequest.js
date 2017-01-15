@@ -73,6 +73,7 @@ export const loadTotals = (dispatch) => Promise.all(
 
 export const assignDrone = (id, droneId) => APIService.acceptRequest(id).then(() => APIService.assignDrone(id, droneId));
 export const rejectRequest = (id) => APIService.rejectRequest(id);
+export const completeRequest = (id) => APIService.completeRequest(id);
 export const getDrones = () => APIService.getProviderDrones();
 
 

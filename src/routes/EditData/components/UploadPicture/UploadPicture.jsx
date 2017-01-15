@@ -9,7 +9,7 @@ import Loader from 'components/Loader';
 */
 
 export const UploadPicture = ({picture, removePicture}) => {
-  const {status, src} = picture;
+  const {status, src, file} = picture;
   const onRemove = (e) => {
     if (picture.status === 'deleting') {
       return;
@@ -19,7 +19,26 @@ export const UploadPicture = ({picture, removePicture}) => {
   };
   return (
     <li styleName={cn('upload-picture', {loading: status !== 'uploaded'})}>
-      <img src={src} alt="uploaded" />
+      {
+        file != null && file.type === 'image'? (
+            <img src={src} alt="uploaded" />
+        ): null
+      }
+      {
+        file != null && file.type === 'pdf'? (
+            <a target="_blank" href={src} styleName='pdf'><span>PDF</span></a>
+        ): null
+      }
+      {
+        file === null || (file.type != 'image' && file.type != 'pdf')? (
+            <a target="_blank" href={src} styleName='file'><span>{file.type}</span></a>
+        ): null
+      }
+      {
+        file != null ? (
+          <span>{file.name}</span>
+        ): null
+      }
       <div styleName="loader">
         <Loader scale={0.25} />
       </div>
@@ -27,7 +46,7 @@ export const UploadPicture = ({picture, removePicture}) => {
         href="javascript:"
         onClick={onRemove}
       >
-        <i styleName="icon-delete-pic" />{status === 'uploading' ? 'Cancel' : 'Delete Picture'}
+        <i styleName="icon-delete-pic" />{status === 'uploading' ? 'Cancel' : 'Delete'}
       </a>
     </li>
   );

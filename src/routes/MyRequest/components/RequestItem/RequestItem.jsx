@@ -5,7 +5,7 @@ import styles from './RequestItem.scss';
 import RequestItemControls from '../RequestItemControls';
 import RequestDetails from '../RequestDetails';
 
-export const RequestItem = ({requestItem, index, isOpen, _toggleDetail, currentStatus, assignDrone, rejectRequest, getDrones}) => (
+export const RequestItem = ({requestItem, index, isOpen, _toggleDetail, currentStatus, assignDrone, rejectRequest, completeRequest, getDrones}) => (
   <div styleName="item-container">
     <div styleName="item-summary">
       <ul>
@@ -51,7 +51,9 @@ export const RequestItem = ({requestItem, index, isOpen, _toggleDetail, currentS
         currentStatus={currentStatus}
         assignDrone={(droneId) => assignDrone(requestItem.requestId, droneId)}
         rejectRequest={() => rejectRequest(requestItem.requestId)}
+        completeRequest={() => completeRequest(requestItem.requestId)}
         getDrones={getDrones}
+        requestId={requestItem.requestId}
       />
     </div>
     {(() => {
@@ -71,6 +73,7 @@ RequestItem.propTypes = {
   currentStatus: PropTypes.string.isRequired,
   assignDrone: PropTypes.func.isRequired,
   rejectRequest: PropTypes.func.isRequired,
+  completeRequest: PropTypes.func.isRequired,
   getDrones: PropTypes.func.isRequired,
 };
 

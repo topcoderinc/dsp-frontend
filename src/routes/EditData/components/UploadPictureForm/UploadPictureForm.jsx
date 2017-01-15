@@ -45,7 +45,7 @@ class UploadPictureForm extends React.Component {
     };
 
     this.onDrop = (e) => {
-      const droppedFiles = _.filter(e.dataTransfer.files, (file) => accepts(file, 'image/*'));
+      const droppedFiles = _.filter(e.dataTransfer.files, (file) => accepts(file, ['image/*', '.log', 'application/pdf', '.kml', '.xml']));
       droppedFiles.forEach(props.uploadPicture);
     };
   }
@@ -93,7 +93,7 @@ class UploadPictureForm extends React.Component {
           </div>
         </div>}
         <form onSubmit={(e) => this.handleSubmit(e)} styleName="row">
-          <label htmlFor="upload">Upload Picture</label>
+          <label htmlFor="upload">Upload</label>
           <div styleName="upload-input">
             <input
               key={inputKey}

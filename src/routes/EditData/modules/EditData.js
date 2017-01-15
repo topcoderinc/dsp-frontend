@@ -20,10 +20,9 @@ export const sendRequest = (values) => new Promise((resolve) => {
 });
 
 // load initial data and get federation token
-export const load = (requestId = '587981a6878d044ca0c76c40') => async(dispatch) => {
+export const load = (requestId) => async(dispatch) => {
   // TODO: requestId should be from query string
   // mock implementation for demo
-
   const result = await APIService.getFederationToken({
     type: 'REQUEST',
     requestId,
@@ -44,9 +43,31 @@ export const load = (requestId = '587981a6878d044ca0c76c40') => async(dispatch) 
       key: item.Key,
       status: 'uploaded',
       src: s3.getSignedUrl('getObject', {Bucket: result.data.s3Bucket, Key: item.Key}),
+      file: getFileInfo(item.Key),
     }))
     .value();
   dispatch({type: LOADED, payload: {...result.data, s3, pictures}});
+};
+
+// get file info based on file name
+const getFileInfo = (key) => {
+  let fileName = key.split('/').pop();
+  let fileExtension = fileName.split('.').pop();
+
+  let fileInfo = {
+    'name': fileName
+  };
+
+  if(fileExtension === 'jpeg' || fileExtension === 'jpg' || fileExtension === 'gif' || fileExtension === 'png' || fileExtension === 'bmp') {
+    fileInfo['type'] = 'image';
+  } else if(fileExtension === 'pdf') {
+    fileInfo['type'] = 'pdf';
+  } else if(fileExtension && fileExtension.length > 0) {
+    fileInfo['type'] = fileExtension;
+  } else {
+    fileInfo['type'] = 'file';
+  }
+  return fileInfo;
 };
 
 // upload picture to AWS
@@ -71,6 +92,7 @@ export const uploadPicture = (file) => async(dispatch, getState) => {
         reader.onloadend = () => resolve(reader.result);
         reader.readAsDataURL(file);
       }),
+      file: getFileInfo(file.name),
     },
   });
   await request.promise();

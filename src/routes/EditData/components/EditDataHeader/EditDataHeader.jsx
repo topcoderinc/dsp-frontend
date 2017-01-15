@@ -8,7 +8,7 @@ import styles from './EditDataHeader.scss';
 
 export const EditDataHeader = () => (
   <div styleName="edit-data-header">
-    <div styleName="title">Edit Telemetry Data</div>
+    <div styleName="title">Upload Mission Results</div>
   </div>
 );
 

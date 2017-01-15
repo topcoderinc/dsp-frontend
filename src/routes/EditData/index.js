@@ -1,8 +1,8 @@
 import {injectReducer} from '../../store/reducers';
 
 export default (store) => ({
-  path: 'edit-data',
-  name: 'Edit Data', /* Breadcrumb name */
+  path: 'edit-data(/:requestId)',
+  name: 'Mission Results', /* Breadcrumb name */
   staticName: true,
   getComponent(nextState, cb) {
     require.ensure([], (require) => {

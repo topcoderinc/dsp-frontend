@@ -61,7 +61,7 @@ class MyRequestView extends Component {
   }
 
   render() {
-    const {totals, statusArr, requestItems, assignDrone, rejectRequest, loadTotals, getDrones} = this.props;
+    const {totals, statusArr, requestItems, assignDrone, rejectRequest, completeRequest, loadTotals, getDrones} = this.props;
     return (
       <div styleName="my-request-view">
         <h2>Requests</h2>
@@ -106,6 +106,12 @@ class MyRequestView extends Component {
                 loadTotals();
               }
             )}
+            completeRequest={(id) => completeRequest(id).then(
+              () => {
+                this.loadData();
+                loadTotals();
+              }
+            )}
             getDrones={getDrones}
           />
           <div styleName="navigation">
@@ -136,6 +142,7 @@ MyRequestView.propTypes = {
   requestItems: PropTypes.object,
   assignDrone: PropTypes.func.isRequired,
   rejectRequest: PropTypes.func.isRequired,
+  completeRequest: PropTypes.func.isRequired,
   loadTotals: PropTypes.func.isRequired,
   getDrones: PropTypes.func.isRequired,
 };

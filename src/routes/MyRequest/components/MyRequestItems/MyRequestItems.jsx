@@ -24,7 +24,7 @@ class MyRequestItems extends React.Component {
   }
 
   render() {
-    const {requestItems, currentStatus, assignDrone, rejectRequest, getDrones} = this.props;
+    const {requestItems, currentStatus, assignDrone, rejectRequest, completeRequest, getDrones} = this.props;
     return (
       <ul>
         {requestItems.map((requestItem, i) => (
@@ -37,6 +37,7 @@ class MyRequestItems extends React.Component {
             currentStatus={currentStatus}
             assignDrone={assignDrone}
             rejectRequest={rejectRequest}
+            completeRequest={completeRequest}
             getDrones={getDrones}
           />
         ))}
@@ -50,6 +51,7 @@ MyRequestItems.propTypes = {
   currentStatus: PropTypes.string.isRequired,
   assignDrone: PropTypes.func.isRequired,
   rejectRequest: PropTypes.func.isRequired,
+  completeRequest: PropTypes.func.isRequired,
   getDrones: PropTypes.func.isRequired,
 };
 

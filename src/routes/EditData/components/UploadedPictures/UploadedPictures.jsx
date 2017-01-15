@@ -3,7 +3,7 @@ import CSSModules from 'react-css-modules';
 import Button from 'components/Button';
 import styles from './UploadedPictures.scss';
 import UploadPicture from '../UploadPicture';
-
+import {browserHistory} from 'react-router';
 
 /*
 * UploadedPictures
@@ -21,8 +21,12 @@ export const UploadedPictures = ({pictures, removePicture}) => (
 
     {/* uploaded-pictures end */}
     <div styleName="actions">
-      <Button color="black" className={styles.btnMargin}>Cancel</Button>
-      <Button type="submit" color="blue">Save</Button>
+      <Button color="black" className={styles.btnMargin} onClick={() => {
+        browserHistory.push('/my-request');
+      }}>Cancel</Button>
+      <Button type="submit" color="blue" onClick={() => {
+        browserHistory.push('/my-request');
+      }}>Save</Button>
     </div>
     {/* actions end */}
   </div>

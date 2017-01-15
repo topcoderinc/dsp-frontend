@@ -1,5 +1,5 @@
 import {asyncConnect} from 'redux-connect';
-import {actions, loadRequests, loadTotals, assignDrone, rejectRequest, getDrones} from '../modules/MyRequest';
+import {actions, loadRequests, loadTotals, assignDrone, rejectRequest, completeRequest, getDrones} from '../modules/MyRequest';
 
 import MyRequestView from '../components/MyRequestView';
 
@@ -13,6 +13,7 @@ const mapDispatch = (dispatch) => ({
   ...actions,
   assignDrone,
   rejectRequest,
+  completeRequest,
   getDrones,
   loadRequests: (status, limit, offset) => loadRequests(dispatch, status, limit, offset),
   loadTotals: () => loadTotals(dispatch),
