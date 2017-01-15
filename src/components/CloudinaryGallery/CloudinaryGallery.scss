@@ -202,3 +202,35 @@
   padding: 0 8px;
   width: calc(25%);
 }
+.other-type{
+  .icon{
+    position:fixed;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    margin:auto;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    border: 1px solid #888;
+    width:240px;
+    height: 240px;
+    background-color: #FFF;
+    z-index: 9999;
+    text-transform: uppercase;
+    .type-name{
+      font-size: 32px;
+    }
+  }
+}
+.bottom-group{
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

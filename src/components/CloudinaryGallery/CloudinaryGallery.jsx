@@ -7,6 +7,7 @@ import Lightbox from 'react-image-lightbox';
 import config from '../../config';
 import styles from './CloudinaryGallery.scss';
 import CloudinaryGalleryItem from './CloudinaryGalleryItem';
+import Button from 'components/Button';
 
 const CLOUDINARY_PREFIX = `http://res.cloudinary.com/${config.CLOUDINARY_ACCOUNT_NAME}/image/fetch/`;
 
@@ -52,18 +53,35 @@ class CloudinaryGallery extends React.Component {
     return (
       <div styleName="cloudinary-gallery">
         {isOpen &&
-          <Lightbox
-            mainSrc={items[photoIndex].src}
-            nextSrc={items[(photoIndex + 1) % items.length].src}
-            prevSrc={items[(photoIndex + items.length - 1) % items.length].src}
-            onCloseRequest={() => this.setState({isOpen: false})}
-            onMovePrevRequest={() => this.setState({
-              photoIndex: (photoIndex + items.length - 1) % items.length,
-            })}
-            onMoveNextRequest={() => this.setState({
-              photoIndex: (photoIndex + 1) % items.length,
-            })}
-          />
+          <div>
+            <Lightbox
+              mainSrc={items[photoIndex].src}
+              nextSrc={items[(photoIndex + 1) % items.length].src}
+              prevSrc={items[(photoIndex + items.length - 1) % items.length].src}
+              onCloseRequest={() => this.setState({isOpen: false})}
+              onMovePrevRequest={() => this.setState({
+                photoIndex: (photoIndex + items.length - 1) % items.length,
+              })}
+              onMoveNextRequest={() => this.setState({
+                photoIndex: (photoIndex + 1) % items.length,
+              })}
+            />
+            {
+              items[photoIndex].type !== 'image' ?
+              (<div styleName="other-type">
+                <div styleName="icon">
+                  <div styleName="type-name">{items[photoIndex].type}</div>
+                </div>
+              </div>) : null
+            }
+            <div styleName="bottom-group">
+              <a href={items[photoIndex].src} download>
+                <Button>
+                      Download
+                  </Button>
+              </a>
+            </div>
+          </div>
         }
         <Slider {...sliderProps}>
           {_.chunk(resizedItems, count).map((slideItems, slideIndex) => (
@@ -73,6 +91,7 @@ class CloudinaryGallery extends React.Component {
                   <div key={itemIndex} styleName="item">
                     <CloudinaryGalleryItem
                       {...item}
+                      height={height}
                       onClick={() => {
                         this.setState({
                           isOpen: true,

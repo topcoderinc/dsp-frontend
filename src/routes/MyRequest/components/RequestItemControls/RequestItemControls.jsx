@@ -95,7 +95,7 @@ class RequestItemControls extends Component {
     this.setState({
       modal: {
         open: null,
-      }
+      },
     });
     this.setState({
       spinner: {
@@ -229,7 +229,7 @@ class RequestItemControls extends Component {
   }
 
   gotoEditData() {
-    browserHistory.push('/edit-data/'+this.props.requestId);
+    browserHistory.push(`/edit-data/${this.props.requestId}`);
   }
 
   render() {

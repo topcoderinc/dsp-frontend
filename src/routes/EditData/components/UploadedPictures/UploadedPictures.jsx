@@ -21,12 +21,16 @@ export const UploadedPictures = ({pictures, removePicture}) => (
 
     {/* uploaded-pictures end */}
     <div styleName="actions">
-      <Button color="black" className={styles.btnMargin} onClick={() => {
-        browserHistory.push('/my-request');
-      }}>Cancel</Button>
-      <Button type="submit" color="blue" onClick={() => {
-        browserHistory.push('/my-request');
-      }}>Save</Button>
+      <Button
+        color="black" className={styles.btnMargin} onClick={() => {
+          browserHistory.push('/my-request');
+        }}
+      >Cancel</Button>
+      <Button
+        type="submit" color="blue" onClick={() => {
+          browserHistory.push('/my-request');
+        }}
+      >Save</Button>
     </div>
     {/* actions end */}
   </div>

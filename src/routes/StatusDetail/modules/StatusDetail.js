@@ -45,15 +45,21 @@ export const load = (id) => async(dispatch) => {
 
   const galleryUrls = _(images)
     .reject((item) => _.endsWith(item.Key, '/')) // ignore folders
-    .map((item) => ({
-      type: 'image',
-      src: s3.getSignedUrl('getObject', {
-        Bucket: awsData.data.s3Bucket,
-        Key: item.Key,
-      }).split('?')[0], // strip signing params
-    }))
+    .map((item) => {
+      let type = 'image';
+      if (!/\.(png|jpg|jpeg)/.test(item.Key) && item.Key.match(/.+--.+\.(.+)$/)) {
+        type = item.Key.match(/.+--.+\.(.+)$/)[1];
+      }
+      return {
+        type,
+        src: s3.getSignedUrl('getObject', {
+          Bucket: awsData.data.s3Bucket,
+          Key: item.Key,
+        }).split('?')[0], // strip signing params
+      };
+    })
     .value();
-  
+
 
   const {mission, startingPoint, destinationPoint} = res;
 

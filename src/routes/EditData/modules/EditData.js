@@ -51,21 +51,21 @@ export const load = (requestId) => async(dispatch) => {
 
 // get file info based on file name
 const getFileInfo = (key) => {
-  let fileName = key.split('/').pop();
-  let fileExtension = fileName.split('.').pop();
+  const fileName = key.split('/').pop();
+  const fileExtension = fileName.split('.').pop();
 
-  let fileInfo = {
-    'name': fileName
+  const fileInfo = {
+    name: fileName,
   };
 
-  if(fileExtension === 'jpeg' || fileExtension === 'jpg' || fileExtension === 'gif' || fileExtension === 'png' || fileExtension === 'bmp') {
-    fileInfo['type'] = 'image';
-  } else if(fileExtension === 'pdf') {
-    fileInfo['type'] = 'pdf';
-  } else if(fileExtension && fileExtension.length > 0) {
-    fileInfo['type'] = fileExtension;
+  if (fileExtension === 'jpeg' || fileExtension === 'jpg' || fileExtension === 'gif' || fileExtension === 'png' || fileExtension === 'bmp') {
+    fileInfo.type = 'image';
+  } else if (fileExtension === 'pdf') {
+    fileInfo.type = 'pdf';
+  } else if (fileExtension && fileExtension.length > 0) {
+    fileInfo.type = fileExtension;
   } else {
-    fileInfo['type'] = 'file';
+    fileInfo.type = 'file';
   }
   return fileInfo;
 };

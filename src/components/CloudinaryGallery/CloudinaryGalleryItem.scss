@@ -3,3 +3,19 @@
   height: auto;
   width: 100%;
 }
+.other-type {
+  border: 1px solid #888;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  span{
+    display: inline-block;
+    font-size: 32px;
+    text-transform: uppercase;
+  }
+}

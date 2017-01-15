@@ -20,24 +20,24 @@ export const UploadPicture = ({picture, removePicture}) => {
   return (
     <li styleName={cn('upload-picture', {loading: status !== 'uploaded'})}>
       {
-        file != null && file.type === 'image'? (
-            <img src={src} alt="uploaded" />
-        ): null
+        file != null && file.type === 'image' ? (
+          <img src={src} alt="uploaded" />
+        ) : null
       }
       {
-        file != null && file.type === 'pdf'? (
-            <a target="_blank" href={src} styleName='pdf'><span>PDF</span></a>
-        ): null
+        file != null && file.type === 'pdf' ? (
+          <a target="_blank" href={src} styleName='pdf'><span>PDF</span></a>
+        ) : null
       }
       {
-        file === null || (file.type != 'image' && file.type != 'pdf')? (
-            <a target="_blank" href={src} styleName='file'><span>{file.type}</span></a>
-        ): null
+        file === null || (file.type != 'image' && file.type != 'pdf') ? (
+          <a target="_blank" href={src} styleName='file'><span>{file.type}</span></a>
+        ) : null
       }
       {
         file != null ? (
           <span>{file.name}</span>
-        ): null
+        ) : null
       }
       <div styleName="loader">
         <Loader scale={0.25} />
