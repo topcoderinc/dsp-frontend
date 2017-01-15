@@ -66,7 +66,10 @@ export const getMarkerProps = (item, updateMissionItem) => {
 
 export const MissionPlannerView = ({mission, updateMissionItem, addMissionItem, deleteMissionItem, loadNfz, noFlyZones}) => {
   const missionItemsExt = getMissionItemsExt(mission);
-  const markersExt = missionItemsExt.map((item) => getMarkerProps(item, updateMissionItem));
+  const filteredMissionItemsExt = missionItemsExt.filter((item) => {
+    return (item.command !== 203);
+  });
+  const markersExt = filteredMissionItemsExt.map((item) => getMarkerProps(item, updateMissionItem));
 
   return (
     <div styleName="mission-planner-view">
