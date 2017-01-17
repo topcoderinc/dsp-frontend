@@ -13,4 +13,9 @@ module.exports = {
   AUTH0_CLIENT_DOMAIN: process.env.REACT_APP_AUTH0_CLIENT_DOMAIN || 'spanhawk.auth0.com',
   AUTH0_CALLBACK: 'http://localhost:3000',
   CLOUDINARY_ACCOUNT_NAME: process.env.CLOUDINARY_ACCOUNT_NAME || 'dsp',
+  REGION_TYPES: {
+    POINT: 'Point',
+    POLYGON: 'Polygon',
+  },
+  USER_LOCATION_KEY: 'ul',
 };
