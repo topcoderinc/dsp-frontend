@@ -60,7 +60,7 @@
     "lodash": "^4.16.4",
     "moment": "^2.17.0",
     "node-js-marker-clusterer": "^1.0.0",
-    "node-sass": "^3.7.0",
+    "node-sass": "^7.0.0",
     "postcss-flexboxfixer": "0.0.5",
     "postcss-loader": "^0.13.0",
     "rc-calendar": "^7.5.1",
