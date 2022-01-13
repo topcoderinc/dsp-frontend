@@ -25,7 +25,7 @@
   "dependencies": {
     "auth0-js": "^7.6.0",
     "autoprefixer": "^6.5.0",
-    "axios": "^0.15.3",
+    "axios": "^0.24.0",
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",
